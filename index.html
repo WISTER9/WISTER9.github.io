@@ -298,6 +298,7 @@
             border-radius: 4px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             animation: fadeIn 0.3s;
+            object-fit: contain;
         }
 
         @keyframes fadeIn {
@@ -594,43 +595,58 @@
         </div>
     </section>
 
-    <!-- หมวดที่ 5: Behind The Scenes (แบบมี Pop-up Lightbox) -->
+    <!-- หมวดที่ 5: Behind The Scenes (แบบมี Pop-up Lightbox และดึงรูปจาก Google Drive) -->
     <section id="bts">
         <h2 class="section-title">Behind The Scenes <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
         <div class="grid-container">
             
-            <!-- โปรเจกต์ที่ 1: GAY LAYOFF BTS -->
+            <!-- โปรเจกต์ที่ 1 (2 รูป) -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/333/fff?text=GAY+LAYOFF+Set" alt="GAY LAYOFF Set" class="card-media">
+                <img src="https://lh3.googleusercontent.com/d/1qcvgwvwrikYWyyHWUTgJFZnFR4HXs5WJ" alt="Project 1 Set" class="card-media">
                 <div class="card-info">
                     <h3>GAY LAYOFF</h3>
                     <p>Production Design & Floor Plans.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-gaylayoff')">
-                        <i class="fa-regular fa-images"></i> View Gallery
+                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-p1')">
+                        <i class="fa-regular fa-images"></i> View Gallery (2 Photos)
                     </a>
                 </div>
-                <!-- รูปภาพที่จะโชว์ใน Pop-up (ซ่อนไว้ก่อน) -->
-                <div id="gallery-gaylayoff" class="hidden-gallery">
-                    <img src="_DSC7533.jpg">
-                    <img src="_DSC7534.jpg">
+                <div id="gallery-p1" class="hidden-gallery">
+                    <img src="https://lh3.googleusercontent.com/d/1qcvgwvwrikYWyyHWUTgJFZnFR4HXs5WJ">
+                    <img src="https://lh3.googleusercontent.com/d/1s03Bezxw6zPSve_9geYumF2AXMQCFz17">
                 </div>
             </div>
 
-            <!-- โปรเจกต์ที่ 2: เตรียมไว้สำหรับเรื่องอื่นๆ -->
+            <!-- โปรเจกต์ที่ 2 (4 รูป) -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/333/fff?text=Project+2+Set" alt="Project 2" class="card-media">
+                <img src="https://lh3.googleusercontent.com/d/1H_HLWjsQLca5BSAU-tRwxnteY-s8_rGQ" alt="Project 2 Set" class="card-media">
                 <div class="card-info">
                     <h3>Wa's Story</h3>
                     <p>Experimental video art working process.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-wasstory')">
-                        <i class="fa-regular fa-images"></i> View Gallery
+                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-p2')">
+                        <i class="fa-regular fa-images"></i> View Gallery (4 Photos)
                     </a>
                 </div>
-                <div id="gallery-wasstory" class="hidden-gallery">
-                    <img src="1662879912562.jpg">
-                    <img src="1662945742373.jpg">
-                    <img src="1662996676433.jpg">
-                    <img src="1662997638229.jpg">
+                <div id="gallery-p2" class="hidden-gallery">
+                    <img src="https://lh3.googleusercontent.com/d/1H_HLWjsQLca5BSAU-tRwxnteY-s8_rGQ">
+                    <img src="https://lh3.googleusercontent.com/d/1vkQ8TEKd5nFFDAftcI9k5yDYQmJBQ4kv">
+                    <img src="https://lh3.googleusercontent.com/d/1xqG2NZ7g-WuvHtLG59046XOOR5YqKLuS">
+                    <img src="https://lh3.googleusercontent.com/d/1RE6DahBY-Q2InfTTK-G2vI588cmc7k66">
+                </div>
+            </div>
+
+            <!-- โปรเจกต์ที่ 3 (2 รูป) -->
+            <div class="card">
+                <img src="https://lh3.googleusercontent.com/d/1sRd3HCVwbh1s2Vzlf1S4Yh3OsoSipM2F" alt="Project 3 Set" class="card-media">
+                <div class="card-info">
+                    <h3>Project BTS</h3>
+                    <p>Working process and behind the scenes.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-p3')">
+                        <i class="fa-regular fa-images"></i> View Gallery (2 Photos)
+                    </a>
+                </div>
+                <div id="gallery-p3" class="hidden-gallery">
+                    <img src="https://lh3.googleusercontent.com/d/1sRd3HCVwbh1s2Vzlf1S4Yh3OsoSipM2F">
+                    <img src="https://lh3.googleusercontent.com/d/1yz91go8ydL6ULy40ttOlOWfiFUr4vDlg">
                 </div>
             </div>
 
