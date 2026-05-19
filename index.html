@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pannathat Intharit | Portfolio</title>
+    <!-- FontAwesome สำหรับไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ตัวแปรสีหลัก (CSS Variables) */
         :root {
             --bg-color: #0a0a0a;
             --text-color: #ffffff;
@@ -14,6 +16,7 @@
             --transition: all 0.3s ease;
         }
 
+        /* รีเซ็ตค่าเริ่มต้น */
         * {
             margin: 0;
             padding: 0;
@@ -28,6 +31,7 @@
             line-height: 1.6;
         }
 
+        /* Header & Navigation */
         header {
             position: fixed;
             top: 0;
@@ -69,6 +73,7 @@
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
+        /* Sections พื้นฐาน */
         section {
             padding: 6rem 5% 4rem;
             min-height: 100vh;
@@ -84,6 +89,7 @@
             padding-bottom: 0.5rem;
         }
 
+        /* สไตล์สำหรับนามแฝง (AKA) */
         .aka-text {
             font-size: 1.1rem;
             color: #888;
@@ -93,6 +99,7 @@
             margin-left: 10px;
         }
 
+        /* Home Section */
         #home {
             display: flex;
             flex-direction: column;
@@ -114,7 +121,7 @@
             max-width: 600px;
         }
 
-        /* Resume Section */
+        /* Profile (Resume) Section */
         .resume-container {
             max-width: 1000px;
             color: #ccc;
@@ -247,6 +254,7 @@
             border-radius: 4px;
             transition: var(--transition);
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .card-link:hover {
@@ -269,6 +277,68 @@
             height: 100%;
         }
 
+        /* ระบบ Pop-up Lightbox สำหรับภาพเบื้องหลัง */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .lightbox-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            gap: 20px;
+        }
+
+        .lightbox-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-btn:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+        }
+
+        .hidden-gallery {
+            display: none;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -302,6 +372,7 @@
             margin-top: 1rem;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             nav ul {
                 flex-wrap: wrap;
@@ -333,6 +404,7 @@
 </head>
 <body>
 
+    <!-- Header & Navigation -->
     <header>
         <div class="logo">Pannathat Intharit</div>
         <nav>
@@ -348,11 +420,13 @@
         </nav>
     </header>
 
+    <!-- Home Section -->
     <section id="home">
         <h1>Pannathat Intharit</h1>
         <p>Filmmaker | Visual Artist | Creator</p>
     </section>
 
+    <!-- Profile Section -->
     <section id="profile">
         <h2 class="section-title">Profile</h2>
         <div class="resume-container">
@@ -360,6 +434,7 @@
                 "I am a passionate creator who finds immense joy in bringing ideas to life through media. For me, creating isn't just a process—it's the most authentic way to communicate who I am to the world. Whether it's through a camera lens, a timeline, or a melody, the art I craft is the truest reflection of my identity."
             </div>
             <div class="resume-grid">
+                <!-- ฝั่งซ้าย -->
                 <div class="resume-left">
                     <div class="resume-block">
                         <h3>Personal Info</h3>
@@ -384,6 +459,7 @@
                         </ul>
                     </div>
                 </div>
+                <!-- ฝั่งขวา -->
                 <div class="resume-right">
                     <div class="resume-block">
                         <h3>Hard Skills</h3>
@@ -426,7 +502,7 @@
         </div>
     </section>
 
-    <!-- ลำดับที่ 1: Music -->
+    <!-- หมวดที่ 1: Music -->
     <section id="music">
         <h2 class="section-title">Music <span class="aka-text">| WISTER9</span></h2>
         <p style="color: #ccc; margin-bottom: 2rem;">Independent audio projects and original music production under <strong>WISTER9</strong>.</p>
@@ -444,18 +520,17 @@
         </div>
     </section>
 
-    <!-- ลำดับที่ 2: Film and Media -->
+    <!-- หมวดที่ 2: Film and Media -->
     <section id="film-media">
         <h2 class="section-title">Film and Media <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
         <div class="grid-container">
-            
             <!-- คลิปที่ 1 -->
             <div class="card">
                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ta3rxLoisFs?si=qT3u7liAQGvOog5n" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ta3rxLoisFs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
-                    <h3>Video Title 1</h3> <!-- กรุณาแก้ไขชื่อคลิปที่ 1 ตรงนี้ -->
+                    <h3>GAY LAYOFF</h3>
                     <p>Short Film Project</p>
                 </div>
             </div>
@@ -463,10 +538,10 @@
             <!-- คลิปที่ 2 -->
             <div class="card">
                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=A_m8vcIzlX1O9RHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
-                    <h3>Video Title 2</h3> <!-- กรุณาแก้ไขชื่อคลิปที่ 2 ตรงนี้ -->
+                    <h3>XPAN SHOWREEL</h3>
                     <p>Film & Media Project</p>
                 </div>
             </div>
@@ -474,18 +549,17 @@
             <!-- คลิปที่ 3 -->
             <div class="card">
                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=9OspVQ2YuuhxSaNK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="card-info">
-                    <h3>Video Title 3</h3> <!-- กรุณาแก้ไขชื่อคลิปที่ 3 ตรงนี้ -->
+                    <h3>Behind The Scenes</h3>
                     <p>Film & Media Project</p>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ลำดับที่ 3: Photography -->
+    <!-- หมวดที่ 3: Photography -->
     <section id="photography">
         <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container">
@@ -506,7 +580,7 @@
         </div>
     </section>
 
-    <!-- ลำดับที่ 4: Graphic Design -->
+    <!-- หมวดที่ 4: Graphic Design -->
     <section id="graphic">
         <h2 class="section-title">Graphic Design <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container">
@@ -520,28 +594,62 @@
         </div>
     </section>
 
-    <!-- ลำดับที่ 5: Behind The Scenes -->
+    <!-- หมวดที่ 5: Behind The Scenes (แบบมี Pop-up Lightbox) -->
     <section id="bts">
         <h2 class="section-title">Behind The Scenes <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
         <div class="grid-container">
+            
+            <!-- โปรเจกต์ที่ 1: GAY LAYOFF BTS -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/333/fff?text=Floor+Plan" alt="Floor Plan Design" class="card-media">
+                <img src="https://via.placeholder.com/400x300/333/fff?text=GAY+LAYOFF+Set" alt="GAY LAYOFF Set" class="card-media">
                 <div class="card-info">
-                    <h3>Production Design & Floor Plans</h3>
-                    <p>Technical layouts and camera movement planning for GAY LAYOFF.</p>
-                    <a href="#" class="card-link">View Documentation</a>
+                    <h3>GAY LAYOFF</h3>
+                    <p>Production Design & Floor Plans.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-gaylayoff')">
+                        <i class="fa-regular fa-images"></i> View Gallery
+                    </a>
+                </div>
+                <!-- รูปภาพที่จะโชว์ใน Pop-up (ซ่อนไว้ก่อน) -->
+                <div id="gallery-gaylayoff" class="hidden-gallery">
+                    <img src="https://via.placeholder.com/800x600/111/fff?text=Photo+1:+Floor+Plan">
+                    <img src="https://via.placeholder.com/800x600/222/fff?text=Photo+2:+Lighting+Setup">
+                    <img src="https://via.placeholder.com/800x600/333/fff?text=Photo+3:+Directing">
+                    <img src="https://via.placeholder.com/800x600/444/fff?text=Photo+4:+On+Set">
                 </div>
             </div>
+
+            <!-- โปรเจกต์ที่ 2: เตรียมไว้สำหรับเรื่องอื่นๆ -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/333/fff?text=On+Set" alt="On Set" class="card-media">
+                <img src="https://via.placeholder.com/400x300/333/fff?text=Project+2+Set" alt="Project 2" class="card-media">
                 <div class="card-info">
-                    <h3>On-Set Directing</h3>
-                    <p>Working with actors and managing the set environment.</p>
+                    <h3>Wa's Story</h3>
+                    <p>Experimental video art working process.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openLightbox('gallery-wasstory')">
+                        <i class="fa-regular fa-images"></i> View Gallery
+                    </a>
+                </div>
+                <div id="gallery-wasstory" class="hidden-gallery">
+                    <img src="https://via.placeholder.com/800x600/555/fff?text=Photo+1:+Concept">
+                    <img src="https://via.placeholder.com/800x600/666/fff?text=Photo+2:+Shooting">
+                    <img src="https://via.placeholder.com/800x600/777/fff?text=Photo+3:+Editing">
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- โครงสร้างกล่อง Pop-up Lightbox (ไม่ต้องแก้ไขตรงนี้) -->
+    <div id="myLightbox" class="lightbox">
+        <button class="lightbox-btn close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightbox-img" class="lightbox-content" src="">
+        <div class="lightbox-controls">
+            <button class="lightbox-btn" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="lightbox-counter" style="color: #fff; font-size: 1.2rem; min-width: 50px; text-align: center;">1/4</span>
+            <button class="lightbox-btn" onclick="changeImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
         <div class="social-icons">
             <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX?si=v9wOwXIaRcusfp2bWVqbaQ" target="_blank" title="Spotify (WISTER9)"><i class="fa-brands fa-spotify"></i></a>
@@ -556,5 +664,44 @@
         <p>&copy; 2026 Pannathat Intharit. All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript สำหรับระบบ Pop-up Lightbox -->
+    <script>
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function openLightbox(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            const imgs = gallery.getElementsByTagName('img');
+            
+            currentImages = Array.from(imgs).map(img => img.src);
+            currentIndex = 0;
+            
+            if(currentImages.length > 0) {
+                updateLightbox();
+                document.getElementById('myLightbox').style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        function closeLightbox() {
+            document.getElementById('myLightbox').style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function changeImage(step) {
+            currentIndex += step;
+            if (currentIndex >= currentImages.length) {
+                currentIndex = 0;
+            } else if (currentIndex < 0) {
+                currentIndex = currentImages.length - 1;
+            }
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightbox-img').src = currentImages[currentIndex];
+            document.getElementById('lightbox-counter').innerText = `${currentIndex + 1} / ${currentImages.length}`;
+        }
+    </script>
 </body>
 </html>
