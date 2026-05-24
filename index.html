@@ -37,7 +37,8 @@
         body.light-mode .aka-text { color: #666; }
         body.light-mode #home::before { opacity: 0.15; }
         body.light-mode #music::before { opacity: 0.08; }
-        body.light-mode header { background-color: rgba(247, 247, 247, 0.9); border-bottom: 1px solid #ddd; }
+        body.light-mode header { background-color: rgba(247, 247, 247, 0.95); border-bottom: 1px solid #ddd; }
+        body.light-mode nav ul { background-color: rgba(247, 247, 247, 0.95); }
         body.light-mode nav ul li a { color: #555; }
         body.light-mode nav ul li a:hover { color: #000; text-shadow: none; }
         body.light-mode .logo { color: #111; }
@@ -48,10 +49,11 @@
         body.light-mode .profile-photo-grid img:hover { border-color: #000; }
         body.light-mode .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         body.light-mode .grid-modal-header { border-bottom: 1px solid #ddd; }
-        body.light-mode .masonry-item { background-color: #ddd; }
+        body.light-mode .masonry-item { background-color: transparent; }
         body.light-mode footer { border-top: 1px solid #ddd; }
         body.light-mode .social-icons a:hover { color: #000; }
         body.light-mode .social-icons a:hover svg { fill: #000; }
+        body.light-mode .hamburger { color: #111; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; scroll-behavior: smooth; }
 
@@ -66,7 +68,7 @@
         header {
             position: fixed;
             top: 0; width: 100%;
-            background-color: rgba(10, 10, 10, 0.9);
+            background-color: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000; padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
@@ -74,24 +76,30 @@
             transition: var(--transition);
         }
 
-        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); text-decoration: none; transition: var(--transition); cursor: pointer; }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); text-decoration: none; transition: var(--transition); cursor: pointer; z-index: 1001; }
         .logo:hover { color: var(--accent-color); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        .header-right { display: flex; align-items: center; gap: 2rem; }
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
 
-        nav ul { display: flex; list-style: none; gap: 1.5rem; }
+        /* Navigation & Hamburger */
+        nav ul { display: flex; list-style: none; gap: 1.5rem; transition: var(--transition); }
         nav ul li a { color: var(--accent-color); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); }
         nav ul li a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); z-index: 1001; }
 
+        /* Theme Toggle Fix (Never Oval) */
         #theme-toggle {
             background: none;
             border: 1px solid var(--accent-color);
             color: var(--text-color);
-            width: 38px; height: 38px;
+            min-width: 38px; width: 38px; height: 38px;
+            flex-shrink: 0;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.1rem;
             display: flex; justify-content: center; align-items: center;
             transition: var(--transition);
+            z-index: 1001;
         }
         #theme-toggle:hover {
             background-color: var(--text-color);
@@ -159,6 +167,7 @@
             display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
             color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; z-index: 10;
         }
         .music-btn-spotify { background-color: #1DB954; border: 1px solid #1aa34a; }
         .music-btn-spotify:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.6); color: #fff; }
@@ -175,27 +184,35 @@
         .music-btn-lyrics { background-color: #333; border: 1px solid #555; }
         .music-btn-lyrics:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(150, 150, 150, 0.6); color: #fff; }
 
-        /* Cards */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .card { background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; transition: var(--transition); }
+        /* Cards & 4-Columns Grid */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 10; }
+        .grid-container.four-cols { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        @media (min-width: 1200px) { .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); } }
+
+        .card { background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .card-media { width: 100%; height: 200px; background-color: #333; object-fit: cover; display: flex; justify-content: center; align-items: center; color: #666; }
-        .card-info { padding: 1.5rem; }
+        .card-info { padding: 1.5rem; flex-grow: 1; }
         .card-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; line-height: 1.4; }
         .card-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 1rem; }
         .card-link { display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--accent-color); color: var(--text-color); text-decoration: none; border-radius: 4px; transition: var(--transition); font-size: 0.9rem; cursor: pointer; }
         .card-link:hover { background-color: var(--accent-color); color: var(--bg-color); }
+        
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+
+        .ig-card { display: flex; justify-content: center; align-items: center; background: #fff !important; padding: 0; overflow: hidden; }
 
         /* Grid Modal & Lightbox */
         .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
         .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
-        .masonry-grid { column-count: 3; column-gap: 15px; }
-        .masonry-item { break-inside: avoid; margin-bottom: 15px; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; background-color: #222; }
-        .masonry-item img { width: 100%; display: block; border-radius: 8px; transition: opacity 0.3s; }
-        .masonry-item:hover img { opacity: 0.7; }
+        
+        /* New Rendered Grid */
+        #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
+        .masonry-item { cursor: pointer; transition: transform 0.3s; }
+        .masonry-item:hover { transform: scale(1.02); }
+
         .lightbox { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); align-items: center; justify-content: center; flex-direction: column; }
         .lightbox-content { max-width: 90%; max-height: 80vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); object-fit: contain; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -220,13 +237,25 @@
             .resume-photos-column { grid-column: span 2; }
             .profile-photo-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        @media (max-width: 768px) {
-            nav ul { flex-wrap: wrap; justify-content: center; gap: 1rem; padding-top: 0.5rem; }
-            header { flex-direction: column; padding: 1rem; gap: 1rem; }
+        @media (max-width: 850px) {
+            .hamburger { display: block; }
+            nav ul { 
+                position: absolute; top: 70px; left: 0; width: 100%; 
+                flex-direction: column; background-color: rgba(10, 10, 10, 0.95); 
+                text-align: center; gap: 0; overflow: hidden;
+                max-height: 0; transition: max-height 0.3s ease-out;
+            }
+            body.light-mode nav ul { background-color: rgba(247, 247, 247, 0.98); }
+            nav ul.active { max-height: 400px; padding-bottom: 1rem; border-bottom: 1px solid #333; }
+            body.light-mode nav ul.active { border-bottom: 1px solid #ddd; }
+            nav ul li { padding: 10px 0; }
             .header-right { gap: 1rem; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
             #home h1 { font-size: 2.2rem; }
             #home h2 { font-size: 1.4rem; margin-top: -0.4rem; }
-            section { padding-top: 10rem; }
+            section { padding-top: 8rem; }
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
             .profile-photo-grid { grid-template-columns: repeat(2, 1fr); }
@@ -240,17 +269,20 @@
         <a href="#home" class="logo">Pannathat Intharit</a>
         <div class="header-right">
             <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#profile">Profile</a></li>
-                    <li><a href="#music">Music</a></li>
-                    <li><a href="#film-media">Film</a></li>
-                    <li><a href="#photography">Photo</a></li>
-                    <li><a href="#graphic">Graphic</a></li>
-                    <li><a href="#other-works">Others</a></li>
-                    <li><a href="#bts">BTS</a></li>
+                <ul id="nav-menu">
+                    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#profile" onclick="toggleMenu()">Profile</a></li>
+                    <li><a href="#music" onclick="toggleMenu()">Music</a></li>
+                    <li><a href="#film-media" onclick="toggleMenu()">Film</a></li>
+                    <li><a href="#photography" onclick="toggleMenu()">Photo</a></li>
+                    <li><a href="#graphic" onclick="toggleMenu()">Graphic</a></li>
+                    <li><a href="#other-works" onclick="toggleMenu()">Others</a></li>
+                    <li><a href="#bts" onclick="toggleMenu()">BTS</a></li>
                 </ul>
             </nav>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
             <button id="theme-toggle" title="Toggle Light/Dark Mode"><i class="fa-solid fa-sun"></i></button>
         </div>
     </header>
@@ -299,7 +331,19 @@
                     <div class="resume-block">
                         <h3>Hard Skills</h3>
                         <div class="skill-tags">
-                            <span class="skill-tag">Premiere Pro</span><span class="skill-tag">DaVinci Resolve</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Lightroom</span><span class="skill-tag">Illustrator</span><span class="skill-tag">LUNA by UAD</span><span class="skill-tag">FL Studio</span><span class="skill-tag">CapCut</span><span class="skill-tag">Canva</span><span class="skill-tag">Soundtrap</span><span class="skill-tag">BandLab</span><span class="skill-tag">Adobe Audition</span>
+                            <span class="skill-tag">Adobe Premiere Pro</span>
+                            <span class="skill-tag">Adobe Photoshop</span>
+                            <span class="skill-tag">Adobe Illustrator</span>
+                            <span class="skill-tag">Adobe Lightroom</span>
+                            <span class="skill-tag">Adobe Lightroom Classic</span>
+                            <span class="skill-tag">Adobe Audition</span>
+                            <span class="skill-tag">DaVinci Resolve</span>
+                            <span class="skill-tag">FL Studio</span>
+                            <span class="skill-tag">LUNA by UAD</span>
+                            <span class="skill-tag">Soundtrap</span>
+                            <span class="skill-tag">Bandlab</span>
+                            <span class="skill-tag">Capcut</span>
+                            <span class="skill-tag">Canva</span>
                         </div>
                     </div>
                     <div class="resume-block">
@@ -314,7 +358,12 @@
                     <div class="resume-block">
                         <h3>Interests & Hobbies</h3>
                         <div class="skill-tags">
-                            <span class="skill-tag">Singing & Songwriting</span><span class="skill-tag">Playing Instruments</span><span class="skill-tag">Photography</span><span class="skill-tag">Film & Music</span><span class="skill-tag">PC Building</span><span class="skill-tag">Gaming</span><span class="skill-tag">Driving</span>
+                            <span class="skill-tag">Traveling</span>
+                            <span class="skill-tag">Motorcycle Riding</span>
+                            <span class="skill-tag">Reading</span>
+                            <span class="skill-tag">Board Games</span>
+                            <span class="skill-tag">Technology</span>
+                            <span class="skill-tag">Gadgets</span>
                         </div>
                     </div>
                 </div>
@@ -333,7 +382,7 @@
 
     <section id="music">
         <h2 class="section-title">Music <span class="aka-text">| WISTER9</span></h2>
-        <div style="max-width: 800px; line-height: 1.8; color: #ccc; margin-bottom: 2rem;">
+        <div style="max-width: 800px; line-height: 1.8; color: #ccc; margin-bottom: 2rem; position: relative; z-index: 10;">
             <p><strong>About WISTER9</strong></p>
             <p style="font-size: 0.95rem; margin-bottom: 1rem; border-left: 3px solid var(--accent-color); padding-left: 1rem;">WISTER9 is an independent music project by Pannathat Intharit, born out of a deep passion for storytelling through music. It seamlessly blends modern musical elements with a unique approach to sound design.</p>
         </div>
@@ -358,14 +407,17 @@
         <div class="section-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <h2 class="section-title" style="margin-bottom: 0;">Film and Media <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
             <div style="display: flex; gap: 10px;">
-                <a href="https://www.instagram.com/xpan.visuals/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> @xpan.visuals</a>
-                <a href="https://www.instagram.com/tripphase.ig/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> @tripphase.ig</a>
+                <a href="https://www.instagram.com/xpan.visuals/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> xpan.visuals</a>
+                <a href="https://www.instagram.com/tripphase.ig/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> tripphase.ig</a>
             </div>
         </div>
-        <div class="grid-container">
+        <div class="grid-container four-cols">
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ta3rxLoisFs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>TODAY GAY, TOMORROW LAYOFF</h3><p>Short Film Project</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>TRYPOPHOBIA | STOP MOTION</h3><p>Short Film Project</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>เมืองไทยประกันชีวิต - กิจกรรมเยอะ</h3><p>Video Ads Project</p></div></div>
+            <div class="card ig-card">
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by XPAN (@xpan.visuals)</a></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
+            </div>
         </div>
     </section>
 
@@ -373,16 +425,79 @@
         <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container">
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1sVghEcu9JrdDityEYuBuyBRUG1whrB9R&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1000" class="card-media">
                 <div class="card-info">
                     <h3>Portrait</h3>
                     <p>Portrait Photography Set - Exploring expressions and characters.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-portrait', 'Portrait')"><i class="fa-regular fa-images"></i> View Photo Set (10 Photos)</a>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-portrait', 'Portrait')"><i class="fa-regular fa-images"></i> View Photo Set (63 Photos)</a>
                 </div>
                 <div id="gallery-portrait" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1sVghEcu9JrdDityEYuBuyBRUG1whrB9R&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1DOIUdC8Q9M-nEfHpKpXl8Cbqc5nnKbu6&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1uAVTsoNT6U3sMDf2l3OY1V-feykDEbbO&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1uyCkwcHCYWPTEgwNXHKpJm-qud31zDs-&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1iHvd3d8UL2oG0FrDi3BtKSmk17wZYbwD&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1i59lwHl1KNZt7EzIrWyrXoBv4rkhy9Ua&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1_DIMmTmoy5PbCCXEDkPELtzhE3kQH1nF&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1gcmYWGsyopV9hJFAUUiZ5BV8kd6L3G-p&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1e9HwVJ70ERtpGICDsZ2g7YEoA7uHZ-3d&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1Ng5qKrmJKYyKW1aZMp1npA5klfm8mpPC&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1lxs85ioWcMopPuRGvOpalWEwp0UwYzNy&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ueaaPglYokAlk0wSjmMQbWNMj27M4Wsq&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Zdytk0ipmcILbiLJaOZb5YtGQJy5y_ea&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1v5KxuN6u2Dup_igp79lDxYtVSl4XY8dI&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1LyCdJ2F1QvrL8D2h3TfGvimykhjwmgjx&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1u3XMeGn3dTD1DAwqjjzPdGbWVi1MLlFN&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1epvYZNG69iL5VcA90ghzXURUSqdaty01&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1l-LnSnFdjgP7yt34Ma9BBJv75UcMlj9r&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1OWpEFhgpzZMp5rVnobrulT497C3NlZKa&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1UEE4ZCykvceBgzFileuMcOcIx0ZxkqAD&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1AHA817LkR8Yym2CQJcfwAsZFDWQo-zsV&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1X_EH2M3q_txprpsZEueaWD97KJKjV85e&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=155IHqLw8raMi_m4f-i67v2cut2e2Y3Md&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1sVvvfHOmL-bb_sbZENyn-IqMePMLd9bQ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1cwMzhu75XDZ8fzeC8T5BnWOvA0yrCy_U&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1k0oA7i_aXKfR2FAM72OWkLgUtFl_50jw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1D6lbe1yW6G5nb0pEW8xSIqqjymrIU4eO&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1fJQ6BmDw5F803HbzVP_IVyxuX_OJFeBn&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1MlaZYifRj2wCoLGUbDxTUMo23Qn7ge2e&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Ytdp5Ts9ev-HNLDTwy77kCNYRUOpxXmC&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14Maa69yEaR4WR4_xe3spGBqiSZm4Sxiv&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=15NYc5ePSd2fuSWRlUVC9Goknkwu466zK&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1F_munZrolfm9NKcWCcKaNd9RX_MA_JXr&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1V_d_JzgAAZZQ2LMJ192IpGsyTyNsJwlH&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1pXYcSB-F6aJlv9kUJzd9giCo2LqAZMzm&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=147P4Ma1WaUZqQKJLxMgvdm44b-DPFJiu&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1-Mzv3jXVOXtc33GELGVq8SFfz49FX0gB&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Vh49ZY8ys92UkDb3KPZYp6yHEZ5EFXPT&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1dmSh7J-bfp_fyFxfFGzepdLCovcEqTIB&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1amudLZqRzbU-6rzBVD5GWSI80jkBxSGM&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=18ZQyR6Vy1i_NDDjBc2UpQ_QB4BTZFmY8&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Ng5qKrmJKYyKW1aZMp1npA5klfm8mpPC&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1e9HwVJ70ERtpGICDsZ2g7YEoA7uHZ-3d&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1gcmYWGsyopV9hJFAUUiZ5BV8kd6L3G-p&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1uAVTsoNT6U3sMDf2l3OY1V-feykDEbbO&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1DOIUdC8Q9M-nEfHpKpXl8Cbqc5nnKbu6&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1sVghEcu9JrdDityEYuBuyBRUG1whrB9R&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1_DIMmTmoy5PbCCXEDkPELtzhE3kQH1nF&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1i59lwHl1KNZt7EzIrWyrXoBv4rkhy9Ua&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1iHvd3d8UL2oG0FrDi3BtKSmk17wZYbwD&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1uyCkwcHCYWPTEgwNXHKpJm-qud31zDs-&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1e7U8b7VDkBr5fL5gUeHfZsIGzm6HNnxj&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1C00H4fAjwcH99AdDQULf2Qeup5o32XA4&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1PWt-G5A8gHsfBA3VEMVhys5Vbg3yl4My&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1gWgoMyUa4Lg5Vrsp-FIrNtf_6kN8aykL&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1IVH-4LulrU1iwSNSs-VCEt3JfCkmwvZH&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1pkXTH_wuYWM7zdFLMpkH-cY1Axvs3K2b&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1-GAps8MNltymPS5BCISsVgSnoTJnSt1L&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1R7IOLd7ThHSjg9GJeZU4KdN4B6LCAzFa&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1zxeGb282aRq5GgeMoBbe1LaXRqmm6-tB&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1OETPp2fR6LlFvb5_LNOj7K5yR78bYgEJ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1v3UhCyTW2BdKV4jYbsWIC2CmPtEuQUAw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=16amGCoOYEDB0bfyz--yIau_ZMvnhtJ9w&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1XLYPas9FvN8-O-AjHohkT6rzjLZ24Whu&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1eKMbAwtgO51KJSjyXI1bH9uOAfbMDneq&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1D9iRwp6K9ahWBUzgwoPTXzgkTBEdqn_7&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1rXc5VYd79UPFyFmdo1p9n_GvBFZX2cFX&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Y4c-KZw1a5wp26Eoe0EQ4765g4JlPrCx&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1nWO17vd7ATyEBcpHhKV2fAQnCXHwrdl8&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Aa6dfjlaNpmRsbUOpkcLU6D5SQXZHRFY&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1lfObP9fDO3lAmFx7N-wu7uIkBBrzzorK&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1yMwi_-Utqutp1pgoGOc0McBdBa08oqqh&sz=w1000">
                 </div>
             </div>
+            
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1000" class="card-media">
                 <div class="card-info">
@@ -394,6 +509,7 @@
                     <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1dkEgRGU_sq6y-kNptu61Eys1l2ylqXSa&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1j9ZaLx1zpkAcJVt2DiTP9C1Jp9mY6miR&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1YP7v4ddVdXa8b_aDj9br1R2PMIEnqOAj&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1OHEaP-o4LLhPEfNWq5d2oMYj0fh6FcbG&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1flC99yLR_saii343ch3STHSHMP7A7ziK&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1BVBKz-ir6-f3Kj2z6o4eOPNQ-wXCd3xQ&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1tzef1gEnKj9cYIhEKDQt69iBMX0GmZC2&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1S4DFUKJU1w-1xdMfzeER9jtAgL9JI8hQ&sz=w1000">
                 </div>
             </div>
+            
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1000" class="card-media">
                 <div class="card-info">
@@ -422,6 +538,7 @@
                     <img src="https://drive.google.com/thumbnail?id=1BGKH-Yc4ZJNEv8XFta3UFNhcRh8ZiuZ9&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1jamzPT37XXTGKfah2M_dRKjMVIGlSdGu&sz=w1000"><img src="https://drive.google.com/thumbnail?id=12PkBoCpveegQO9Dq-lCSWrSvjApOg36f&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1iOk21_I_s6bRwTlUJyvr57rqiJ01PKh7&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1QLP7mgGFtzsG0I5ImVQFSEItVapNqPc3&sz=w1000">
                 </div>
             </div>
+            
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000" class="card-media">
                 <div class="card-info">
@@ -433,6 +550,7 @@
                     <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1000"><img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1tmrs5NBjpq_gL7V6Ua4VLJqfOcoXw9Gp&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1QqiBrfXMKIXF6vY8DkeXmjrT1SrKC2En&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1Yb7UBE2VnvQdkHzqCWGJYxC6RLzbhcje&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1towO7fDYCEnjqHduNSdZlzvm6wuQPDa1&sz=w1000"><img src="https://drive.google.com/thumbnail?id=13sT66dFBRFuADfQnUz_4fFNdR-VP1S8J&sz=w1000"><img src="https://drive.google.com/thumbnail?id=14SxqcXMWpLJpSTHlLXHhAtAylxBE0Mj4&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1vO09RJVw4kyAUgYzkuwaudhOyXL7OHH4&sz=w1000">
                 </div>
             </div>
+            
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1RbCrytYKeva0vE2Bq5mCWR19VSJv9XCC&sz=w1000" class="card-media">
                 <div class="card-info">
@@ -449,9 +567,10 @@
 
     <section id="other-works">
         <h2 class="section-title">Other Works <span class="aka-text">| Collaborations & Assistance</span></h2>
-        <div class="grid-container">
+        <div class="grid-container four-cols">
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RRuIk4UtJrE?si=zxF9j34T1K_kNlOB" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>The Weakend [Full Version]</h3><p>Role: Extra Actor</p></div></div>
-            <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=gkIr4Q2IM5wmf_Fh" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>ภาพยนตร์สั้น ‘ครั้งหนึ่งเคยฝันดี’</h3><p>Role: Sound Recorder</p></div></div>
+            <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=gkIr4Q2IM5wmf_Fh" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>ภาพยนตร์สั้น ‘ครั้งหนึ่งเคยฝันดี’</h3><p>Role: Sound Recordist</p></div></div>
+            <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/DN7jF1mTkPs?si=UCVfDvcWRjdo7HQM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info"><h3>Blue from the bottom – ลึกสุดใจ วัยคราม</h3><p>Role: Sound Recordist, Technical</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/w8UDaA24-vA?si=pldZIalwGldGdNeE" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>เทอม 4 | Haunted Universities 4</h3><p>Role: Runner (Ep. Saphan Khao)</p></div></div>
         </div>
     </section>
@@ -497,7 +616,7 @@
 
     <div id="gridModal" class="grid-modal">
         <div class="grid-modal-header"><h2 id="grid-modal-title" class="grid-modal-title">Project Name</h2><button class="lightbox-btn" onclick="closeGridGallery()"><i class="fa-solid fa-xmark"></i></button></div>
-        <div id="masonry-content" class="masonry-grid"></div>
+        <div id="masonry-content"></div>
     </div>
 
     <div id="myLightbox" class="lightbox">
@@ -528,6 +647,7 @@
         let currentImages = [];
         let currentIndex = 0;
 
+        // Theme Toggle
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
@@ -535,25 +655,61 @@
             themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
+        // Hamburger Menu Toggle
+        function toggleMenu() {
+            if (window.innerWidth <= 850) {
+                const navMenu = document.getElementById('nav-menu');
+                navMenu.classList.toggle('active');
+            }
+        }
+
+        // Unified Flexible Gallery System
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
+            const gridContent = document.getElementById('masonry-content');
+            
+            // ตั้งค่า Container ให้เป็น Flex Layout
+            gridContent.style.display = 'flex';
+            gridContent.style.flexWrap = 'wrap';
+            gridContent.style.justifyContent = 'center';
+            gridContent.style.gap = '15px';
+            gridContent.innerHTML = '';
+            
             const imgs = gallery.getElementsByTagName('img');
             currentImages = Array.from(imgs).map(img => img.src);
             document.getElementById('grid-modal-title').innerText = titleText;
-            const gridContent = document.getElementById('masonry-content');
-            gridContent.innerHTML = '';
+            
             currentImages.forEach((src, index) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'masonry-item';
+                
+                // กำหนดความสูงคงที่สำหรับแถว (มือถือ 150px, คอม 250px)
+                itemDiv.style.height = window.innerWidth < 768 ? '150px' : '250px';
+                itemDiv.style.marginBottom = '10px';
                 itemDiv.onclick = () => openSingleImage(index);
-                itemDiv.innerHTML = `<img src="${src}">`;
+                
+                const imgEl = document.createElement('img');
+                imgEl.src = src;
+                // ปล่อยความกว้างตามสัดส่วนภาพจริง ไม่มีการ Crop!
+                imgEl.style.height = '100%';
+                imgEl.style.width = 'auto';
+                imgEl.style.maxWidth = '100%'; 
+                imgEl.style.borderRadius = '8px';
+                imgEl.style.display = 'block';
+                imgEl.style.objectFit = 'contain';
+                
+                itemDiv.appendChild(imgEl);
                 gridContent.appendChild(itemDiv);
             });
+            
             document.getElementById('gridModal').style.display = "block";
             document.body.style.overflow = "hidden";
         }
 
-        function closeGridGallery() { document.getElementById('gridModal').style.display = "none"; document.body.style.overflow = "auto"; }
+        function closeGridGallery() { 
+            document.getElementById('gridModal').style.display = "none"; 
+            document.body.style.overflow = "auto"; 
+        }
 
         function openProfileImage(index) {
             const imgs = document.querySelectorAll('.profile-photo-grid img');
