@@ -89,7 +89,7 @@
         
         .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); z-index: 1001; }
 
-        /* Theme Toggle Fix (Never Oval) */
+        /* Theme Toggle */
         #theme-toggle {
             background: none;
             border: 1px solid var(--accent-color);
@@ -127,7 +127,6 @@
         #home p { font-size: 1.2rem; color: #aaa; max-width: 800px; text-transform: none; letter-spacing: 2px; }
 
         /* Profile */
-        #profile::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(''); background-size: cover; background-position: right top; background-attachment: fixed; opacity: 0.15; z-index: -1; }
         .resume-container { max-width: 1200px; color: #ccc; }
         .resume-bio { font-size: 1.1rem; line-height: 1.8; margin-bottom: 3rem; border-left: 4px solid var(--accent-color); padding-left: 1.5rem; font-style: italic; }
         
@@ -185,7 +184,7 @@
         .music-btn-lyrics { background-color: #333; border: 1px solid #555; }
         .music-btn-lyrics:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(150, 150, 150, 0.6); color: #fff; }
 
-        /* Cards & 4-Columns Grid Setup */
+        /* Cards Layout */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 10; }
         .grid-container.four-cols { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         @media (min-width: 1200px) { .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); } }
@@ -202,14 +201,14 @@
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 
-        /* ส่วนปรับเปลี่ยนธีมกล่อง IG */
         .ig-card { display: flex; justify-content: center; align-items: center; background: #1a1a1a !important; padding: 0; overflow-y: auto; overflow-x: hidden; height: 200px; }
 
-        /* Grid Modal & Lightbox Setup */
+        /* Modals & Original Flex-Wrap Layout Setup */
         .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
         .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
         
+        /* นำ Flex-Wrap แบบเดิมกลับมาใช้ */
         #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
         .masonry-item { cursor: pointer; transition: transform 0.3s; }
         .masonry-item:hover { transform: scale(1.02); }
@@ -621,7 +620,7 @@
                     <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1neKp6BTKVLypcyAqQHo1dw292AMnsjiD&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq">
+                    <img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1euzgJ6VHalg9_C08unxzis5pbNBYBtcT&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1A0bBBySGlu0CLQMgePoyy8715n2_ACmm&sz=w1000">
@@ -633,7 +632,7 @@
                 <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1000" class="card-media">
                 <div class="card-info">
                     <h3>Scanography</h3>
-                    <p>Visual scanner experiments and abstract digital layouts.</p>
+                    <p>Visual scanner experiments and digital layouts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-scanography', 'Scanography')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
                 </div>
                 <div id="gallery-scanography" class="hidden-gallery">
@@ -642,6 +641,105 @@
                     <img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1000">
                     <img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1000">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Logo</h3>
+                    <p>Logo identity design and typography branding.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-logo', 'Logo Design')"><i class="fa-regular fa-images"></i> View Art Set (14 Photos)</a>
+                </div>
+                <div id="gallery-logo" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1000">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Thumbnail</h3>
+                    <p>Digital media content previews and custom layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (23 Photos)</a>
+                </div>
+                <div id="gallery-thumbnail" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1PYpUAa1wc3NMKwI_p-wS1CSQqifvMPqL&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1_ysq_u7PXhOGPnE_1U8xOGlauqusfX7n&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1UnTqOBXTnGYHYVPPut1XhkXZ0tAGyYF2&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1v-v6uYwU-BUu-Mb7LAqArhwzB93K4PNG&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=13E2CemnF5bDBA9vahdW3EwpzHgFdL5rj&sz=w1000">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Quote</h3>
+                    <p>Typography layouts and structural quote concepts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-quote', 'Quote Design')"><i class="fa-regular fa-images"></i> View Art Set (12 Photos)</a>
+                </div>
+                <div id="gallery-quote" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1000">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Mock-up</h3>
+                    <p>Product mock-ups and digital brand presentation layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-mockup', 'Mock-up Design')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
+                </div>
+                <div id="gallery-mockup" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=15cUrAuqniphLdUR48p16A8oWLSTGODg0&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj&sz=w1000">
                 </div>
             </div>
 
@@ -738,7 +836,7 @@
             themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
-        // Responsive Mobile Menu Expand
+        // Mobile Menu Toggler
         function toggleMenu() {
             if (window.innerWidth <= 850) {
                 const navMenu = document.getElementById('nav-menu');
@@ -746,11 +844,13 @@
             }
         }
 
-        // Adaptive Flex Gallery System (No-Crop & Proportional scaling)
+        // Adaptive Modal 4-Column Responsive Grid System (No-Crop) 
+        // Reverted to Flex Wrap Layout Design per request
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
             const gridContent = document.getElementById('masonry-content');
             
+            // Reapply Original Flex-Wrap Settings dynamically
             gridContent.style.display = 'flex';
             gridContent.style.flexWrap = 'wrap';
             gridContent.style.justifyContent = 'center';
@@ -765,6 +865,7 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'masonry-item';
                 
+                // ความสูงแบบเดิมที่ทำให้ Flex-wrap ล็อกบรรทัดเป็นระเบียบ
                 itemDiv.style.height = window.innerWidth < 768 ? '160px' : '260px';
                 itemDiv.style.marginBottom = '5px';
                 itemDiv.onclick = () => openSingleImage(index);
