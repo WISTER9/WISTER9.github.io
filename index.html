@@ -54,6 +54,8 @@
         body.light-mode .social-icons a:hover { color: #000; }
         body.light-mode .social-icons a:hover svg { fill: #000; }
         body.light-mode .hamburger { color: #111; }
+        body.light-mode .ig-card { background: #fff !important; }
+        body.light-mode .instagram-media { background: #fff !important; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; scroll-behavior: smooth; }
 
@@ -100,6 +102,7 @@
             display: flex; justify-content: center; align-items: center;
             transition: var(--transition);
             z-index: 1001;
+            aspect-ratio: 1 / 1;
         }
         #theme-toggle:hover {
             background-color: var(--text-color);
@@ -148,8 +151,6 @@
             box-shadow: 0 5px 15px rgba(224, 224, 224, 0.3); 
             border-color: var(--accent-color);
         }
-        body.light-mode .skill-tag { background-color: #f0f0f0; border: 1px solid #ddd; color: #333; }
-        body.light-mode .skill-tag:hover { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); border-color: #999; }
 
         .resume-photos-column h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
         .profile-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1rem; }
@@ -184,7 +185,7 @@
         .music-btn-lyrics { background-color: #333; border: 1px solid #555; }
         .music-btn-lyrics:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(150, 150, 150, 0.6); color: #fff; }
 
-        /* Cards & 4-Columns Grid */
+        /* Cards & 4-Columns Grid Setup */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 10; }
         .grid-container.four-cols { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         @media (min-width: 1200px) { .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); } }
@@ -201,14 +202,14 @@
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 
-        .ig-card { display: flex; justify-content: center; align-items: center; background: #fff !important; padding: 0; overflow: hidden; }
+        /* ส่วนปรับเปลี่ยนธีมกล่อง IG */
+        .ig-card { display: flex; justify-content: center; align-items: center; background: #1a1a1a !important; padding: 0; overflow-y: auto; overflow-x: hidden; height: 200px; }
 
-        /* Grid Modal & Lightbox */
+        /* Grid Modal & Lightbox Setup */
         .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
         .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* New Rendered Grid */
         #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
         .masonry-item { cursor: pointer; transition: transform 0.3s; }
         .masonry-item:hover { transform: scale(1.02); }
@@ -231,7 +232,7 @@
         .social-icons a:hover svg { fill: #fff; }
         footer p { color: #777; font-size: 0.9rem; margin-top: 1rem; }
 
-        /* Responsive */
+        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .resume-grid { grid-template-columns: 1fr 1fr; }
             .resume-photos-column { grid-column: span 2; }
@@ -358,6 +359,13 @@
                     <div class="resume-block">
                         <h3>Interests & Hobbies</h3>
                         <div class="skill-tags">
+                            <span class="skill-tag">Singing & Songwriting</span>
+                            <span class="skill-tag">Playing Instruments</span>
+                            <span class="skill-tag">Photography</span>
+                            <span class="skill-tag">Film & Music</span>
+                            <span class="skill-tag">PC Building</span>
+                            <span class="skill-tag">Gaming</span>
+                            <span class="skill-tag">Driving</span>
                             <span class="skill-tag">Traveling</span>
                             <span class="skill-tag">Motorcycle Riding</span>
                             <span class="skill-tag">Reading</span>
@@ -416,7 +424,7 @@
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>TRYPOPHOBIA | STOP MOTION</h3><p>Short Film Project</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>เมืองไทยประกันชีวิต - กิจกรรมเยอะ</h3><p>Video Ads Project</p></div></div>
             <div class="card ig-card">
-                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by XPAN (@xpan.visuals)</a></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&utm_campaign=loading" style=" background:#1a1a1a; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #333; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #333; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #333; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#fff"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #333; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #333; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #333; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #333; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #333; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #333; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #333; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #333; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #333; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #333; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#777; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DYZ3KlDve9u/?utm_source=ig_embed&utm_campaign=loading" style=" color:#777; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by XPAN (@xpan.visuals)</a></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
             </div>
         </div>
     </section>
@@ -526,42 +534,117 @@
 
     <section id="graphic">
         <h2 class="section-title">Graphic Design <span class="aka-text">| Pannathat Intharit</span></h2>
-        <div class="grid-container">
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1BGKH-Yc4ZJNEv8XFta3UFNhcRh8ZiuZ9&sz=w1000" class="card-media">
-                <div class="card-info">
-                    <h3>Movie Poster</h3>
-                    <p>Film promotion art and official movie posters.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-movie-poster', 'Movie Poster')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
-                </div>
-                <div id="gallery-movie-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1BGKH-Yc4ZJNEv8XFta3UFNhcRh8ZiuZ9&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1jamzPT37XXTGKfah2M_dRKjMVIGlSdGu&sz=w1000"><img src="https://drive.google.com/thumbnail?id=12PkBoCpveegQO9Dq-lCSWrSvjApOg36f&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1iOk21_I_s6bRwTlUJyvr57rqiJ01PKh7&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1QLP7mgGFtzsG0I5ImVQFSEItVapNqPc3&sz=w1000">
-                </div>
-            </div>
+        <div class="grid-container four-cols">
             
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000" class="card-media">
                 <div class="card-info">
                     <h3>Poster</h3>
-                    <p>General poster design, event art, and visual concepts.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-poster', 'Poster Design')"><i class="fa-regular fa-images"></i> View Art Set (18 Photos)</a>
+                    <p>Poster design and custom visual structures.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-poster', 'Poster Design')"><i class="fa-regular fa-images"></i> View Art Set (27 Photos)</a>
                 </div>
                 <div id="gallery-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1000"><img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1tmrs5NBjpq_gL7V6Ua4VLJqfOcoXw9Gp&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1QqiBrfXMKIXF6vY8DkeXmjrT1SrKC2En&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1Yb7UBE2VnvQdkHzqCWGJYxC6RLzbhcje&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1towO7fDYCEnjqHduNSdZlzvm6wuQPDa1&sz=w1000"><img src="https://drive.google.com/thumbnail?id=13sT66dFBRFuADfQnUz_4fFNdR-VP1S8J&sz=w1000"><img src="https://drive.google.com/thumbnail?id=14SxqcXMWpLJpSTHlLXHhAtAylxBE0Mj4&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1vO09RJVw4kyAUgYzkuwaudhOyXL7OHH4&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1000">
                 </div>
             </div>
-            
+
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1RbCrytYKeva0vE2Bq5mCWR19VSJv9XCC&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1000" class="card-media">
                 <div class="card-info">
-                    <h3>Thumbnail</h3>
-                    <p>Digital content thumbnails and social media graphics.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail')"><i class="fa-regular fa-images"></i> View Art Set (11 Photos)</a>
+                    <h3>Cover</h3>
+                    <p>Album arts, single covers, and track layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-cover', 'Cover Art')"><i class="fa-regular fa-images"></i> View Art Set (25 Photos)</a>
                 </div>
-                <div id="gallery-thumbnail" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1RbCrytYKeva0vE2Bq5mCWR19VSJv9XCC&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1YISH0eb5xEMIfr7RFUBUpUFr1vZyMs9e&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1wdJD7wOSGc1R9ioBDYMU3HsQgajblhCB&sz=w1000"><img src="https://drive.google.com/thumbnail?id=14rM5uQBGH39whcOxfFnGewqwnWbyxxM_&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1C1le4Nu_mT13ezja9H7a4La8WqdOjkOJ&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1DGfJe_z2D0rtjOpUGWR0CRaHjL5F3v_x&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1XJlMJCEtbmqZEqHOPPRvuyp4vNQQ0YwX&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1JLLzrsf0OxirgJZsyTOiC_owIssVvTqY&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1mxlHnZ0BWWn27UVoOWBM9EylI6qohiYr&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1RXwthnwgpSprBaNIMmlyCf12WyMOkRSi&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1Bt-dkUpnrEeD2liCAqtIZW2SYlP5oXAH&sz=w1000">
+                <div id="gallery-cover" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1000">
                 </div>
             </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Movie Poster</h3>
+                    <p>Official promotional keys and cinematic posters.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-movie-poster', 'Movie Poster')"><i class="fa-regular fa-images"></i> View Art Set (8 Photos)</a>
+                </div>
+                <div id="gallery-movie-poster" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1neKp6BTKVLypcyAqQHo1dw292AMnsjiD&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq">
+                    <img src="https://drive.google.com/thumbnail?id=1euzgJ6VHalg9_C08unxzis5pbNBYBtcT&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1A0bBBySGlu0CLQMgePoyy8715n2_ACmm&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5&sz=w1000">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1000" class="card-media">
+                <div class="card-info">
+                    <h3>Scanography</h3>
+                    <p>Visual scanner experiments and abstract digital layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-scanography', 'Scanography')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
+                </div>
+                <div id="gallery-scanography" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1000">
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -647,7 +730,7 @@
         let currentImages = [];
         let currentIndex = 0;
 
-        // Theme Toggle
+        // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
@@ -655,7 +738,7 @@
             themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
-        // Hamburger Menu Toggle
+        // Responsive Mobile Menu Expand
         function toggleMenu() {
             if (window.innerWidth <= 850) {
                 const navMenu = document.getElementById('nav-menu');
@@ -663,12 +746,11 @@
             }
         }
 
-        // Unified Flexible Gallery System
+        // Adaptive Flex Gallery System (No-Crop & Proportional scaling)
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
             const gridContent = document.getElementById('masonry-content');
             
-            // ตั้งค่า Container ให้เป็น Flex Layout
             gridContent.style.display = 'flex';
             gridContent.style.flexWrap = 'wrap';
             gridContent.style.justifyContent = 'center';
@@ -683,14 +765,12 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'masonry-item';
                 
-                // กำหนดความสูงคงที่สำหรับแถว (มือถือ 150px, คอม 250px)
-                itemDiv.style.height = window.innerWidth < 768 ? '150px' : '250px';
-                itemDiv.style.marginBottom = '10px';
+                itemDiv.style.height = window.innerWidth < 768 ? '160px' : '260px';
+                itemDiv.style.marginBottom = '5px';
                 itemDiv.onclick = () => openSingleImage(index);
                 
                 const imgEl = document.createElement('img');
                 imgEl.src = src;
-                // ปล่อยความกว้างตามสัดส่วนภาพจริง ไม่มีการ Crop!
                 imgEl.style.height = '100%';
                 imgEl.style.width = 'auto';
                 imgEl.style.maxWidth = '100%'; 
