@@ -118,6 +118,7 @@
         #home { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; }
         #home::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Fixed: ใช้ thumbnail endpoint พร้อมกำหนดขนาดใหญ่สุดเพื่อความชัดและโหลดขึ้นแน่ๆ */
             background-image: url('https://drive.google.com/thumbnail?id=1sw-G3Vd9jqyEzy_idL5Cd912ydhpbNLo&sz=w1920'); 
             background-size: cover; background-position: center; background-attachment: fixed;
             opacity: 0.35; z-index: -1; transition: opacity 0.3s;
@@ -201,14 +202,15 @@
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 
-        .ig-card { display: flex; justify-content: center; align-items: center; background: #1a1a1a !important; padding: 0; overflow-y: auto; overflow-x: hidden; height: 200px; }
+        /* Fixed: แก้ไขขนาดคลิป IG ที่ 4 ใน Film and Media ให้มีขนาดเท่าคลิปอื่นโดยการรักษา aspect ratio 16:9 */
+        .ig-card { display: flex; justify-content: center; align-items: center; background: #1a1a1a !important; padding: 0; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .ig-card .instagram-media { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; min-width: auto !important; margin: 0 !important; }
 
-        /* Modals & Original Flex-Wrap Layout Setup */
+        /* Modals & Flex-Wrap Layout Setup */
         .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
         .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* นำ Flex-Wrap แบบเดิมกลับมาใช้ */
         #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
         .masonry-item { cursor: pointer; transition: transform 0.3s; }
         .masonry-item:hover { transform: scale(1.02); }
@@ -377,10 +379,10 @@
                 <div class="resume-photos-column">
                     <h3>Gallery</h3>
                     <div class="profile-photo-grid">
-                        <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w1000" alt="Portrait 1" onclick="openProfileImage(0)">
-                        <img src="https://drive.google.com/thumbnail?id=1wzSMG-lMYj9xfvPOMUhSXTlFPuCnxT06&sz=w1000" alt="Portrait 2" onclick="openProfileImage(1)">
-                        <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w1000" alt="Portrait 3" onclick="openProfileImage(2)">
-                        <img src="https://drive.google.com/thumbnail?id=16mwV4kht2wk7kAUIHqRSJq-F4bvkpyrf&sz=w1000" alt="Portrait 4" onclick="openProfileImage(3)">
+                        <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w1200" alt="Portrait 1" onclick="openProfileImage(0)">
+                        <img src="https://drive.google.com/thumbnail?id=1wzSMG-lMYj9xfvPOMUhSXTlFPuCnxT06&sz=w1200" alt="Portrait 2" onclick="openProfileImage(1)">
+                        <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w1200" alt="Portrait 3" onclick="openProfileImage(2)">
+                        <img src="https://drive.google.com/thumbnail?id=16mwV4kht2wk7kAUIHqRSJq-F4bvkpyrf&sz=w1200" alt="Portrait 4" onclick="openProfileImage(3)">
                     </div>
                 </div>
             </div>
@@ -419,7 +421,7 @@
             </div>
         </div>
         <div class="grid-container four-cols">
-            <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ta3rxLoisFs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>TODAY GAY, TOMORROW LAYOFF</h3><p>Short Film Project</p></div></div>
+            <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ta3rxLoisFs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"> fountains <h3>TODAY GAY, TOMORROW LAYOFF</h3><p>Short Film Project</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>TRYPOPHOBIA | STOP MOTION</h3><p>Short Film Project</p></div></div>
             <div class="card"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div><div class="card-info"><h3>เมืองไทยประกันชีวิต - กิจกรรมเยอะ</h3><p>Video Ads Project</p></div></div>
             <div class="card ig-card">
@@ -432,100 +434,100 @@
         <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container">
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Portrait</h3>
                     <p>Portrait Photography Set - Exploring expressions and characters.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-portrait', 'Portrait')"><i class="fa-regular fa-images"></i> View Photo Set (63 Photos)</a>
                 </div>
                 <div id="gallery-portrait" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1lxs85ioWcMopPuRGvOpalWEwp0UwYzNy&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ueaaPglYokAlk0wSjmMQbWNMj27M4Wsq&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Zdytk0ipmcILbiLJaOZb5YtGQJy5y_ea&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1v5KxuN6u2Dup_igp79lDxYtVSl4XY8dI&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1LyCdJ2F1QvrL8D2h3TfGvimykhjwmgjx&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1u3XMeGn3dTD1DAwqjjzPdGbWVi1MLlFN&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1epvYZNG69iL5VcA90ghzXURUSqdaty01&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1l-LnSnFdjgP7yt34Ma9BBJv75UcMlj9r&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1OWpEFhgpzZMp5rVnobrulT497C3NlZKa&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1UEE4ZCykvceBgzFileuMcOcIx0ZxkqAD&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1AHA817LkR8Yym2CQJcfwAsZFDWQo-zsV&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1X_EH2M3q_txprpsZEueaWD97KJKjV85e&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=155IHqLw8raMi_m4f-i67v2cut2e2Y3Md&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1sVvvfHOmL-bb_sbZENyn-IqMePMLd9bQ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1cwMzhu75XDZ8fzeC8T5BnWOvA0yrCy_U&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1k0oA7i_aXKfR2FAM72OWkLgUtFl_50jw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1D6lbe1yW6G5nb0pEW8xSIqqjymrIU4eO&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1fJQ6BmDw5F803HbzVP_IVyxuX_OJFeBn&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1MlaZYifRj2wCoLGUbDxTUMo23Qn7ge2e&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Ytdp5Ts9ev-HNLDTwy77kCNYRUOpxXmC&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14Maa69yEaR4WR4_xe3spGBqiSZm4Sxiv&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=15NYc5ePSd2fuSWRlUVC9Goknkwu466zK&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1F_munZrolfm9NKcWCcKaNd9RX_MA_JXr&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1V_d_JzgAAZZQ2LMJ192IpGsyTyNsJwlH&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1pXYcSB-F6aJlv9kUJzd9giCo2LqAZMzm&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=147P4Ma1WaUZqQKJLxMgvdm44b-DPFJiu&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1-Mzv3jXVOXtc33GELGVq8SFfz49FX0gB&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Vh49ZY8ys92UkDb3KPZYp6yHEZ5EFXPT&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1dmSh7J-bfp_fyFxfFGzepdLCovcEqTIB&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1amudLZqRzbU-6rzBVD5GWSI80jkBxSGM&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=18ZQyR6Vy1i_NDDjBc2UpQ_QB4BTZFmY8&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Ng5qKrmJKYyKW1aZMp1npA5klfm8mpPC&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1e9HwVJ70ERtpGICDsZ2g7YEoA7uHZ-3d&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gcmYWGsyopV9hJFAUUiZ5BV8kd6L3G-p&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1uAVTsoNT6U3sMDf2l3OY1V-feykDEbbO&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1DOIUdC8Q9M-nEfHpKpXl8Cbqc5nnKbu6&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1sVghEcu9JrdDityEYuBuyBRUG1whrB9R&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1_DIMmTmoy5PbCCXEDkPELtzhE3kQH1nF&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1i59lwHl1KNZt7EzIrWyrXoBv4rkhy9Ua&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1iHvd3d8UL2oG0FrDi3BtKSmk17wZYbwD&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1uyCkwcHCYWPTEgwNXHKpJm-qud31zDs-&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1e7U8b7VDkBr5fL5gUeHfZsIGzm6HNnxj&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1C00H4fAjwcH99AdDQULf2Qeup5o32XA4&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1PWt-G5A8gHsfBA3VEMVhys5Vbg3yl4My&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gWgoMyUa4Lg5Vrsp-FIrNtf_6kN8aykL&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1IVH-4LulrU1iwSNSs-VCEt3JfCkmwvZH&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1pkXTH_wuYWM7zdFLMpkH-cY1Axvs3K2b&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1-GAps8MNltymPS5BCISsVgSnoTJnSt1L&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1R7IOLd7ThHSjg9GJeZU4KdN4B6LCAzFa&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1zxeGb282aRq5GgeMoBbe1LaXRqmm6-tB&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1OETPp2fR6LlFvb5_LNOj7K5yR78bYgEJ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1v3UhCyTW2BdKV4jYbsWIC2CmPtEuQUAw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=16amGCoOYEDB0bfyz--yIau_ZMvnhtJ9w&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1XLYPas9FvN8-O-AjHohkT6rzjLZ24Whu&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1eKMbAwtgO51KJSjyXI1bH9uOAfbMDneq&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1D9iRwp6K9ahWBUzgwoPTXzgkTBEdqn_7&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1rXc5VYd79UPFyFmdo1p9n_GvBFZX2cFX&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Y4c-KZw1a5wp26Eoe0EQ4765g4JlPrCx&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1nWO17vd7ATyEBcpHhKV2fAQnCXHwrdl8&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Aa6dfjlaNpmRsbUOpkcLU6D5SQXZHRFY&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1lfObP9fDO3lAmFx7N-wu7uIkBBrzzorK&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1yMwi_-Utqutp1pgoGOc0McBdBa08oqqh&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=16sTrzgt8c5xM46UDxU8jxDeqV7q0IuAx&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1lxs85ioWcMopPuRGvOpalWEwp0UwYzNy&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ueaaPglYokAlk0wSjmMQbWNMj27M4Wsq&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Zdytk0ipmcILbiLJaOZb5YtGQJy5y_ea&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1v5KxuN6u2Dup_igp79lDxYtVSl4XY8dI&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1LyCdJ2F1QvrL8D2h3TfGvimykhjwmgjx&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1u3XMeGn3dTD1DAwqjjzPdGbWVi1MLlFN&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1epvYZNG69iL5VcA90ghzXURUSqdaty01&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1l-LnSnFdjgP7yt34Ma9BBJv75UcMlj9r&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1OWpEFhgpzZMp5rVnobrulT497C3NlZKa&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1UEE4ZCykvceBgzFileuMcOcIx0ZxkqAD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1AHA817LkR8Yym2CQJcfwAsZFDWQo-zsV&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1X_EH2M3q_txprpsZEueaWD97KJKjV85e&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=155IHqLw8raMi_m4f-i67v2cut2e2Y3Md&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1sVvvfHOmL-bb_sbZENyn-IqMePMLd9bQ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1cwMzhu75XDZ8fzeC8T5BnWOvA0yrCy_U&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1k0oA7i_aXKfR2FAM72OWkLgUtFl_50jw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1D6lbe1yW6G5nb0pEW8xSIqqjymrIU4eO&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1fJQ6BmDw5F803HbzVP_IVyxuX_OJFeBn&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1MlaZYifRj2wCoLGUbDxTUMo23Qn7ge2e&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Ytdp5Ts9ev-HNLDTwy77kCNYRUOpxXmC&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14Maa69yEaR4WR4_xe3spGBqiSZm4Sxiv&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=15NYc5ePSd2fuSWRlUVC9Goknkwu466zK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1F_munZrolfm9NKcWCcKaNd9RX_MA_JXr&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1V_d_JzgAAZZQ2LMJ192IpGsyTyNsJwlH&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1pXYcSB-F6aJlv9kUJzd9giCo2LqAZMzm&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=147P4Ma1WaUZqQKJLxMgvdm44b-DPFJiu&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-Mzv3jXVOXtc33GELGVq8SFfz49FX0gB&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Vh49ZY8ys92UkDb3KPZYp6yHEZ5EFXPT&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1dmSh7J-bfp_fyFxfFGzepdLCovcEqTIB&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1amudLZqRzbU-6rzBVD5GWSI80jkBxSGM&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=18ZQyR6Vy1i_NDDjBc2UpQ_QB4BTZFmY8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Ng5qKrmJKYyKW1aZMp1npA5klfm8mpPC&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1e9HwVJ70ERtpGICDsZ2g7YEoA7uHZ-3d&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gcmYWGsyopV9hJFAUUiZ5BV8kd6L3G-p&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1uAVTsoNT6U3sMDf2l3OY1V-feykDEbbO&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1DOIUdC8Q9M-nEfHpKpXl8Cbqc5nnKbu6&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1sVghEcu9JrdDityEYuBuyBRUG1whrB9R&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_DIMmTmoy5PbCCXEDkPELtzhE3kQH1nF&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1i59lwHl1KNZt7EzIrWyrXoBv4rkhy9Ua&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1iHvd3d8UL2oG0FrDi3BtKSmk17wZYbwD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1uyCkwcHCYWPTEgwNXHKpJm-qud31zDs-&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1e7U8b7VDkBr5fL5gUeHfZsIGzm6HNnxj&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1C00H4fAjwcH99AdDQULf2Qeup5o32XA4&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1PWt-G5A8gHsfBA3VEMVhys5Vbg3yl4My&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gWgoMyUa4Lg5Vrsp-FIrNtf_6kN8aykL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1IVH-4LulrU1iwSNSs-VCEt3JfCkmwvZH&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1pkXTH_wuYWM7zdFLMpkH-cY1Axvs3K2b&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-GAps8MNltymPS5BCISsVgSnoTJnSt1L&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1R7IOLd7ThHSjg9GJeZU4KdN4B6LCAzFa&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1zxeGb282aRq5GgeMoBbe1LaXRqmm6-tB&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1OETPp2fR6LlFvb5_LNOj7K5yR78bYgEJ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1v3UhCyTW2BdKV4jYbsWIC2CmPtEuQUAw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=16amGCoOYEDB0bfyz--yIau_ZMvnhtJ9w&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1XLYPas9FvN8-O-AjHohkT6rzjLZ24Whu&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1eKMbAwtgO51KJSjyXI1bH9uOAfbMDneq&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1D9iRwp6K9ahWBUzgwoPTXzgkTBEdqn_7&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1rXc5VYd79UPFyFmdo1p9n_GvBFZX2cFX&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Y4c-KZw1a5wp26Eoe0EQ4765g4JlPrCx&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1nWO17vd7ATyEBcpHhKV2fAQnCXHwrdl8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Aa6dfjlaNpmRsbUOpkcLU6D5SQXZHRFY&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1lfObP9fDO3lAmFx7N-wu7uIkBBrzzorK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1yMwi_-Utqutp1pgoGOc0McBdBa08oqqh&sz=w1200">
                 </div>
             </div>
             
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Landscape</h3>
                     <p>Landscape Photography Set - Capturing nature, environments, and scale.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-landscape', 'Landscape')"><i class="fa-regular fa-images"></i> View Photo Set (9 Photos)</a>
                 </div>
                 <div id="gallery-landscape" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1dkEgRGU_sq6y-kNptu61Eys1l2ylqXSa&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1j9ZaLx1zpkAcJVt2DiTP9C1Jp9mY6miR&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1YP7v4ddVdXa8b_aDj9br1R2PMIEnqOAj&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1OHEaP-o4LLhPEfNWq5d2oMYj0fh6FcbG&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1flC99yLR_saii343ch3STHSHMP7A7ziK&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1BVBKz-ir6-f3Kj2z6o4eOPNQ-wXCd3xQ&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1tzef1gEnKj9cYIhEKDQt69iBMX0GmZC2&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1S4DFUKJU1w-1xdMfzeER9jtAgL9JI8hQ&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=10Co7ocFRB_rjBXtmR134_TR2Ng2NGgaf&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1dkEgRGU_sq6y-kNptu61Eys1l2ylqXSa&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1j9ZaLx1zpkAcJVt2DiTP9C1Jp9mY6miR&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1YP7v4ddVdXa8b_aDj9br1R2PMIEnqOAj&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1OHEaP-o4LLhPEfNWq5d2oMYj0fh6FcbG&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1flC99yLR_saii343ch3STHSHMP7A7ziK&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1BVBKz-ir6-f3Kj2z6o4eOPNQ-wXCd3xQ&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1tzef1gEnKj9cYIhEKDQt69iBMX0GmZC2&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1S4DFUKJU1w-1xdMfzeER9jtAgL9JI8hQ&sz=w1200">
                 </div>
             </div>
             
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Cinematic</h3>
                     <p>Cinematic Photography Set - Storytelling through frames and dramatic lighting.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-cinematic', 'Cinematic')"><i class="fa-regular fa-images"></i> View Photo Set (8 Photos)</a>
                 </div>
                 <div id="gallery-cinematic" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1200">
                 </div>
             </div>
         </div>
@@ -536,210 +538,210 @@
         <div class="grid-container four-cols">
             
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Poster</h3>
                     <p>Poster design and custom visual structures.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-poster', 'Poster Design')"><i class="fa-regular fa-images"></i> View Art Set (27 Photos)</a>
                 </div>
                 <div id="gallery-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Cover</h3>
                     <p>Album arts, single covers, and track layouts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-cover', 'Cover Art')"><i class="fa-regular fa-images"></i> View Art Set (25 Photos)</a>
                 </div>
                 <div id="gallery-cover" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Movie Poster</h3>
                     <p>Official promotional keys and cinematic posters.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-movie-poster', 'Movie Poster')"><i class="fa-regular fa-images"></i> View Art Set (8 Photos)</a>
                 </div>
                 <div id="gallery-movie-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1neKp6BTKVLypcyAqQHo1dw292AMnsjiD&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1euzgJ6VHalg9_C08unxzis5pbNBYBtcT&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1A0bBBySGlu0CLQMgePoyy8715n2_ACmm&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1R5ipyo90lp1dgTXkiQJJmoS4dl0aGZ5c&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1neKp6BTKVLypcyAqQHo1dw292AMnsjiD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1euzgJ6VHalg9_C08unxzis5pbNBYBtcT&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1A0bBBySGlu0CLQMgePoyy8715n2_ACmm&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Scanography</h3>
                     <p>Visual scanner experiments and digital layouts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-scanography', 'Scanography')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
                 </div>
                 <div id="gallery-scanography" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Logo</h3>
                     <p>Logo identity design and typography branding.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-logo', 'Logo Design')"><i class="fa-regular fa-images"></i> View Art Set (14 Photos)</a>
                 </div>
                 <div id="gallery-logo" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Thumbnail</h3>
                     <p>Digital media content previews and custom layouts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (23 Photos)</a>
                 </div>
                 <div id="gallery-thumbnail" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1PYpUAa1wc3NMKwI_p-wS1CSQqifvMPqL&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1_ysq_u7PXhOGPnE_1U8xOGlauqusfX7n&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1UnTqOBXTnGYHYVPPut1XhkXZ0tAGyYF2&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1v-v6uYwU-BUu-Mb7LAqArhwzB93K4PNG&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=13E2CemnF5bDBA9vahdW3EwpzHgFdL5rj&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1PYpUAa1wc3NMKwI_p-wS1CSQqifvMPqL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_ysq_u7PXhOGPnE_1U8xOGlauqusfX7n&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1UnTqOBXTnGYHYVPPut1XhkXZ0tAGyYF2&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1v-v6uYwU-BUu-Mb7LAqArhwzB93K4PNG&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=13E2CemnF5bDBA9vahdW3EwpzHgFdL5rj&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Quote</h3>
                     <p>Typography layouts and structural quote concepts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-quote', 'Quote Design')"><i class="fa-regular fa-images"></i> View Art Set (12 Photos)</a>
                 </div>
                 <div id="gallery-quote" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Mock-up</h3>
                     <p>Product mock-ups and digital brand presentation layouts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-mockup', 'Mock-up Design')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
                 </div>
                 <div id="gallery-mockup" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=15cUrAuqniphLdUR48p16A8oWLSTGODg0&sz=w1000">
-                    <img src="https://drive.google.com/thumbnail?id=1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj&sz=w1000">
+                    <img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=15cUrAuqniphLdUR48p16A8oWLSTGODg0&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj&sz=w1200">
                 </div>
             </div>
 
@@ -758,40 +760,112 @@
 
     <section id="bts">
         <h2 class="section-title">Behind The Scenes <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
-        <div class="grid-container">
+        <div class="grid-container four-cols">
+            
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1qcvgwvwrikYWyyHWUTgJFZnFR4HXs5WJ&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w1200" class="card-media">
                 <div class="card-info">
-                    <h3>TBA</h3>
-                    <p>To Be Announced</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-p1', 'TBA')"><i class="fa-regular fa-images"></i> View Grid Gallery (2 Photos)</a>
+                    <h3>ภาพสุดท้าย (Blur Memories)</h3>
+                    <p>Behind the scenes photography and production sets.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-bts-blur', 'ภาพสุดท้าย (Blur Memories) - BTS')"><i class="fa-regular fa-images"></i> View Photo Set (10 Photos)</a>
                 </div>
-                <div id="gallery-p1" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1qcvgwvwrikYWyyHWUTgJFZnFR4HXs5WJ&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1s03Bezxw6zPSve_9geYumF2AXMQCFz17&sz=w1000">
+                <div id="gallery-bts-blur" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1DbuVeOEBxKNI5TXOfbmOQ8jwYUQCm437&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=19NPtxH75qpSaD__57i35VwK9jGvbtWaH&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1TDca5fYC-VQxjwYq6-li5P-53YfZM_SB&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=124taKDYvgKuTznSQoTKf70VSug_qgG_j&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-PRqlgg59D_iJRUfk5twYalBWSyRKlZl&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=13TBK9GIFGXK-oGYsJLWRABVC3npaA5_Q&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=qEAFgvBAcPSlwDdWLscQFjfornzV4YQP&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1JZZBnu6Hg9nBV8LImrk6yvEisUpgffps&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=lKGi5Ii8RZpqnyeARbgcXmYA0l_KJ2Zh&sz=w1200">
                 </div>
             </div>
+
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1H_HLWjsQLca5BSAU-tRwxnteY-s8_rGQ&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w1200" class="card-media">
                 <div class="card-info">
-                    <h3>TBA</h3>
-                    <p>To Be Announced</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-p2', 'TBA')"><i class="fa-regular fa-images"></i> View Grid Gallery (4 Photos)</a>
+                    <h3>เรียบ</h3>
+                    <p>Behind the scenes photography and production sets.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-bts-rieb', 'เรียบ - BTS')"><i class="fa-regular fa-images"></i> View Photo Set (10 Photos)</a>
                 </div>
-                <div id="gallery-p2" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1H_HLWjsQLca5BSAU-tRwxnteY-s8_rGQ&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1vkQ8TEKd5nFFDAftcI9k5yDYQmJBQ4kv&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1xqG2NZ7g-WuvHtLG59046XOOR5YqKLuS&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1RE6DahBY-Q2InfTTK-G2vI588cmc7k66&sz=w1000">
+                <div id="gallery-bts-rieb" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1McwbL6_2Un5xj0WOyR8LN4OD8yWo88a0&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=15VLborXMouq79HISzCA-rTso1kOAEQxJ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Fir-VWK2hUjvDdE0eLhm9ijsHIDtPmKF&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1hteAN9E-LWawIbZeuFRirhSlshU5BUKO&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Wqg-DAibAeUWTwf3emmQc_j5_FqwP3Hz&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1fmwjtd86bw7itoVeK7mIUSS5ORfLDbka&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=19RPSIY6Vt-USqSmIhgWLhldkuwxpUI93&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ceOA3H0gxJttkbmAMNwuHFzCIG_QqH1M&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1mFPEbYGD0dwA74YdAn5MTZPqKjHJZN2F&sz=w1200">
                 </div>
             </div>
+
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1sRd3HCVwbh1s2Vzlf1S4Yh3OsoSipM2F&sz=w1000" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w1200" class="card-media">
                 <div class="card-info">
-                    <h3>TBA</h3>
-                    <p>To Be Announced</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-p3', 'TBA')"><i class="fa-regular fa-images"></i> View Grid Gallery (2 Photos)</a>
+                    <h3>Sacred Path Across The River (สะพานบุญ)</h3>
+                    <p>Behind the scenes photography and production sets.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-bts-sacred', 'Sacred Path Across The River (สะพานบุญ) - BTS')"><i class="fa-regular fa-images"></i> View Photo Set (10 Photos)</a>
                 </div>
-                <div id="gallery-p3" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1sRd3HCVwbh1s2Vzlf1S4Yh3OsoSipM2F&sz=w1000"><img src="https://drive.google.com/thumbnail?id=1yz91go8ydL6ULy40ttOlOWfiFUr4vDlg&sz=w1000">
+                <div id="gallery-bts-sacred" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1rL_6yHl3fEpYQevgPp0tPMBZm2UQCukq&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1HP79VUhU9UWAZrS8YvsHHb7LNsu5Y7pb&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=15tEazCrSBnqynKYcptRnpfmXqHO_HuJf&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1gSE6ry8RS18kS3mKuOMcDGi42Bqtet0U&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-9H0M9Fbl1RefkI9XxkoADeDFmnf2LfD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Cgpb17JMpvShcHZeOOQszYbB9qnfchZ4&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1JTpfL0Sm_XSXd8x0qsPqjxRRlPJ7Yjuw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_c6caZWLCkZauYKoBmTbBH-irSVJgRlw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=11pSr2GiHtDAhBJtuwHMnNKIxnffYQi8f&sz=w1200">
                 </div>
             </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1_w6zv3VIDoxMfHhsubxbrnV1rztJQj2m&sz=w1200" class="card-media">
+                <div class="card-info">
+                    <h3>Here with Me (อย่าหายไป)</h3>
+                    <p>Behind the scenes photography and production sets.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-bts-here', 'Here with Me (อย่าหายไป) - BTS')"><i class="fa-regular fa-images"></i> View Photo Set (30 Photos)</a>
+                </div>
+                <div id="gallery-bts-here" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1dxLJRVGxmrQv8XAp0OeRQqMgIKbIr_3o&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1X_Z_veIRJpSkYsOIpuQ_5gk7p995Lrgj&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1KI67-yNMOM1Qs3GzhrgFAiLBgNl36fnu&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1NyNA6PLHlXPY2opsJpJnN4qUocc_htAz&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=18UZq-bBZuXFoq73NkC6yt9a1XxILH09a&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Y1Yu6vfjazrVA-Vrr6cmZcotKZpmDGEY&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=17WVhNKwAl-VcZbeuIzk35PGPTcG5snQC&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=15dSq_MZoefG_rily6mSYyhmRgeUADuwe&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1YiohvYh1MFp7A6e3jMGuJt1z2Q6VTaM2&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1mclUCZlnhUhb4YizlsNP2xUx6XEj9eQn&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1KkuvyEzT9oUKTnD2pw1TP_Z8wnO03LTZ&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=16q7h8XuWjJjMXdXUfJFXJBV2QrjNl8Rx&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_w6zv3VIDoxMfHhsubxbrnV1rztJQj2m&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1K8tk_qArSlBae7GnmwaodUKhMRDdm1Ea&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ausVl0Lx3ALJb2N9ANOusY_Gh01kHkBg&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1yYNfWsvlYBsJmkJTsBBoJpEwRoPr5rB0&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1eVtQuMucK09zv0NCqAzxcXCcFlHsXfil&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1U5EoCp8eoHcPionwyYGOniwiFZen-lMb&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=18UmBuvtnN3-BcQi8CeZvlF_iUiwHOPAr&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1EBMon9mj_CCQ7Nxb4Hn1hyeK1j4XsxJL&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1R8LswGmjX042HqTMVehfWr6OPdA5e3RG&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1AkPQA3VDTu69IycPh6KyjiXae3T5JDts&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1JseC1h-LbgPGi3h8o6APXKgCSF7EldWe&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Mfay08ZUiqbU67XI-ZF0ZA6HaG_bMQ5G&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1WfYARLaVN7YTuogle0XRiJHyh-mFLP0q">
+                    <img src="https://drive.google.com/thumbnail?id=1FKYNO4v7MME7MGigyOBJdQbTcF2lOycv">
+                    <img src="https://drive.google.com/thumbnail?id=1CtKzyeiMDOqbAzBkRs8--za8v3kbtGFQ">
+                    <img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd">
+                    <img src="https://drive.google.com/thumbnail?id=1YGJj1hHIabxTyy_HruwjO0VHJZ65_lGh">
+                    <img src="https://drive.google.com/thumbnail?id=1FjyuJWXe9ecszBpQ-JXlSy5qxW8EskxR">
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -844,13 +918,11 @@
             }
         }
 
-        // Adaptive Modal 4-Column Responsive Grid System (No-Crop) 
-        // Reverted to Flex Wrap Layout Design per request
+        // Adaptive Modal Responsive System with Reverted Flex Wrap Layout Design
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
             const gridContent = document.getElementById('masonry-content');
             
-            // Reapply Original Flex-Wrap Settings dynamically
             gridContent.style.display = 'flex';
             gridContent.style.flexWrap = 'wrap';
             gridContent.style.justifyContent = 'center';
@@ -865,7 +937,6 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'masonry-item';
                 
-                // ความสูงแบบเดิมที่ทำให้ Flex-wrap ล็อกบรรทัดเป็นระเบียบ
                 itemDiv.style.height = window.innerWidth < 768 ? '160px' : '260px';
                 itemDiv.style.marginBottom = '5px';
                 itemDiv.onclick = () => openSingleImage(index);
