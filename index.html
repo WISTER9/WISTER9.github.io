@@ -63,14 +63,12 @@
             line-height: 1.6;
             overflow-x: hidden;
             transition: background-color 0.3s, color 0.3s;
-            /* ป้องกันการคลุมดำเลือกข้อความและรูปภาพ */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* ป้องกันการลากรูปภาพ */
         img {
             -webkit-user-drag: none;
             -khtml-user-drag: none;
@@ -94,14 +92,12 @@
         .logo:hover { color: var(--accent-color); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .header-right { display: flex; align-items: center; gap: 1.5rem; }
 
-        /* Navigation & Hamburger */
         nav ul { display: flex; list-style: none; gap: 1.5rem; transition: var(--transition); }
         nav ul li a { color: var(--accent-color); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); }
         nav ul li a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         
         .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); z-index: 1001; }
 
-        /* Theme Toggle */
         #theme-toggle {
             background: none;
             border: 1px solid var(--accent-color);
@@ -259,7 +255,7 @@
                 text-align: center; gap: 0; overflow: hidden;
                 max-height: 0; transition: max-height 0.3s ease-out;
             }
-            body.light-mode nav ul { background-color: rgba(247, 247, 247, 0.98); }
+            body.light-mode nav ul { background-color: rgba(247, 247, 247, 0.95); }
             nav ul.active { max-height: 400px; padding-bottom: 1rem; border-bottom: 1px solid #333; }
             body.light-mode nav ul.active { border-bottom: 1px solid #ddd; }
             nav ul li { padding: 10px 0; }
@@ -308,7 +304,6 @@
         <p>Artist | Filmmaker | Photographer | Graphic Designer | Creator</p>
     </section>
 
-    <!-- Profile Section -->
     <section id="profile">
         <h2 class="section-title">Profile</h2>
         <div class="resume-container">
@@ -405,7 +400,6 @@
         </div>
     </section>
 
-    <!-- Music Section -->
     <section id="music">
         <h2 class="section-title">Music <span class="aka-text">| WISTER9</span></h2>
         <div style="max-width: 800px; line-height: 1.8; color: #ccc; margin-bottom: 2rem; position: relative; z-index: 10;">
@@ -423,6 +417,7 @@
                         <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank" class="music-btn music-btn-spotify"><i class="fa-brands fa-spotify"></i> Spotify</a>
                         <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank" class="music-btn music-btn-apple"><i class="fa-brands fa-itunes-note"></i> Apple Music</a>
                         <a href="https://music.youtube.com/@wakewister_9up" target="_blank" class="music-btn music-btn-youtube"><svg viewBox="0 0 24 24" style="width: 1.2rem; height: 1.2rem; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg> YouTube Music</a>
+                        <a href="https://www.youtube.com/@wakewister_9up" target="_blank" class="music-btn music-btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
                         <a href="https://lyrics.lyricfind.com/artists/wister9" target="_blank" class="music-btn music-btn-lyrics"><i class="fa-solid fa-microphone-lines"></i> Lyrics</a>
                     </div>
                 </div>
@@ -470,11 +465,11 @@
         </div>
     </section>
 
-    <!-- Film Section -->
     <section id="film-media">
         <div class="section-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <h2 class="section-title" style="margin-bottom: 0;">Film and Media <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <a href="https://www.youtube.com/@pannathatintharit" target="_blank" class="music-btn music-btn-youtube" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-youtube"></i> Pannathat Intharit</a>
                 <a href="https://www.instagram.com/xpan.visuals/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> xpan.visuals</a>
                 <a href="https://www.instagram.com/tripphase.ig/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> tripphase.ig</a>
             </div>
@@ -500,7 +495,7 @@
             </div>
             <div class="card">
                 <div class="video-container">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSh-gUpk9Yq/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSh-gUpk9Yq/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
                 </div>
                 <div class="card-info">
                     <h3>บททดลองที่ 1 ของการเดินทาง</h3>
@@ -519,7 +514,6 @@
         </div>
     </section>
 
-    <!-- Photography Section -->
     <section id="photography">
         <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
@@ -529,7 +523,7 @@
                 <div class="card-info">
                     <h3>Cinematic</h3>
                     <p>Cinematic Photography Set - Storytelling through frames and dramatic lighting.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-cinematic', 'Cinematic')"><i class="fa-regular fa-images"></i> View Photo Set (20 Photos)</a>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-cinematic', 'Cinematic')"><i class="fa-regular fa-images"></i> View Photo Set (23 Photos)</a>
                 </div>
                 <div id="gallery-cinematic" class="hidden-gallery">
                     <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1200"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1200">
@@ -545,6 +539,9 @@
                     <img src="https://drive.google.com/thumbnail?id=1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9&sz=w1200">
                 </div>
             </div>
 
@@ -558,7 +555,7 @@
                 <div id="gallery-wildlife" class="hidden-gallery">
                     <img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2">
                     <img src="https://drive.google.com/thumbnail?id=1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J&sz=w1200">
                 </div>
@@ -608,7 +605,6 @@
         </div>
     </section>
 
-    <!-- Graphic Section -->
     <section id="graphic">
         <h2 class="section-title">Graphic Design <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
@@ -752,7 +748,7 @@
                 <div class="card-info">
                     <h3>Thumbnail</h3>
                     <p>Digital media content previews and custom layouts.</p>
-                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (25 Photos)</a>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (20 Photos)</a>
                 </div>
                 <div id="gallery-thumbnail" class="hidden-gallery">
                     <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200">
@@ -763,38 +759,27 @@
                     <img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1PYpUAa1wc3NMKwI_p-wS1CSQqifvMPqL&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1_ysq_u7PXhOGPnE_1U8xOGlauqusfX7n&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1UnTqOBXTnGYHYVPPut1XhkXZ0tAGyYF2&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1v-v6uYwU-BUu-Mb7LAqArhwzB93K4PNG&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=13E2CemnF5bDBA9vahdW3EwpzHgFdL5rj&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1c_H03TuZKq7PECZf9R3G8h-7YRArKMeF&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1JBk3LDJY7oX861brq0oJVyaVtnkiRzJG&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP&sz=w1200">
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200" class="card-media">
+                <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200" class="card-media">
                 <div class="card-info">
                     <h3>Quote</h3>
                     <p>Typography layouts and structural quote concepts.</p>
                     <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-quote', 'Quote Design')"><i class="fa-regular fa-images"></i> View Art Set (12 Photos)</a>
                 </div>
                 <div id="gallery-quote" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200">
-                    <img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1200">
@@ -803,6 +788,10 @@
                     <img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1200">
                     <img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200">
                 </div>
             </div>
 
@@ -825,10 +814,75 @@
                 </div>
             </div>
 
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1gXqoKeM6wenElkRH0B_2UTgst3d9oVdK&sz=w1200" class="card-media">
+                <div class="card-info">
+                    <h3>Banner</h3>
+                    <p>Digital banners and promotional layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-banner', 'Banner Design')"><i class="fa-regular fa-images"></i> View Art Set (4 Photos)</a>
+                </div>
+                <div id="gallery-banner" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1gXqoKeM6wenElkRH0B_2UTgst3d9oVdK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=13SA7Jh-8kUlsn46LV76u2CJE2IgY-BRr&sz=w1200" class="card-media">
+                <div class="card-info">
+                    <h3>Illustrator</h3>
+                    <p>Vector art, illustrations, and scalable graphics.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-illustrator', 'Illustrator Art')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
+                </div>
+                <div id="gallery-illustrator" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=13SA7Jh-8kUlsn46LV76u2CJE2IgY-BRr&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1iNuTRV1qbIiPjAsZbPr8qcOKz8uiZrtI&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Pj0Tw_EG8MbCjjFHbHtel3bfEvzLYZ6Z&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1-BATuFWtK30VVkDyRcXN07OpFUhkl229&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1OX6UELyTyB9nqBAD7i90GYTzWiQJLNiU&sz=w1200">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1_oceHpMIUtd-NVslf5loZNCfbNMLok0H&sz=w1200" class="card-media">
+                <div class="card-info">
+                    <h3>Cards</h3>
+                    <p>Business cards, invitations, and stationery layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-card', 'Cards')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
+                </div>
+                <div id="gallery-card" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1_oceHpMIUtd-NVslf5loZNCfbNMLok0H&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1_CtZXeIjiISFUhF2jE6DYD7-XRcSGTHs&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1hcKBgZFjW4DXgGNuKjia1sGN55tb4TxI&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1AOKF6q_cdUPdEDwLnFiGFjK_iGlZkoPX&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1705nRYWc4Dw9TEMge-HWdgQ9mQWntHDO&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1Q5mU7RrpA8FhUZa5dkzdJQVgotcv3T0l&sz=w1200">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://drive.google.com/thumbnail?id=1wjoJxqXHjpNJOB8vFoOAaOx5ZHrGckfD&sz=w1200" class="card-media">
+                <div class="card-info">
+                    <h3>Others</h3>
+                    <p>Miscellaneous graphic design works and custom layouts.</p>
+                    <a href="javascript:void(0);" class="card-link" onclick="openGridGallery('gallery-graphic-others', 'Others')"><i class="fa-regular fa-images"></i> View Art Set (7 Photos)</a>
+                </div>
+                <div id="gallery-graphic-others" class="hidden-gallery">
+                    <img src="https://drive.google.com/thumbnail?id=1wjoJxqXHjpNJOB8vFoOAaOx5ZHrGckfD&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1LbxjIUGrv7XTk7kEdUkNR559mYGuMSGY&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1nAF10LnHx9wdJnfG-35NlB6EpWucj7j7&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1F1wv0ISidmQABrPRT3uouH5ezy1Lcd36&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1s1YJwYsWqNsmiXoklKQ9KpRWKZMVg2-A&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1H2eh0eTzFRBbK9jElFIamI1YJcrlrrri&sz=w1200">
+                    <img src="https://drive.google.com/thumbnail?id=1XhSKbTG41ZoDwUE87LPn3gQZf_sWQ8bB&sz=w1200">
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Other Works Section -->
     <section id="other-works">
         <h2 class="section-title">Other Works <span class="aka-text">| Collaborations & Assistance</span></h2>
         <div class="grid-container four-cols">
@@ -965,7 +1019,7 @@
 
             <div class="card">
                 <div class="video-container">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
                 </div>
                 <div class="card-info">
                     <h3>A Little Bit Complex. (2025)</h3>
@@ -975,7 +1029,7 @@
 
             <div class="card">
                 <div class="video-container">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
                 </div>
                 <div class="card-info">
                     <h3>พิธีพระราชทานปริญญาบัตร คณะศิลปกรรมศาสตร์ มหาวิทยาลัยขอนแก่น ประจำปี 2568</h3>
@@ -985,7 +1039,7 @@
 
             <div class="card">
                 <div class="video-container">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-theme="dark" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style=" background:#1a1a1a; border:0; margin: 0; max-width:100%; min-width:100%; padding:0; width:100%; height:100%;"><div style="padding:16px;"></div></blockquote>
                 </div>
                 <div class="card-info">
                     <h3>กิจกรรมปฐมนิเทศ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยขอนแก่น ประจำปี 2568</h3>
@@ -996,12 +1050,10 @@
         </div>
     </section>
 
-    <!-- BTS Section -->
     <section id="bts">
         <h2 class="section-title">Behind The Scenes <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
             
-            <!-- Project 1: เรียบ -->
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w1200" class="card-media">
                 <div class="card-info">
@@ -1021,7 +1073,6 @@
                 </div>
             </div>
 
-            <!-- Project 2: สะพานบุญ -->
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w1200" class="card-media">
                 <div class="card-info">
@@ -1043,7 +1094,6 @@
                 </div>
             </div>
 
-            <!-- Project 3: อย่าหายไป -->
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd&sz=w1200" class="card-media">
                 <div class="card-info">
@@ -1077,7 +1127,6 @@
                 </div>
             </div>
 
-            <!-- Project 4: ภาพสุดท้าย -->
             <div class="card">
                 <img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w1200" class="card-media">
                 <div class="card-info">
@@ -1102,10 +1151,8 @@
         </div>
     </section>
 
-    <!-- เรียกใช้ IG Embed Script แค่ครั้งเดียวท้ายไฟล์ -->
     <script async src="//www.instagram.com/embed.js"></script>
 
-    <!-- Modals -->
     <div id="gridModal" class="grid-modal">
         <div class="grid-modal-header"><h2 id="grid-modal-title" class="grid-modal-title">Project Name</h2><button class="lightbox-btn" onclick="closeGridGallery()"><i class="fa-solid fa-xmark"></i></button></div>
         <div id="masonry-content"></div>
@@ -1128,7 +1175,6 @@
             <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank"><i class="fa-brands fa-spotify"></i></a>
             <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank"><i class="fa-brands fa-itunes-note"></i></a>
             <a href="https://music.youtube.com/@wakewister_9up" target="_blank"><svg viewBox="0 0 24 24" style="width: 1.8rem; height: 1.8rem;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg></a>
-            <a href="https://www.youtube.com/@pannathatintharit" target="_blank"><i class="fa-brands fa-youtube"></i></a>
             <a href="https://youtube.com/@WiSTeR9" target="_blank"><i class="fa-brands fa-youtube"></i></a>
             <a href="mailto:wistertube9@gmail.com"><i class="fa-regular fa-envelope"></i></a>
         </div>
@@ -1136,10 +1182,8 @@
     </footer>
 
     <script>
-        // ระบบป้องกันการคลิกขวาและการคัดลอกรูปภาพ
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', (e) => {
-            // ป้องกัน Ctrl+S (บันทึกเพจ), Ctrl+U (ดูโค้ด), Ctrl+Shift+I (เปิด Inspect)
             if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) {
                 e.preventDefault();
             }
@@ -1151,7 +1195,6 @@
         let currentImages = [];
         let currentIndex = 0;
 
-        // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
@@ -1159,7 +1202,6 @@
             themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
-        // Mobile Menu Toggler
         function toggleMenu() {
             if (window.innerWidth <= 850) {
                 const navMenu = document.getElementById('nav-menu');
@@ -1167,7 +1209,6 @@
             }
         }
 
-        // Adaptive Modal Responsive System with Flex Wrap Layout Design
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
             const gridContent = document.getElementById('masonry-content');
