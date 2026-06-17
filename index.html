@@ -19,10 +19,10 @@
 
         /* --- LIGHT MODE STYLES --- */
         body.light-mode {
-            --bg-color: #f7f7f7;
+            --bg-color: #f4f4f4;
             --text-color: #121212;
-            --accent-color: #2d2d2d;
-            --secondary-bg: #eaeaea;
+            --accent-color: #222222;
+            --secondary-bg: #ffffff;
         }
 
         body.light-mode #home p,
@@ -31,28 +31,48 @@
         body.light-mode .skill-list li,
         body.light-mode .card-info p,
         body.light-mode #music div > p,
-        body.light-mode footer p { color: #444 !important; }
-        body.light-mode .aka-text { color: #666; }
+        body.light-mode footer p { color: #555 !important; }
+        
+        body.light-mode .aka-text { color: #777; }
         body.light-mode #home::before { opacity: 0.15; }
-        body.light-mode #music::before { opacity: 0.08; }
-        body.light-mode header { background-color: rgba(247, 247, 247, 0.95); border-bottom: 1px solid #ddd; }
-        body.light-mode nav ul { background-color: rgba(247, 247, 247, 0.95); }
-        body.light-mode nav ul li a { color: #555; }
+        body.light-mode #music::before { opacity: 0.05; }
+        body.light-mode header { background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid #ddd; }
+        body.light-mode nav ul { background-color: rgba(255, 255, 255, 0.95); }
+        body.light-mode nav ul li a { color: #444; font-weight: 500; }
         body.light-mode nav ul li a:hover { color: #000; text-shadow: none; }
         body.light-mode .logo { color: #111; }
         body.light-mode .logo:hover { color: #000; text-shadow: none; }
-        body.light-mode .resume-block h3, body.light-mode .resume-photos-column h3 { color: #111; border-bottom: 1px solid #ddd; }
-        body.light-mode .profile-photo-grid img { border: 1px solid #ccc; }
-        body.light-mode .profile-photo-grid img:hover { border-color: #000; }
-        body.light-mode .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        body.light-mode .grid-modal-header { border-bottom: 1px solid #ddd; }
-        body.light-mode footer { border-top: 1px solid #ddd; }
+        body.light-mode .resume-block h3, body.light-mode .resume-photos-column h3 { color: #111; border-bottom: 1px solid #ccc; }
+        body.light-mode .resume-block h4 { color: #333; font-weight: 700; }
+        
+        body.light-mode .skill-tag { background-color: #eee; border-color: #ccc; color: #333; }
+        body.light-mode .skill-tag:hover { background-color: #111; color: #fff; border-color: #111; }
+        
+        body.light-mode .profile-photo-grid img { border: 1px solid #ddd; }
+        body.light-mode .profile-photo-grid img:hover { border-color: #111; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        body.light-mode .card { border: 1px solid #eaeaea; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        body.light-mode .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.12); border-color: #ccc; }
+        body.light-mode .card-info h3 { color: #111; }
+        
+        body.light-mode .grid-modal-header { border-bottom: 1px solid #ccc; }
+        body.light-mode .grid-modal-title { color: #111; }
+        body.light-mode footer { border-top: 1px solid #ddd; background-color: #fff; }
         body.light-mode .hamburger { color: #111; }
-        body.light-mode .filter-btn { border-color: #ccc; color: #555; }
-        body.light-mode .filter-btn:hover { border-color: #111; color: #111; }
+        
+        body.light-mode .filter-btn { border-color: #bbb; color: #555; }
+        body.light-mode .filter-btn:hover { border-color: #111; color: #111; background: #f9f9f9; }
         body.light-mode .filter-btn.active { background: #111; color: #fff; border-color: #111; }
-        body.light-mode .back-btn { background: #ddd; color: #111; }
-        body.light-mode .floating-cta { background: linear-gradient(135deg, #111, #333); color: #fff; }
+        
+        body.light-mode .back-btn { background: #eee; color: #111; border-color: #ccc; }
+        body.light-mode .back-btn:hover { background: #ddd; }
+        
+        /* Force Lightbox to remain dark regardless of theme */
+        .lightbox .back-btn { background: #222 !important; color: #fff !important; border-color: #444 !important; }
+        .lightbox .back-btn:hover { background: #444 !important; }
+        .lightbox-btn { color: #e0e0e0 !important; }
+        .lightbox-btn:hover { color: #ffffff !important; }
+        #lightbox-counter { color: #ffffff !important; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', Arial, sans-serif; scroll-behavior: smooth; }
 
@@ -97,7 +117,7 @@
 
         /* CTA Buttons */
         .btn-primary { background: var(--accent-color); color: var(--bg-color); padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: var(--transition); display: inline-block; font-family: 'Prompt', sans-serif; letter-spacing: 1px; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.2); background: #fff; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.2); background: #fff; color: #000; }
         .btn-outline { background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); padding: 10px 28px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: var(--transition); display: inline-block; font-family: 'Prompt', sans-serif; letter-spacing: 1px; }
         .btn-outline:hover { background: var(--accent-color); color: var(--bg-color); transform: translateY(-3px); }
         .home-cta { margin-top: 2.5rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
@@ -113,7 +133,7 @@
 
         /* Filter System */
         .portfolio-filter-container { padding: 2rem 5% 0; text-align: center; position: relative; z-index: 10; }
-        .portfolio-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 0 auto; max-width: 100%; } /* Expanded max-width so Others doesn't drop */
+        .portfolio-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 0 auto; max-width: 100%; }
         .filter-btn {
             background: transparent; border: 1px solid #444; color: #aaa;
             padding: 8px 18px; border-radius: 30px; cursor: pointer;
@@ -153,7 +173,7 @@
             display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
             color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; z-index: 10;
+            position: relative; z-index: 10; flex-shrink: 0;
         }
         .music-btn-spotify { background-color: #1DB954; border: 1px solid #1aa34a; }
         .music-btn-spotify:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.6); color: #fff; }
@@ -173,15 +193,21 @@
         /* Cards Layout */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 10; }
         .grid-container.four-cols { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-        @media (min-width: 1200px) { .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); } }
+        
+        @media (min-width: 1200px) { 
+            .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); }
+        }
+
         .card { background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .card-media { width: 100%; height: 200px; background-color: #333; object-fit: cover; color: #666; }
+        .card-media { width: 100%; height: 200px; background-color: #333; object-fit: cover; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; color: #666; }
         .card-info { padding: 1.5rem; flex-grow: 1; }
         .card-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; line-height: 1.4; }
         .card-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 1rem; }
         .card-link { display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--accent-color); color: var(--text-color); text-decoration: none; border-radius: 4px; transition: var(--transition); font-size: 0.9rem; cursor: pointer; }
         .card-link:hover { background-color: var(--accent-color); color: var(--bg-color); }
+        
+        /* Video Container CSS */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .video-container iframe, .video-container .instagram-media { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; margin: 0 !important; min-width: 100% !important; max-width: 100% !important; box-shadow: none !important; border-radius: 0 !important; }
 
@@ -189,6 +215,7 @@
         .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
         .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
         .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        
         #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
         .masonry-item { cursor: pointer; transition: transform 0.3s; }
         .masonry-item:hover { transform: scale(1.02); }
@@ -197,12 +224,11 @@
         .lightbox-content { max-width: 90%; max-height: 80vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); object-fit: contain; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .lightbox-controls { display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 20px; }
-        .lightbox-btn { background: none; border: none; color: var(--accent-color); font-size: 2rem; cursor: pointer; transition: var(--transition); }
-        .lightbox-btn:hover { color: #fff; transform: scale(1.2); }
+        .lightbox-btn { background: none; border: none; font-size: 2rem; cursor: pointer; transition: var(--transition); }
+        .close-btn { position: absolute; top: 20px; right: 30px; }
         
         .back-btn { display: flex; align-items: center; gap: 8px; font-size: 1rem; text-transform: uppercase; background: #222; padding: 8px 20px; border-radius: 30px; border: 1px solid #444; cursor: pointer; transition: var(--transition); color: #fff; }
         .back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: translateY(-2px); border-color: var(--accent-color); }
-        .close-btn { position: absolute; top: 20px; right: 30px; }
         
         .hidden-gallery { display: none; }
 
@@ -230,18 +256,43 @@
             nav ul li { padding: 10px 0; }
             .header-right { gap: 1rem; }
             .close-btn { right: 20px; font-size: 1.8rem; padding: 8px 15px; }
-            .floating-cta { padding: 12px 20px; font-size: 0.9rem; bottom: 20px; right: 20px; }
         }
         @media (max-width: 768px) {
             header { padding: 1rem; }
-            #home h1 { font-size: 2.2rem; }
-            #home h2 { font-size: 1.4rem; margin-top: -0.4rem; }
-            section { padding-top: 5rem; min-height: auto; }
+            #home h1 { font-size: 2rem; letter-spacing: 2px; }
+            #home h2 { font-size: 1.2rem; margin-top: -0.4rem; }
+            #home p { font-size: 0.9rem; padding: 0 10px; }
+            section { padding-top: 6rem; min-height: auto; }
+            
+            h2.section-title { font-size: 1.6rem; display: flex; flex-direction: column; text-align: left; align-items: flex-start; margin-bottom: 1.5rem; line-height: 1.2; }
+            .aka-text { font-size: 0.9rem; margin-left: 0; margin-top: 4px; display: block; }
+            
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
             .profile-photo-grid { grid-template-columns: repeat(2, 1fr); }
-            .section-header-flex { flex-direction: column; align-items: flex-start !important; gap: 1rem; }
             .grid-container.four-cols { grid-template-columns: repeat(1, 1fr); }
+            
+            .home-cta { flex-direction: column; gap: 1rem; width: 100%; padding: 0 20px; }
+            .btn-primary, .btn-outline { width: 100%; font-size: 0.95rem; text-align: center; padding: 10px 20px; }
+            
+            .filter-btn { font-size: 0.8rem; padding: 6px 12px; }
+            
+            /* Responsive Buttons */
+            .section-header-flex { flex-direction: column; align-items: flex-start !important; gap: 1rem; }
+            .section-header-flex div { flex-wrap: wrap; gap: 8px; width: 100%; }
+            .music-btn { font-size: 0.8rem; padding: 8px 12px; width: auto; flex-grow: 1; justify-content: center; }
+            
+            .grid-modal-title { font-size: 1.3rem; }
+            .grid-modal-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .grid-modal { padding-top: 100px; }
+            
+            .floating-cta { padding: 10px 15px; font-size: 0.85rem; bottom: 20px; right: 20px; }
+        }
+        @media (max-width: 480px) {
+            .floating-cta span { display: none; }
+            .floating-cta { padding: 15px; border-radius: 50%; }
+            .floating-cta i { margin: 0; font-size: 1.2rem; }
+            .music-btn { width: 100%; }
         }
     </style>
 </head>
@@ -265,7 +316,7 @@
     </header>
 
     <a href="mailto:wistertube9@gmail.com" class="floating-cta">
-        <i class="fa-solid fa-envelope"></i> Let's Collaborate
+        <i class="fa-solid fa-envelope"></i> <span>Let's Connect</span>
     </a>
 
     <section id="home">
@@ -278,7 +329,6 @@
         </div>
     </section>
 
-    <!-- Profile Section -->
     <section id="profile">
         <h2 class="section-title">Profile</h2>
         <div class="resume-container">
@@ -351,7 +401,6 @@
         </div>
     </section>
 
-    <!-- Portfolio Filter System -->
     <div class="portfolio-filter-container" id="portfolio-wrapper">
         <h2 class="section-title" style="font-size: 1.8rem; border: none; margin-bottom: 0;">Portfolio Collection</h2>
         <div class="portfolio-filter">
@@ -365,7 +414,6 @@
         </div>
     </div>
 
-    <!-- Music Section -->
     <section id="music" class="portfolio-section">
         <h2 class="section-title">Music <span class="aka-text">| WISTER9</span></h2>
         <div style="max-width: 950px; line-height: 1.8; color: #ccc; margin-bottom: 2rem; position: relative; z-index: 10;">
@@ -398,7 +446,6 @@
         </div>
     </section>
 
-    <!-- Film Section -->
     <section id="film-media" class="portfolio-section">
         <div class="section-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <h2 class="section-title" style="margin-bottom: 0;">Film and Media <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
@@ -416,7 +463,6 @@
         </div>
     </section>
 
-    <!-- Photography Section -->
     <section id="photography" class="portfolio-section">
         <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
@@ -429,9 +475,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-cinematic', 'Cinematic')"><i class="fa-regular fa-images"></i> View Photo Set (23 Photos)</a>
                 </div>
                 <div id="gallery-cinematic" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15dUslNqx_yP9J06KrUCBid9W_KwAFNew&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12B_7pIdupiGLUUROKhQKU-elHOAj0TIK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15dUslNqx_yP9J06KrUCBid9W_KwAFNew&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12B_7pIdupiGLUUROKhQKU-elHOAj0TIK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -443,7 +487,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-wildlife', 'Wildlife')"><i class="fa-regular fa-images"></i> View Photo Set (5 Photos)</a>
                 </div>
                 <div id="gallery-wildlife" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -474,7 +518,6 @@
         </div>
     </section>
 
-    <!-- Graphic Section -->
     <section id="graphic" class="portfolio-section">
         <h2 class="section-title">Graphic Design <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
@@ -487,7 +530,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-poster', 'Poster Design')"><i class="fa-regular fa-images"></i> View Art Set (27 Photos)</a>
                 </div>
                 <div id="gallery-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -499,7 +542,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-cover', 'Cover Art')"><i class="fa-regular fa-images"></i> View Art Set (25 Photos)</a>
                 </div>
                 <div id="gallery-cover" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -523,12 +566,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-scanography', 'Scanography')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
                 </div>
                 <div id="gallery-scanography" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1200" loading="lazy">
-                    <img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -540,7 +578,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-logo', 'Logo Design')"><i class="fa-regular fa-images"></i> View Art Set (14 Photos)</a>
                 </div>
                 <div id="gallery-logo" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -552,7 +590,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (20 Photos)</a>
                 </div>
                 <div id="gallery-thumbnail" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1c_H03TuZKq7PECZf9R3G8h-7YRArKMeF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JBk3LDJY7oX861brq0oJVyaVtnkiRzJG&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -564,7 +602,7 @@
                     <a class="card-link" onclick="openGridGallery('gallery-quote', 'Quote Design')"><i class="fa-regular fa-images"></i> View Art Set (12 Photos)</a>
                 </div>
                 <div id="gallery-quote" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200" loading="lazy">
+                    <img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1200" loading="lazy">
                 </div>
             </div>
 
@@ -631,7 +669,6 @@
         </div>
     </section>
 
-    <!-- Other Works Section (Moved above BTS) -->
     <section id="other-works" class="portfolio-section">
         <h2 class="section-title">Other Works <span class="aka-text">| Collaborations & Assistance</span></h2>
         <div class="grid-container four-cols">
@@ -654,7 +691,6 @@
         </div>
     </section>
 
-    <!-- BTS Section -->
     <section id="bts" class="portfolio-section">
         <h2 class="section-title">Behind The Scenes <span class="aka-text">| Pannathat Intharit</span></h2>
         <div class="grid-container four-cols">
@@ -712,7 +748,6 @@
 
     <script async src="//www.instagram.com/embed.js"></script>
 
-    <!-- Modals -->
     <div id="gridModal" class="grid-modal">
         <div class="grid-modal-header">
             <h2 id="grid-modal-title" class="grid-modal-title">Project Name</h2>
@@ -745,6 +780,7 @@
     </footer>
 
     <script>
+        // Disable Right Click & Developer Tools for image protection
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
@@ -766,12 +802,14 @@
         let currentImages = [];
         let currentIndex = 0;
 
+        // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             themeToggle.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
+        // Mobile Menu Toggler
         function toggleMenu() {
             if (window.innerWidth <= 850) {
                 document.getElementById('nav-menu').classList.toggle('active');
@@ -797,6 +835,7 @@
             });
         }
 
+        // Open Grid Gallery for Projects
         function openGridGallery(galleryId, titleText) {
             const gallery = document.getElementById(galleryId);
             const gridContent = document.getElementById('masonry-content');
@@ -819,7 +858,7 @@
                 const imgEl = document.createElement('img');
                 imgEl.src = src;
                 
-                // Add Dynamic Srcset to Gallery Items
+                // Add Dynamic Srcset to Gallery Items for faster loading
                 const match = src.match(/id=([^&]+)/);
                 if(match) {
                     const id = match[1];
