@@ -20,33 +20,37 @@
             --smooth-curve: cubic-bezier(0.16, 1, 0.3, 1);
             --hover-glow: 0 0 25px rgba(255, 255, 255, 0.25);
             --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            --spotify-glass: rgba(25, 25, 25, 0.6);
+            --spotify-glass: rgba(20, 20, 20, 0.25);
         }
 
-        /* --- LIGHT MODE --- */
+        /* --- LIGHT MODE (Ultra Glass) --- */
         body.light-mode {
-            --bg-base: #eef1f5;
-            --text-main: #111111;
+            --bg-base: #e8ecf1;
+            --text-main: #1a1a1c;
             --text-muted: #555555;
             --accent: #000000;
-            --surface-glass: rgba(255, 255, 255, 0.65);
-            --surface-border: rgba(0, 0, 0, 0.08);
-            --hover-glow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-            --spotify-glass: rgba(255, 255, 255, 0.7);
+            --surface-glass: rgba(255, 255, 255, 0.35);
+            --surface-border: rgba(255, 255, 255, 0.5);
+            --hover-glow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --spotify-glass: rgba(255, 255, 255, 0.4);
         }
 
         /* --- BASE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.7; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
         img { user-drag: none; -webkit-user-drag: none; }
         a { text-decoration: none; color: inherit; }
 
-        /* --- BACKGROUND --- */
-        .bg-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; animation: slowBreathe 25s infinite alternate; }
+        /* --- DYNAMIC BACKGROUND --- */
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; animation: dynamicPan 35s ease-in-out infinite alternate; }
         .bg-layer.active { opacity: 0.25; }
-        body.light-mode .bg-layer.active { opacity: 0.07; }
-        @keyframes slowBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        body.light-mode .bg-layer.active { opacity: 0.15; filter: saturate(1.2); }
+        @keyframes dynamicPan { 
+            0% { transform: scale(1.1) translate(0, 0); } 
+            50% { transform: scale(1.15) translate(1.5%, -1.5%); } 
+            100% { transform: scale(1.1) translate(-1.5%, 1.5%); } 
+        }
 
         /* --- ANIMATIONS --- */
         .fade-on-load { opacity: 0; transform: translateY(30px); animation: smoothFade 1.5s var(--smooth-curve) forwards; }
@@ -79,7 +83,7 @@
         #home h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: 6px; margin-bottom: 0.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         body.light-mode #home h1 { text-shadow: none; }
         #home h2 { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 300; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.5rem; }
-        #home p { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); max-width: 700px; letter-spacing: 1px; line-height: 1.8; }
+        #home p { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); max-width: 700px; letter-spacing: 1px; }
         
         .home-cta { margin-top: 3rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
         .btn-primary, .btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 36px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; transition: all 0.4s var(--smooth-curve); cursor: pointer; }
@@ -101,24 +105,39 @@
         .floating-cta i { font-size: 1.2rem; transition: transform 0.4s var(--smooth-curve); }
         .floating-cta:hover i { transform: rotate(-15deg) scale(1.2); }
 
+        /* Liquid Glass Player */
         .global-player {
-            position: fixed; bottom: 35px; left: 35px; z-index: 998; background: var(--spotify-glass); backdrop-filter: blur(25px) saturate(200%); -webkit-backdrop-filter: blur(25px) saturate(200%); border: 1px solid var(--surface-border); border-radius: 20px; padding: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); transition: all 0.5s var(--smooth-curve); width: 320px; height: 178px; display: flex; flex-direction: column; overflow: visible;
+            position: fixed; bottom: 35px; left: 35px; z-index: 998; background: var(--spotify-glass); 
+            backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%); 
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 12px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); transition: all 0.5s var(--smooth-curve); 
+            width: 320px; height: 178px; display: flex; flex-direction: column; overflow: visible;
         }
-        body.light-mode .global-player { border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        body.light-mode .global-player { border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         .global-player iframe { width: 100%; height: 100%; border-radius: 12px; transition: 0.3s; }
-        .global-player.minimized { width: 60px; height: 60px; padding: 0; border-radius: 50%; cursor: pointer; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .global-player.minimized { 
+            width: 65px; height: 65px; padding: 0; border-radius: 50%; cursor: pointer; 
+            overflow: hidden; display: flex; justify-content: center; align-items: center; 
+            animation: pulseGlass 3s infinite;
+        }
         .global-player.minimized iframe { display: none; }
-        .global-player.minimized:hover { transform: scale(1.1); box-shadow: var(--hover-glow); }
+        .global-player.minimized:hover { transform: scale(1.1); animation-play-state: paused; box-shadow: var(--hover-glow); }
+        
         .player-toggle-btn { position: absolute; top: -10px; right: -10px; width: 28px; height: 28px; background: var(--text-main); color: var(--bg-base); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10; transition: 0.3s; border: none; }
         .player-toggle-btn:hover { transform: scale(1.2); }
         .global-player.minimized .player-toggle-btn { display: none; }
+        
         .music-icon-only { display: none; font-size: 1.5rem; color: var(--text-main); }
         .global-player.minimized .music-icon-only { display: block; }
+        
         @keyframes levitate { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+        @keyframes pulseGlass { 0% { box-shadow: 0 0 15px rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 30px rgba(255,255,255,0.3); } 100% { box-shadow: 0 0 15px rgba(255,255,255,0.1); } }
+        body.light-mode .global-player.minimized { animation: pulseGlassLight 3s infinite; }
+        @keyframes pulseGlassLight { 0% { box-shadow: 0 0 15px rgba(0,0,0,0.05); } 50% { box-shadow: 0 0 25px rgba(0,0,0,0.15); } 100% { box-shadow: 0 0 15px rgba(0,0,0,0.05); } }
 
         /* --- SECTION LAYOUTS --- */
-        section { padding: 8rem 5% 5rem; min-height: auto; position: relative; z-index: 1; }
-        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem; display: flex; align-items: baseline; gap: 15px; flex-wrap: wrap; }
+        section { padding: 7rem 5% 4rem; min-height: auto; position: relative; z-index: 1; }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2.5rem; display: flex; align-items: baseline; gap: 15px; flex-wrap: wrap; }
         .aka-text { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
         /* --- PROFILE --- */
@@ -126,55 +145,55 @@
         .resume-bio { font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 3px solid var(--text-main); color: var(--text-muted); font-style: italic; font-weight: 300; max-width: 900px; }
         .resume-grid { display: grid; grid-template-columns: 1fr 1fr 380px; gap: 2rem; }
         .resume-block { margin-bottom: 1.5rem; }
-        .resume-block h3 { color: var(--text-main); font-size: 1.15rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; }
-        .resume-block h4 { color: var(--text-main); font-size: 1rem; margin-bottom: 0.2rem; font-weight: 500; }
-        .resume-block p { color: var(--text-muted); margin-bottom: 0.3rem; font-size: 0.95rem; line-height: 1.5; }
+        .resume-block h3 { color: var(--text-main); font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.6rem; }
+        .resume-block h4 { color: var(--text-main); font-size: 0.95rem; margin-bottom: 0.2rem; font-weight: 500; }
+        .resume-block p { color: var(--text-muted); margin-bottom: 0.2rem; font-size: 0.9rem; line-height: 1.5; }
         
-        .skill-list li { position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem; font-size: 0.95rem; list-style: none; color: var(--text-muted); }
+        .skill-list li { position: relative; padding-left: 1rem; margin-bottom: 0.2rem; font-size: 0.9rem; list-style: none; color: var(--text-muted); }
         .skill-list li::before { content: '▹'; position: absolute; left: 0; color: var(--text-main); font-weight: bold; }
         
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
         .skill-tag { 
             background: var(--surface-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
-            padding: 6px 14px; border-radius: 30px; font-size: 0.85rem; color: var(--text-main); 
+            padding: 5px 12px; border-radius: 30px; font-size: 0.8rem; color: var(--text-main); 
             border: 1px solid var(--surface-border); transition: all 0.3s ease; 
             font-weight: 400; user-select: none; -webkit-user-select: none; cursor: default;
         }
-        .skill-tag:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.2); border-color: var(--text-main); }
-        body.light-mode .skill-tag:hover { text-shadow: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: var(--text-main); color: var(--bg-base); }
+        .skill-tag:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 0 10px rgba(255,255,255,0.2); border-color: var(--text-main); }
+        body.light-mode .skill-tag:hover { text-shadow: none; box-shadow: 0 5px 10px rgba(0,0,0,0.1); background: var(--text-main); color: var(--bg-base); }
 
-        .profile-photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-        .profile-photo-grid img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 10px; transition: all 0.5s var(--smooth-curve); cursor: pointer; filter: grayscale(15%); }
+        .profile-photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+        .profile-photo-grid img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; transition: all 0.5s var(--smooth-curve); cursor: pointer; filter: grayscale(15%); }
         .profile-photo-grid img:hover { transform: scale(1.05); filter: grayscale(0%); box-shadow: var(--hover-glow); z-index: 2; position: relative; }
 
         /* --- PORTFOLIO FILTER --- */
-        .filter-container { margin: 2rem 0 4rem; display: flex; flex-wrap: wrap; gap: 12px; }
-        .filter-btn { background: transparent; border: 1px solid var(--surface-border); color: var(--text-muted); padding: 10px 24px; border-radius: 30px; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s var(--smooth-curve); font-weight: 500; }
+        .filter-container { margin: 1rem 0 3rem; display: flex; flex-wrap: wrap; gap: 10px; }
+        .filter-btn { background: transparent; border: 1px solid var(--surface-border); color: var(--text-muted); padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s var(--smooth-curve); font-weight: 500; }
         .filter-btn:hover { border-color: var(--text-main); color: var(--text-main); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .filter-btn.active { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); box-shadow: var(--hover-glow); }
 
         /* --- CARDS & MEDIA --- */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
-        .grid-container.cols-4 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .grid-container.cols-4 { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
         
         .card { 
-            background: var(--surface-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--surface-border); border-radius: 16px; overflow: hidden;
+            background: var(--surface-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden;
             display: flex; flex-direction: column; transition: all 0.6s var(--smooth-curve); box-shadow: var(--card-shadow);
         }
-        .card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.2); box-shadow: var(--card-shadow), var(--hover-glow); }
-        body.light-mode .card:hover { border-color: rgba(0,0,0,0.15); }
+        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); box-shadow: var(--card-shadow), var(--hover-glow); }
+        body.light-mode .card:hover { border-color: rgba(0,0,0,0.2); }
         
-        .card-media-wrapper { width: 100%; height: 220px; overflow: hidden; position: relative; background: #000; }
-        body.light-mode .card-media-wrapper { background: #e5e5ea; }
+        .card-media-wrapper { width: 100%; height: 200px; overflow: hidden; position: relative; background: #000; }
+        body.light-mode .card-media-wrapper { background: rgba(0,0,0,0.05); }
         .card-media { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--smooth-curve); }
-        .card:hover .card-media { transform: scale(1.06); }
+        .card:hover .card-media { transform: scale(1.05); }
         
-        .card-info { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-info h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-main); line-height: 1.4; transition: color 0.3s; }
-        .card-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: 400; }
+        .card-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); line-height: 1.4; transition: color 0.3s; }
+        .card-info p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; font-weight: 400; }
         
-        .card-link { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
+        .card-link { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
         .card-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0; background-color: var(--text-main); transition: 0.3s; }
         .card:hover .card-link::after { width: 100%; }
 
@@ -182,20 +201,21 @@
         .video-container iframe, .video-container .instagram-media { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
 
         /* --- BUTTONS --- */
-        .music-btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
-        .music-btn { padding: 10px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; color: #fff; transition: all 0.4s var(--smooth-curve); }
-        .music-btn:hover { transform: translateY(-3px); }
-        .btn-spotify { background: #1DB954; } .btn-spotify:hover { box-shadow: 0 5px 20px rgba(29, 185, 84, 0.4); }
-        .btn-apple { background: #fa243c; } .btn-apple:hover { box-shadow: 0 5px 20px rgba(250, 36, 60, 0.4); }
-        .btn-yt { background: #ff0000; } .btn-yt:hover { box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
-        .btn-lyrics { background: #333333; border: 1px solid #555; } .btn-lyrics:hover { box-shadow: 0 5px 20px rgba(150, 150, 150, 0.4); border-color: #777; }
-        body.light-mode .btn-lyrics { background: #555555; border: 1px solid #777; }
+        .music-btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .music-btn { padding: 8px 18px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; color: #fff; transition: all 0.4s var(--smooth-curve); }
+        .music-btn:hover { transform: translateY(-2px); }
+        .btn-spotify { background: #1DB954; } .btn-spotify:hover { box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4); }
+        .btn-apple { background: #fa243c; } .btn-apple:hover { box-shadow: 0 5px 15px rgba(250, 36, 60, 0.4); }
+        .btn-yt { background: #ff0000; } .btn-yt:hover { box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4); }
+        .btn-lyrics { background: #333333; border: 1px solid #555; } .btn-lyrics:hover { box-shadow: 0 5px 15px rgba(150, 150, 150, 0.3); border-color: #777; }
+        body.light-mode .btn-lyrics { background: rgba(0,0,0,0.05); color: var(--text-main); border: 1px solid rgba(0,0,0,0.15); }
+        body.light-mode .btn-lyrics:hover { background: rgba(0,0,0,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
         /* --- MASONRY GRID --- */
         #masonry-grid { column-count: 1; column-gap: 15px; padding-bottom: 20px; }
         @media (min-width: 600px) { #masonry-grid { column-count: 2; } }
         @media (min-width: 1000px) { #masonry-grid { column-count: 3; } }
-        .masonry-item { break-inside: avoid; margin-bottom: 15px; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.4s var(--smooth-curve); position: relative; background: rgba(0,0,0,0.05); }
+        .masonry-item { break-inside: avoid; margin-bottom: 15px; border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.4s var(--smooth-curve); position: relative; background: rgba(0,0,0,0.05); }
         .masonry-item img { width: 100%; height: auto; display: block; transition: filter 0.3s; }
         .masonry-item:hover { transform: scale(1.02); z-index: 2; box-shadow: var(--hover-glow); }
         .masonry-item:hover img { filter: brightness(1.1); }
@@ -205,23 +225,23 @@
         body.light-mode .modal-overlay { background: rgba(245, 245, 247, 0.85); }
         .modal-header { position: sticky; top: -40px; background: transparent; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; z-index: 10; margin-bottom: 2rem; border-bottom: 1px solid var(--surface-border); backdrop-filter: blur(10px); }
         .modal-title { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
-        .close-action { background: var(--text-main); color: var(--bg-base); border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.3s var(--smooth-curve); display: flex; align-items: center; gap: 8px; }
+        .close-action { background: var(--text-main); color: var(--bg-base); border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.3s var(--smooth-curve); display: flex; align-items: center; gap: 8px; }
         .close-action:hover { transform: translateY(-2px); box-shadow: var(--hover-glow); }
 
         .lightbox-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3000; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
         .lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); user-select: none; }
-        .lb-btn { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; font-size: 1.5rem; z-index: 3001; backdrop-filter: blur(5px); }
+        .lb-btn { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; font-size: 1.2rem; z-index: 3001; backdrop-filter: blur(5px); }
         .lb-btn:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255,255,255,0.4); transform: translateY(-50%) scale(1.1); }
         .lb-prev { left: 4%; } .lb-next { right: 4%; }
-        .lb-counter { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 1.1rem; font-weight: 400; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); z-index: 3001;}
-        .lb-close { position: fixed; top: 30px; right: 4%; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; transition: 0.3s; z-index: 3001; }
+        .lb-counter { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 1rem; font-weight: 400; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); z-index: 3001;}
+        .lb-close { position: fixed; top: 30px; right: 4%; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; transition: 0.3s; z-index: 3001; }
         .lb-close:hover { transform: scale(1.2) rotate(90deg); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
 
         /* --- FOOTER --- */
-        footer { padding: 4rem 5%; text-align: center; border-top: 1px solid var(--surface-border); margin-top: 5rem; }
-        .socials { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-        .socials a { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 1.5rem; transition: all 0.4s var(--smooth-curve); background: transparent; border: 1px solid transparent; }
-        .socials a:hover { color: var(--text-main); transform: translateY(-5px); border-color: var(--surface-border); background: var(--surface-glass); box-shadow: var(--hover-glow); }
+        footer { padding: 3rem 5%; text-align: center; border-top: 1px solid var(--surface-border); margin-top: 4rem; }
+        .socials { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .socials a { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 1.2rem; transition: all 0.4s var(--smooth-curve); background: transparent; border: 1px solid transparent; }
+        .socials a:hover { color: var(--text-main); transform: translateY(-3px); border-color: var(--surface-border); background: var(--surface-glass); box-shadow: var(--hover-glow); }
         .socials svg { transition: fill 0.4s var(--smooth-curve); }
         .socials a:hover svg { fill: var(--text-main); }
 
@@ -233,13 +253,13 @@
             nav ul.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
-            .lb-btn { width: 45px; height: 45px; font-size: 1.2rem; }
+            .lb-btn { width: 40px; height: 40px; font-size: 1rem; }
             .global-player { width: 280px; left: 20px; bottom: 20px; }
         }
         @media (max-width: 600px) {
-            section { padding: 6rem 5% 3rem; }
-            .filter-btn { padding: 8px 16px; font-size: 0.8rem; }
-            .floating-cta span { display: none; } .floating-cta { padding: 15px; border-radius: 50%; right: 20px; bottom: 20px; } .floating-cta i { font-size: 1.4rem; margin: 0; }
+            section { padding: 5rem 5% 3rem; }
+            .filter-btn { padding: 6px 14px; font-size: 0.75rem; }
+            .floating-cta span { display: none; } .floating-cta { padding: 15px; border-radius: 50%; right: 20px; bottom: 20px; } .floating-cta i { font-size: 1.2rem; margin: 0; }
             .global-player { display: none; }
             .grid-container, .grid-container.cols-4 { grid-template-columns: 1fr; }
             .music-btn-group { justify-content: center; } .music-btn { width: 100%; justify-content: center; }
@@ -274,10 +294,11 @@
         <i class="fa-solid fa-envelope"></i> <span>Let's Connect</span>
     </a>
 
-    <div id="global-music" class="global-player fade-on-load">
-        <button class="player-toggle-btn" onclick="toggleGlobalPlayer()" title="Minimize/Expand Player"><i class="fa-solid fa-xmark"></i></button>
-        <div class="music-icon-only" onclick="toggleGlobalPlayer()"><i class="fa-solid fa-music"></i></div>
-        <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <!-- Liquid Glass Global Player -->
+    <div id="global-music" class="global-player fade-on-load minimized" onclick="expandPlayer(event)">
+        <button class="player-toggle-btn" onclick="minimizePlayer(event)" title="Minimize Player"><i class="fa-solid fa-xmark"></i></button>
+        <div class="music-icon-only"><i class="fa-solid fa-music"></i></div>
+        <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
 
     <!-- HOME SECTION (Fades in on load) -->
@@ -305,7 +326,7 @@
                     <div class="resume-block">
                         <h3>Personal Info</h3>
                         <p><strong>Name:</strong> Pannathat Intharit (Panpan)</p>
-                        <p><strong>Age:</strong> 20</p>
+                        <p><strong>Age:</strong> 21</p>
                         <p><strong>Nationality:</strong> Thai</p>
                         <p><strong>Phone:</strong> 099 226 3956</p>
                         <p><strong>Email:</strong> wistertube9@gmail.com</p>
@@ -359,12 +380,12 @@
                     <div class="resume-block">
                         <h3>Gallery</h3>
                         <div class="profile-photo-grid">
-                            <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 0, ['.profile-photo-grid'])" loading="lazy">
-                            <img src="https://drive.google.com/thumbnail?id=1wzSMG-lMYj9xfvPOMUhSXTlFPuCnxT06&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 1, ['.profile-photo-grid'])" loading="lazy">
-                            <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 2, ['.profile-photo-grid'])" loading="lazy">
-                            <img src="https://drive.google.com/thumbnail?id=16mwV4kht2wk7kAUIHqRSJq-F4bvkpyrf&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 3, ['.profile-photo-grid'])" loading="lazy">
-                            <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 4, ['.profile-photo-grid'])" loading="lazy">
-                            <img src="https://drive.google.com/thumbnail?id=1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 5, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=1aLpZojbWOxDtvoJLhycaTVHPwJ4ApJbQ&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 0, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1m6GlFhhioDLoJGPwcUdsNtwcjUitVkWo&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 1, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1cwB-qU4CZzP-Rr_iiBEmioeC1p2qkF6i&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 2, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1ICZXBshFqz7Qorf2YoWpmbjou_qKPiC2&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 3, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 4, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 5, ['.profile-photo-grid'])">
                         </div>
                     </div>
                 </div>
@@ -392,7 +413,7 @@
         
         <div class="card reveal" style="max-width: 1000px; margin-bottom: 3rem;">
             <div class="card-media-wrapper" style="height: auto; min-height:352px; background: transparent;">
-                <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
             </div>
             <div class="card-info" style="align-items: center; border-top: 1px solid var(--surface-border);">
                 <p style="text-align: center; max-width: 800px;">WISTER9 is an independent music project blending modern melodic hip-hop elements with a unique approach to storytelling and sound design.</p>
@@ -405,12 +426,12 @@
             </div>
         </div>
 
-        <h3 class="reveal" style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 500;">Cover Projects</h3>
+        <h3 class="reveal" style="font-size: 1.3rem; margin-bottom: 1.5rem; font-weight: 500;">Cover Projects</h3>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
         </div>
     </section>
 
@@ -418,10 +439,10 @@
     <section id="sec-film" class="portfolio-section reveal filter-item film">
         <h2 class="section-title">Film & Media <span class="aka-text">XPAN Visuals</span></h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
         </div>
     </section>
 
@@ -468,38 +489,31 @@
     <section id="sec-other" class="portfolio-section reveal filter-item collab">
         <h2 class="section-title">Collaborations</h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
         </div>
     </section>
 
-    <!-- BEHIND THE SCENES -->
+    <!-- BEHIND THE SCENES (Currently Empty) -->
     <section id="sec-bts" class="portfolio-section reveal filter-item bts">
         <h2 class="section-title">Behind The Scenes</h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w600" class="card-media" loading="lazy"></div>
-                <div class="card-info"><h3>เรียบ (Too Much)</h3><a class="card-link" onclick="openGallery('b1', 'เรียบ (Too Much) BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
-            <div class="card reveal delay-1"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd&sz=w600" class="card-media" loading="lazy"></div>
-                <div class="card-info"><h3>อย่าหายไป (Here with Me)</h3><a class="card-link" onclick="openGallery('b3', 'อย่าหายไป BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
-            <div class="card reveal delay-2"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w600" class="card-media" loading="lazy"></div>
-                <div class="card-info"><h3>สะพานบุญ (Sacred Path)</h3><a class="card-link" onclick="openGallery('b2', 'สะพานบุญ BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
-            <div class="card reveal delay-3"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w600" class="card-media" loading="lazy"></div>
-                <div class="card-info"><h3>ภาพสุดท้าย (Blur Memories)</h3><a class="card-link" onclick="openGallery('b4', 'ภาพสุดท้าย BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <!-- BTS Content Removed for now -->
         </div>
     </section>
 
@@ -514,7 +528,6 @@
                 <svg viewBox="0 0 24 24" style="width: 1.5rem; height: 1.5rem; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg>
             </a>
             <a href="https://youtube.com/@WiSTeR9" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-            <a href="mailto:wistertube9@gmail.com" title="Email"><i class="fa-regular fa-envelope"></i></a>
         </div>
         <p class="reveal delay-1">© 2026 Pannathat Intharit. All rights reserved.</p>
     </footer>
@@ -593,10 +606,17 @@
             if (window.innerWidth <= 900) { document.getElementById('nav-menu').classList.toggle('active'); }
         }
 
-        // 5. Global Player Toggle
-        function toggleGlobalPlayer() {
+        // 5. Global Player Toggle (Anywhere on the circle)
+        function expandPlayer(e) {
             const player = document.getElementById('global-music');
-            player.classList.toggle('minimized');
+            if (player.classList.contains('minimized')) {
+                player.classList.remove('minimized');
+            }
+        }
+        function minimizePlayer(e) {
+            e.stopPropagation();
+            const player = document.getElementById('global-music');
+            player.classList.add('minimized');
         }
 
         // 6. Portfolio Filter (Smooth Fade)
@@ -618,7 +638,7 @@
             });
         }
 
-        // 7. Data-Driven Gallery Engine (Secure & Fast)
+        // 7. Data-Driven Gallery Engine
         const gData = {
             'cine': '1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf,1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa,1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY,1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q,1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3,1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I,1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS,1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj,1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS,1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl,1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA,15dUslNqx_yP9J06KrUCBid9W_KwAFNew,1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8,12B_7pIdupiGLUUROKhQKU-elHOAj0TIK,17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5,17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3,1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx,1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ,1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r,1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT,1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd,1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-,1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9',
             'wild': '1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv,1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc,1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2,1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4,1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J',
@@ -631,11 +651,7 @@
             'log': '1OTzVirbGttqmm7tr16LHHJrc56WWsfjV,14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL,1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi,1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco,1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y,14zbofpyJLiWSRf5oclh16W4Smvps_JoZ,1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-,1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8,1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz,1v41GMfP9y0UB79jsOclT3hmxrx4OTInm,1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re,1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z,12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9,1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb',
             'thumb': '1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4,1vgZJilrP6LuofB9NYxHBsY-7A822QDPz,1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk,1qFRSyFEOawhgKosURiX4Qo64gySHHAmc,1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L,1fdvnXVHse6svRlD8DkHi501JaKtyuYAw,1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-,1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX,1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH,1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10,1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy,1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a,1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q,13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod,1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX,1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8,1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY,1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP,1c_H03TuZKq7PECZf9R3G8h-7YRArKMeF,1JBk3LDJY7oX861brq0oJVyaVtnkiRzJG',
             'quote': '1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE,1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_,1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni,1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8,1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90,138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw,1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3,1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv,1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7,1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq,1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW,1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys',
-            'mock': '14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1,1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS,1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj,1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW,1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W,1DGY_WtRkRb1vmqrRNnkRhvOQgHk4LF3y,106kiZkq9ZFsXn_AsQgyK2dBOxSCYm1Ap,15cUrAuqniphLdUR48p16A8oWLSTGODg0',
-            'b1': '1whRx1DUr98CHScILRpF9EfbRmyvfpOT_,15VLborXMouq79HISzCA-rTso1kOAEQxJ,1hteAN9E-LWawIbZeuFRirhSlshU5BUKO,1Wqg-DAibAeUWTwf3emmQc_j5_FqwP3Hz,1fmwjtd86bw7itoVeK7mIUSS5ORfLDbka,19RPSIY6Vt-USqSmIhgWLhldkuwxpUI93,1ceOA3H0gxJttkbmAMNwuHFzCIG_QqH1M,1mFPEbYGD0dwA74YdAn5MTZPqKjHJZN2F',
-            'b2': '1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK,1rL_6yHl3fEpYQevgPp0tPMBZm2UQCukq,1HP79VUhU9UWAZrS8YvsHHb7LNsu5Y7pb,15tEazCrSBnqynKYcptRnpfmXqHO_HuJf,1gSE6ry8RS18kS3mKuOMcDGi42Bqtet0U,1-9H0M9Fbl1RefkI9XxkoADeDFmnf2LfD,1Cgpb17JMpvShcHZeOOQszYbB9qnfchZ4,1JTpfL0Sm_XSXd8x0qsPqjxRRlPJ7Yjuw,1_c6caZWLCkZauYKoBmTbBH-irSVJgRlw,11pSr2GiHtDAhBJtuwHMnNKIxnffYQi8f',
-            'b3': '1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd,1CtKzyeiMDOqbAzBkRs8--za8v3kbtGFQ,1FKYNO4v7MME7MGigyOBJdQbTcF2lOycv,1Mfay08ZUiqbU67XI-ZF0ZA6HaG_bMQ5G,1JseC1h-LbgPGi3h8o6APXKgCSF7EldWe,1AkPQA3VDTu69IycPh6KyjiXae3T5JDts,1R8LswGmjX042HqTMVehfWr6OPdA5e3RG,1EBMon9mj_CCQ7Nxb4Hn1hyeK1j4XsxJL,18UmBuvtnN3-BcQi8CeZvlF_iUiwHOPAr,1U5EoCp8eoHcPionwyYGOniwiFZen-lMb,1eVtQuMucK09zv0NCqAzxcXCcFlHsXfil,1ausVl0Lx3ALJb2N9ANOusY_Gh01kHkBg,1K8tk_qArSlBae7GnmwaodUKhMRDdm1Ea,1_w6zv3VIDoxMfHhsubxbrnV1rztJQj2m,16q7h8XuWjJjMXdXUfJFXJBV2QrjNl8Rx,1KkuvyEzT9oUKTnD2pw1TP_Z8wnO03LTZ,1mclUCZlnhUhb4YizlsNP2xUx6XEj9eQn,15dSq_MZoefG_rily6mSYyhmRgeUADuwe,18UZq-bBZuXFoq73NkC6yt9a1XxILH09a,1NyNA6PLHlXPY2opsJpJnN4qUocc_htAz,1X_Z_veIRJpSkYsOIpuQ_5gk7p995Lrgj,1FjyuJWXe9ecszBpQ-JXlSy5qxW8EskxR',
-            'b4': '1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0,1DbuVeOEBxKNI5TXOfbmOQ8jwYUQCm437,19NPtxH75qpSaD__57i35VwK9jGvbtWaH,1TDca5fYC-VQxjwYq6-li5P-53YfZM_SB,124taKDYvgKuTznSQoTKf70VSug_qgG_j,1-PRqlgg59D_iJRUfk5twYalBWSyRKlZl,13TBK9GIFGXK-oGYsJLWRABVC3npaA5_Q,1qEAFgvBAcPSlwDdWLscQFjfornzV4YQP,1JZZBnu6Hg9nBV8LImrk6yvEisUpgffps,1lKGi5Ii8RZpqnyeARbgcXmYA0l_KJ2Zh'
+            'mock': '14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1,1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS,1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj,1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW,1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W,1DGY_WtRkRb1vmqrRNnkRhvOQgHk4LF3y,106kiZkq9ZFsXn_AsQgyK2dBOxSCYm1Ap,15cUrAuqniphLdUR48p16A8oWLSTGODg0'
         };
 
         let currentImgList = [];
