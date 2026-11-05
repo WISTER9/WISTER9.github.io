@@ -3,303 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pannathat Intharit | Portfolio</title>
+    <title>Pannathat Intharit | Artist & Filmmaker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- GLOBAL VARIABLES --- */
         :root {
-            --bg-color: #0a0a0a;
-            --text-color: #ffffff;
-            --accent-color: #e0e0e0;
-            --secondary-bg: #1a1a1a;
-            --transition: all 0.3s ease;
+            --bg-base: #070707;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --accent: #ffffff;
+            --surface-glass: rgba(30, 30, 30, 0.45);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --smooth-curve: cubic-bezier(0.16, 1, 0.3, 1);
+            --hover-glow: 0 0 25px rgba(255, 255, 255, 0.25);
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            --spotify-glass: rgba(25, 25, 25, 0.6);
         }
 
-        /* --- LIGHT MODE STYLES --- */
+        /* --- LIGHT MODE --- */
         body.light-mode {
-            --bg-color: #f4f4f4;
-            --text-color: #121212;
-            --accent-color: #222222;
-            --secondary-bg: #ffffff;
+            --bg-base: #eef1f5;
+            --text-main: #111111;
+            --text-muted: #555555;
+            --accent: #000000;
+            --surface-glass: rgba(255, 255, 255, 0.65);
+            --surface-border: rgba(0, 0, 0, 0.08);
+            --hover-glow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            --spotify-glass: rgba(255, 255, 255, 0.7);
         }
 
-        body.light-mode #home p,
-        body.light-mode .resume-bio,
-        body.light-mode .resume-block p,
-        body.light-mode .skill-list li,
-        body.light-mode .card-info p,
-        body.light-mode #music div > p,
-        body.light-mode footer p { color: #555 !important; }
-        
-        body.light-mode .aka-text { color: #777; }
-        body.light-mode #home::before { opacity: 0.15; }
-        body.light-mode #music::before { opacity: 0.05; }
-        body.light-mode header { background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid #ddd; }
-        body.light-mode nav ul { background-color: rgba(255, 255, 255, 0.95); }
-        body.light-mode nav ul li a { color: #444; font-weight: 500; }
-        body.light-mode nav ul li a:hover { color: #000; text-shadow: none; }
-        body.light-mode .logo { color: #111; }
-        body.light-mode .logo:hover { color: #000; text-shadow: none; }
-        body.light-mode .resume-block h3, body.light-mode .resume-photos-column h3 { color: #111; border-bottom: 1px solid #ccc; }
-        body.light-mode .resume-block h4 { color: #333; font-weight: 700; }
-        
-        body.light-mode .skill-tag { background-color: #eee; border-color: #ccc; color: #333; }
-        body.light-mode .skill-tag:hover { background-color: #111; color: #fff; border-color: #111; }
-        
-        body.light-mode .profile-photo-grid img { border: 1px solid #ddd; }
-        body.light-mode .profile-photo-grid img:hover { border-color: #111; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        
-        body.light-mode .card { border: 1px solid #eaeaea; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        body.light-mode .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.12); border-color: #ccc; }
-        body.light-mode .card-info h3 { color: #111; }
-        
-        body.light-mode .grid-modal-header { border-bottom: 1px solid #ccc; }
-        body.light-mode .grid-modal-title { color: #111; }
-        body.light-mode footer { border-top: 1px solid #ddd; background-color: #fff; }
-        body.light-mode .hamburger { color: #111; }
-        
-        body.light-mode .filter-btn { border-color: #bbb; color: #555; }
-        body.light-mode .filter-btn:hover { border-color: #111; color: #111; background: #f9f9f9; }
-        body.light-mode .filter-btn.active { background: #111; color: #fff; border-color: #111; }
-        
-        body.light-mode .back-btn { background: #eee; color: #111; border-color: #ccc; }
-        body.light-mode .back-btn:hover { background: #ddd; }
-        
-        /* Force Lightbox to remain dark regardless of theme */
-        .lightbox .back-btn { background: #222 !important; color: #fff !important; border-color: #444 !important; }
-        .lightbox .back-btn:hover { background: #444 !important; }
-        .lightbox-btn { color: #e0e0e0 !important; }
-        .lightbox-btn:hover { color: #ffffff !important; }
-        #lightbox-counter { color: #ffffff !important; }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', Arial, sans-serif; scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.3s, color 0.3s;
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-        }
-
+        /* --- BASE STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.7; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
         img { user-drag: none; -webkit-user-drag: none; }
+        a { text-decoration: none; color: inherit; }
 
-        header {
-            position: fixed; top: 0; width: 100%; background-color: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #333; transition: var(--transition);
-        }
+        /* --- BACKGROUND --- */
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; animation: slowBreathe 25s infinite alternate; }
+        .bg-layer.active { opacity: 0.25; }
+        body.light-mode .bg-layer.active { opacity: 0.07; }
+        @keyframes slowBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
-        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); text-decoration: none; transition: var(--transition); cursor: pointer; z-index: 1001; }
-        .logo:hover { color: var(--accent-color); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+        /* --- ANIMATIONS --- */
+        .fade-on-load { opacity: 0; transform: translateY(30px); animation: smoothFade 1.5s var(--smooth-curve) forwards; }
+        .fade-delay-1 { animation-delay: 0.15s; } .fade-delay-2 { animation-delay: 0.3s; } .fade-delay-3 { animation-delay: 0.45s; }
+        @keyframes smoothFade { to { opacity: 1; transform: translateY(0); } }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--smooth-curve), transform 1s var(--smooth-curve); will-change: opacity, transform; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-        nav ul { display: flex; list-style: none; gap: 1.5rem; transition: var(--transition); }
-        nav ul li a { color: var(--accent-color); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); }
-        nav ul li a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); z-index: 1001; }
+        /* --- HEADER --- */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: transparent; transition: all 0.5s var(--smooth-curve); border-bottom: 1px solid transparent; }
+        header.scrolled { padding: 1rem 5%; background: var(--surface-glass); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); border-bottom: 1px solid var(--surface-border); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+        .logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text-main); transition: 0.3s; }
+        .logo:hover { text-shadow: var(--hover-glow); }
+        .header-right { display: flex; align-items: center; gap: 2rem; }
+        
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; color: var(--text-muted); transition: 0.3s; position: relative; }
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: var(--accent); transition: width 0.4s var(--smooth-curve); }
+        nav ul li a:hover { color: var(--text-main); text-shadow: var(--hover-glow); }
+        nav ul li a:hover::after { width: 100%; box-shadow: var(--hover-glow); }
+        
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
+        #theme-toggle { background: none; border: 1px solid var(--surface-border); color: var(--text-main); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; transition: all 0.4s var(--smooth-curve); backdrop-filter: blur(5px); }
+        #theme-toggle:hover { background: var(--text-main); color: var(--bg-base); transform: scale(1.1) rotate(15deg); box-shadow: var(--hover-glow); }
 
-        #theme-toggle {
-            background: none; border: 1px solid var(--accent-color); color: var(--text-color);
-            min-width: 38px; width: 38px; height: 38px; border-radius: 50%;
-            cursor: pointer; font-size: 1.1rem; display: flex; justify-content: center; align-items: center;
-            transition: var(--transition); z-index: 1001; aspect-ratio: 1 / 1;
-        }
-        #theme-toggle:hover { background-color: var(--text-color); color: var(--bg-color); transform: rotate(15deg); }
+        /* --- HOME HERO --- */
+        #home { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; padding: 0 5%; position: relative; z-index: 1; }
+        #home h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: 6px; margin-bottom: 0.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        body.light-mode #home h1 { text-shadow: none; }
+        #home h2 { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 300; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.5rem; }
+        #home p { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); max-width: 700px; letter-spacing: 1px; line-height: 1.8; }
+        
+        .home-cta { margin-top: 3rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+        .btn-primary, .btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 36px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; transition: all 0.4s var(--smooth-curve); cursor: pointer; }
+        .btn-primary { background: var(--text-main); color: var(--bg-base); border: 1px solid transparent; }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: var(--hover-glow); }
+        .btn-primary i { transition: transform 0.3s; }
+        .btn-primary:hover i { transform: translateX(5px); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--surface-border); backdrop-filter: blur(10px); }
+        .btn-outline:hover { border-color: var(--text-main); transform: translateY(-3px); box-shadow: var(--hover-glow); background: rgba(255,255,255,0.05); }
+        body.light-mode .btn-outline:hover { background: rgba(0,0,0,0.03); }
 
-        section { padding: 6rem 5% 4rem; min-height: 100vh; position: relative; z-index: 1; transition: opacity 0.4s ease, transform 0.4s ease; }
-        h2.section-title { font-size: 2.5rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--accent-color); display: inline-block; padding-bottom: 0.5rem; }
-        .aka-text { font-size: 1.1rem; color: #888; text-transform: none; letter-spacing: 1px; font-weight: 400; margin-left: 10px; }
-
-        /* CTA Buttons */
-        .btn-primary { background: var(--accent-color); color: var(--bg-color); padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: var(--transition); display: inline-block; font-family: 'Prompt', sans-serif; letter-spacing: 1px; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.2); background: #fff; color: #000; }
-        .btn-outline { background: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); padding: 10px 28px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: var(--transition); display: inline-block; font-family: 'Prompt', sans-serif; letter-spacing: 1px; }
-        .btn-outline:hover { background: var(--accent-color); color: var(--bg-color); transform: translateY(-3px); }
-        .home-cta { margin-top: 2.5rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-
+        /* --- FLOATING ELEMENTS --- */
         .floating-cta {
-            position: fixed; bottom: 30px; right: 30px;
-            background: linear-gradient(135deg, #e0e0e0, #ffffff); color: #000;
-            padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-family: 'Prompt', sans-serif;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 999;
-            display: flex; align-items: center; gap: 10px; transition: var(--transition); border: 1px solid rgba(255,255,255,0.5);
+            position: fixed; bottom: 35px; right: 35px; z-index: 999; background: var(--text-main); color: var(--bg-base); padding: 16px 28px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); animation: levitate 4s ease-in-out infinite; transition: all 0.4s var(--smooth-curve); border: 1px solid rgba(255,255,255,0.1);
         }
-        .floating-cta:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        body.light-mode .floating-cta { border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .floating-cta:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 15px 35px rgba(255,255,255,0.3); animation-play-state: paused; cursor: pointer; }
+        body.light-mode .floating-cta:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .floating-cta i { font-size: 1.2rem; transition: transform 0.4s var(--smooth-curve); }
+        .floating-cta:hover i { transform: rotate(-15deg) scale(1.2); }
 
-        /* Filter System */
-        .portfolio-filter-container { padding: 2rem 5% 0; text-align: center; position: relative; z-index: 10; }
-        .portfolio-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 0 auto; max-width: 100%; }
-        .filter-btn {
-            background: transparent; border: 1px solid #444; color: #aaa;
-            padding: 8px 18px; border-radius: 30px; cursor: pointer;
-            transition: var(--transition); font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; font-family: 'Prompt', sans-serif;
+        .global-player {
+            position: fixed; bottom: 35px; left: 35px; z-index: 998; background: var(--spotify-glass); backdrop-filter: blur(25px) saturate(200%); -webkit-backdrop-filter: blur(25px) saturate(200%); border: 1px solid var(--surface-border); border-radius: 20px; padding: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); transition: all 0.5s var(--smooth-curve); width: 320px; height: 178px; display: flex; flex-direction: column; overflow: visible;
         }
-        .filter-btn:hover { border-color: var(--accent-color); color: var(--text-color); }
-        .filter-btn.active { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); font-weight: 600; }
+        body.light-mode .global-player { border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .global-player iframe { width: 100%; height: 100%; border-radius: 12px; transition: 0.3s; }
+        .global-player.minimized { width: 60px; height: 60px; padding: 0; border-radius: 50%; cursor: pointer; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .global-player.minimized iframe { display: none; }
+        .global-player.minimized:hover { transform: scale(1.1); box-shadow: var(--hover-glow); }
+        .player-toggle-btn { position: absolute; top: -10px; right: -10px; width: 28px; height: 28px; background: var(--text-main); color: var(--bg-base); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10; transition: 0.3s; border: none; }
+        .player-toggle-btn:hover { transform: scale(1.2); }
+        .global-player.minimized .player-toggle-btn { display: none; }
+        .music-icon-only { display: none; font-size: 1.5rem; color: var(--text-main); }
+        .global-player.minimized .music-icon-only { display: block; }
+        @keyframes levitate { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
 
-        /* Home */
-        #home { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; }
-        #home::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://drive.google.com/thumbnail?id=1sw-G3Vd9jqyEzy_idL5Cd912ydhpbNLo&sz=w1920'); background-size: cover; background-position: center; background-attachment: fixed; opacity: 0.35; z-index: -1; transition: opacity 0.3s; }
-        #home h1 { font-size: 3.5rem; margin-bottom: 0.5rem; letter-spacing: 4px; text-transform: uppercase; }
-        #home h2 { font-size: 1.6rem; margin-top: -0.8rem; margin-bottom: 1.5rem; font-weight: 300; letter-spacing: 1px; color: var(--accent-color); }
-        #home p { font-size: 1.2rem; color: #aaa; max-width: 800px; letter-spacing: 2px; }
+        /* --- SECTION LAYOUTS --- */
+        section { padding: 8rem 5% 5rem; min-height: auto; position: relative; z-index: 1; }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem; display: flex; align-items: baseline; gap: 15px; flex-wrap: wrap; }
+        .aka-text { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
-        /* Profile */
-        .resume-container { max-width: 1200px; color: #ccc; margin: 0 auto; }
-        .resume-bio { font-size: 1.1rem; line-height: 1.8; margin-bottom: 3rem; border-left: 4px solid var(--accent-color); padding-left: 1.5rem; font-style: italic; }
-        .resume-grid { display: grid; grid-template-columns: 1fr 1fr 340px; gap: 2.5rem; }
-        .resume-block { margin-bottom: 2.5rem; }
-        .resume-block h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
-        .resume-block h4 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .resume-block p { margin-bottom: 0.8rem; font-size: 0.95rem; }
-        .skill-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; font-size: 0.95rem; list-style: none; }
-        .skill-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent-color); }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-        .skill-tag { background-color: #222; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid #444; color: #fff; transition: all 0.3s; }
-        .skill-tag:hover { transform: translateY(-5px) scale(1.05); border-color: var(--accent-color); }
-        .profile-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1rem; }
-        .profile-photo-grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; border: 1px solid #333; transition: var(--transition); cursor: pointer; }
-        .profile-photo-grid img:hover { transform: scale(1.03); border-color: #fff; }
-
-        /* Music & Buttons */
-        #music::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://drive.google.com/thumbnail?id=1D7dutHSE0w189O7Sm1ihpX9gXYrfPbdy&sz=w1920'); background-size: cover; background-position: center; background-attachment: fixed; opacity: 0.15; z-index: -1; transition: opacity 0.3s; }
+        /* --- PROFILE --- */
+        .resume-container { max-width: 1300px; margin: 0 auto; }
+        .resume-bio { font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 3px solid var(--text-main); color: var(--text-muted); font-style: italic; font-weight: 300; max-width: 900px; }
+        .resume-grid { display: grid; grid-template-columns: 1fr 1fr 380px; gap: 2rem; }
+        .resume-block { margin-bottom: 1.5rem; }
+        .resume-block h3 { color: var(--text-main); font-size: 1.15rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; }
+        .resume-block h4 { color: var(--text-main); font-size: 1rem; margin-bottom: 0.2rem; font-weight: 500; }
+        .resume-block p { color: var(--text-muted); margin-bottom: 0.3rem; font-size: 0.95rem; line-height: 1.5; }
         
-        .music-btn {
-            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
-            color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; z-index: 10; flex-shrink: 0;
+        .skill-list li { position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem; font-size: 0.95rem; list-style: none; color: var(--text-muted); }
+        .skill-list li::before { content: '▹'; position: absolute; left: 0; color: var(--text-main); font-weight: bold; }
+        
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { 
+            background: var(--surface-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
+            padding: 6px 14px; border-radius: 30px; font-size: 0.85rem; color: var(--text-main); 
+            border: 1px solid var(--surface-border); transition: all 0.3s ease; 
+            font-weight: 400; user-select: none; -webkit-user-select: none; cursor: default;
         }
-        .music-btn-spotify { background-color: #1DB954; border: 1px solid #1aa34a; }
-        .music-btn-spotify:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(29, 185, 84, 0.6); color: #fff; }
-        
-        .music-btn-apple { background-color: #fa243c; border: 1px solid #e01b32; }
-        .music-btn-apple:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(250, 36, 60, 0.6); color: #fff; }
-        
-        .music-btn-youtube { background-color: #ff0000; border: 1px solid #cc0000; }
-        .music-btn-youtube:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.6); color: #fff; }
+        .skill-tag:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.2); border-color: var(--text-main); }
+        body.light-mode .skill-tag:hover { text-shadow: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: var(--text-main); color: var(--bg-base); }
 
-        .music-btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none; }
-        .music-btn-instagram:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(220, 39, 67, 0.5); color: #fff; }
-        
-        .music-btn-lyrics { background-color: #333; border: 1px solid #555; }
-        .music-btn-lyrics:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 5px 15px rgba(150, 150, 150, 0.6); color: #fff; }
+        .profile-photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+        .profile-photo-grid img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 10px; transition: all 0.5s var(--smooth-curve); cursor: pointer; filter: grayscale(15%); }
+        .profile-photo-grid img:hover { transform: scale(1.05); filter: grayscale(0%); box-shadow: var(--hover-glow); z-index: 2; position: relative; }
 
-        /* Cards Layout */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 10; }
-        .grid-container.four-cols { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        /* --- PORTFOLIO FILTER --- */
+        .filter-container { margin: 2rem 0 4rem; display: flex; flex-wrap: wrap; gap: 12px; }
+        .filter-btn { background: transparent; border: 1px solid var(--surface-border); color: var(--text-muted); padding: 10px 24px; border-radius: 30px; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s var(--smooth-curve); font-weight: 500; }
+        .filter-btn:hover { border-color: var(--text-main); color: var(--text-main); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .filter-btn.active { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); box-shadow: var(--hover-glow); }
+
+        /* --- CARDS & MEDIA --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+        .grid-container.cols-4 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
         
-        @media (min-width: 1200px) { 
-            .grid-container.four-cols { grid-template-columns: repeat(4, 1fr); }
+        .card { 
+            background: var(--surface-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--surface-border); border-radius: 16px; overflow: hidden;
+            display: flex; flex-direction: column; transition: all 0.6s var(--smooth-curve); box-shadow: var(--card-shadow);
         }
-
-        .card { background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .card-media { width: 100%; height: 200px; background-color: #333; object-fit: cover; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; color: #666; }
-        .card-info { padding: 1.5rem; flex-grow: 1; }
-        .card-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; line-height: 1.4; }
-        .card-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 1rem; }
-        .card-link { display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--accent-color); color: var(--text-color); text-decoration: none; border-radius: 4px; transition: var(--transition); font-size: 0.9rem; cursor: pointer; }
-        .card-link:hover { background-color: var(--accent-color); color: var(--bg-color); }
+        .card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.2); box-shadow: var(--card-shadow), var(--hover-glow); }
+        body.light-mode .card:hover { border-color: rgba(0,0,0,0.15); }
         
-        /* Video Container CSS */
+        .card-media-wrapper { width: 100%; height: 220px; overflow: hidden; position: relative; background: #000; }
+        body.light-mode .card-media-wrapper { background: #e5e5ea; }
+        .card-media { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--smooth-curve); }
+        .card:hover .card-media { transform: scale(1.06); }
+        
+        .card-info { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-info h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-main); line-height: 1.4; transition: color 0.3s; }
+        .card-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: 400; }
+        
+        .card-link { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
+        .card-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0; background-color: var(--text-main); transition: 0.3s; }
+        .card:hover .card-link::after { width: 100%; }
+
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
-        .video-container iframe, .video-container .instagram-media { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; margin: 0 !important; min-width: 100% !important; max-width: 100% !important; box-shadow: none !important; border-radius: 0 !important; }
+        .video-container iframe, .video-container .instagram-media { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
 
-        /* Modals & Flex-Wrap Layout Setup */
-        .grid-modal { display: none; position: fixed; z-index: 1500; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); overflow-y: auto; padding: 80px 5% 40px; animation: fadeIn 0.3s; }
-        .grid-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
-        .grid-modal-title { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
-        
-        #masonry-content { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; }
-        .masonry-item { cursor: pointer; transition: transform 0.3s; }
-        .masonry-item:hover { transform: scale(1.02); }
+        /* --- BUTTONS --- */
+        .music-btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
+        .music-btn { padding: 10px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; color: #fff; transition: all 0.4s var(--smooth-curve); }
+        .music-btn:hover { transform: translateY(-3px); }
+        .btn-spotify { background: #1DB954; } .btn-spotify:hover { box-shadow: 0 5px 20px rgba(29, 185, 84, 0.4); }
+        .btn-apple { background: #fa243c; } .btn-apple:hover { box-shadow: 0 5px 20px rgba(250, 36, 60, 0.4); }
+        .btn-yt { background: #ff0000; } .btn-yt:hover { box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
+        .btn-lyrics { background: #333333; border: 1px solid #555; } .btn-lyrics:hover { box-shadow: 0 5px 20px rgba(150, 150, 150, 0.4); border-color: #777; }
+        body.light-mode .btn-lyrics { background: #555555; border: 1px solid #777; }
 
-        .lightbox { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); align-items: center; justify-content: center; flex-direction: column; }
-        .lightbox-content { max-width: 90%; max-height: 80vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); object-fit: contain; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .lightbox-controls { display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 20px; }
-        .lightbox-btn { background: none; border: none; font-size: 2rem; cursor: pointer; transition: var(--transition); }
-        .close-btn { position: absolute; top: 20px; right: 30px; }
-        
-        .back-btn { display: flex; align-items: center; gap: 8px; font-size: 1rem; text-transform: uppercase; background: #222; padding: 8px 20px; border-radius: 30px; border: 1px solid #444; cursor: pointer; transition: var(--transition); color: #fff; }
-        .back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: translateY(-2px); border-color: var(--accent-color); }
-        
-        .hidden-gallery { display: none; }
+        /* --- MASONRY GRID --- */
+        #masonry-grid { column-count: 1; column-gap: 15px; padding-bottom: 20px; }
+        @media (min-width: 600px) { #masonry-grid { column-count: 2; } }
+        @media (min-width: 1000px) { #masonry-grid { column-count: 3; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 15px; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.4s var(--smooth-curve); position: relative; background: rgba(0,0,0,0.05); }
+        .masonry-item img { width: 100%; height: auto; display: block; transition: filter 0.3s; }
+        .masonry-item:hover { transform: scale(1.02); z-index: 2; box-shadow: var(--hover-glow); }
+        .masonry-item:hover img { filter: brightness(1.1); }
 
-        /* Footer */
-        footer { text-align: center; padding: 3rem 2rem; background-color: var(--secondary-bg); border-top: 1px solid #333; position: relative; z-index: 10; }
-        .social-icons { margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-        .social-icons a { color: var(--accent-color); font-size: 1.8rem; transition: var(--transition); text-decoration: none; display: inline-flex; }
-        .social-icons a:hover { color: #fff; transform: scale(1.1); }
-        .social-icons svg { fill: var(--accent-color); transition: var(--transition); }
-        .social-icons a:hover svg { fill: #fff; }
-        footer p { color: #777; font-size: 0.9rem; margin-top: 1rem; }
+        /* --- MODALS --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); opacity: 0; transition: opacity 0.4s ease; overflow-y: auto; padding: 40px 5%; }
+        body.light-mode .modal-overlay { background: rgba(245, 245, 247, 0.85); }
+        .modal-header { position: sticky; top: -40px; background: transparent; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; z-index: 10; margin-bottom: 2rem; border-bottom: 1px solid var(--surface-border); backdrop-filter: blur(10px); }
+        .modal-title { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .close-action { background: var(--text-main); color: var(--bg-base); border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.3s var(--smooth-curve); display: flex; align-items: center; gap: 8px; }
+        .close-action:hover { transform: translateY(-2px); box-shadow: var(--hover-glow); }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 1024px) {
-            .resume-grid { grid-template-columns: 1fr 1fr; }
-            .resume-photos-column { grid-column: span 2; }
-            .profile-photo-grid { grid-template-columns: repeat(4, 1fr); }
-            .grid-container.four-cols { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 850px) {
+        .lightbox-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3000; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); user-select: none; }
+        .lb-btn { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; font-size: 1.5rem; z-index: 3001; backdrop-filter: blur(5px); }
+        .lb-btn:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255,255,255,0.4); transform: translateY(-50%) scale(1.1); }
+        .lb-prev { left: 4%; } .lb-next { right: 4%; }
+        .lb-counter { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 1.1rem; font-weight: 400; letter-spacing: 2px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); z-index: 3001;}
+        .lb-close { position: fixed; top: 30px; right: 4%; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; transition: 0.3s; z-index: 3001; }
+        .lb-close:hover { transform: scale(1.2) rotate(90deg); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
+
+        /* --- FOOTER --- */
+        footer { padding: 4rem 5%; text-align: center; border-top: 1px solid var(--surface-border); margin-top: 5rem; }
+        .socials { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .socials a { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 1.5rem; transition: all 0.4s var(--smooth-curve); background: transparent; border: 1px solid transparent; }
+        .socials a:hover { color: var(--text-main); transform: translateY(-5px); border-color: var(--surface-border); background: var(--surface-glass); box-shadow: var(--hover-glow); }
+        .socials svg { transition: fill 0.4s var(--smooth-curve); }
+        .socials a:hover svg { fill: var(--text-main); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1200px) { .resume-grid { grid-template-columns: 1fr 1fr; } .resume-photos-column { grid-column: span 2; } }
+        @media (max-width: 900px) {
             .hamburger { display: block; }
-            nav ul { position: absolute; top: 70px; left: 0; width: 100%; flex-direction: column; background-color: rgba(10, 10, 10, 0.95); text-align: center; gap: 0; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out; }
-            nav ul.active { max-height: 400px; padding-bottom: 1rem; border-bottom: 1px solid #333; }
-            body.light-mode nav ul.active { border-bottom: 1px solid #ddd; }
-            nav ul li { padding: 10px 0; }
-            .header-right { gap: 1rem; }
-            .close-btn { right: 20px; font-size: 1.8rem; padding: 8px 15px; }
-        }
-        @media (max-width: 768px) {
-            header { padding: 1rem; }
-            #home h1 { font-size: 2rem; letter-spacing: 2px; }
-            #home h2 { font-size: 1.2rem; margin-top: -0.4rem; }
-            #home p { font-size: 0.9rem; padding: 0 10px; }
-            section { padding-top: 6rem; min-height: auto; }
-            
-            h2.section-title { font-size: 1.6rem; display: flex; flex-direction: column; text-align: left; align-items: flex-start; margin-bottom: 1.5rem; line-height: 1.2; }
-            .aka-text { font-size: 0.9rem; margin-left: 0; margin-top: 4px; display: block; }
-            
+            nav ul { position: fixed; top: 70px; left: 0; width: 100%; background: var(--surface-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); flex-direction: column; text-align: center; padding: 2rem 0; gap: 2rem; clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.5s var(--smooth-curve); border-bottom: 1px solid var(--surface-border); }
+            nav ul.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
-            .profile-photo-grid { grid-template-columns: repeat(2, 1fr); }
-            .grid-container.four-cols { grid-template-columns: repeat(1, 1fr); }
-            
-            .home-cta { flex-direction: column; gap: 1rem; width: 100%; padding: 0 20px; }
-            .btn-primary, .btn-outline { width: 100%; font-size: 0.95rem; text-align: center; padding: 10px 20px; }
-            
-            .filter-btn { font-size: 0.8rem; padding: 6px 12px; }
-            
-            /* Responsive Buttons */
-            .section-header-flex { flex-direction: column; align-items: flex-start !important; gap: 1rem; }
-            .section-header-flex div { flex-wrap: wrap; gap: 8px; width: 100%; }
-            .music-btn { font-size: 0.8rem; padding: 8px 12px; width: auto; flex-grow: 1; justify-content: center; }
-            
-            .grid-modal-title { font-size: 1.3rem; }
-            .grid-modal-header { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .grid-modal { padding-top: 100px; }
-            
-            .floating-cta { padding: 10px 15px; font-size: 0.85rem; bottom: 20px; right: 20px; }
+            .lb-btn { width: 45px; height: 45px; font-size: 1.2rem; }
+            .global-player { width: 280px; left: 20px; bottom: 20px; }
         }
-        @media (max-width: 480px) {
-            .floating-cta span { display: none; }
-            .floating-cta { padding: 15px; border-radius: 50%; }
-            .floating-cta i { margin: 0; font-size: 1.2rem; }
-            .music-btn { width: 100%; }
+        @media (max-width: 600px) {
+            section { padding: 6rem 5% 3rem; }
+            .filter-btn { padding: 8px 16px; font-size: 0.8rem; }
+            .floating-cta span { display: none; } .floating-cta { padding: 15px; border-radius: 50%; right: 20px; bottom: 20px; } .floating-cta i { font-size: 1.4rem; margin: 0; }
+            .global-player { display: none; }
+            .grid-container, .grid-container.cols-4 { grid-template-columns: 1fr; }
+            .music-btn-group { justify-content: center; } .music-btn { width: 100%; justify-content: center; }
+            .lb-prev { left: 2%; } .lb-next { right: 2%; } .lb-close { right: 4%; top: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#home" class="logo">Pannathat Intharit</a>
+    <!-- Background Layers -->
+    <div id="bg-home" class="bg-layer active" style="background-image: url('https://drive.google.com/thumbnail?id=1-K_AYaGXEGt3D9NfiInwyreCU_j75OqM&sz=w1920');"></div>
+    <div id="bg-music" class="bg-layer" style="background-image: url('https://drive.google.com/thumbnail?id=1D7dutHSE0w189O7Sm1ihpX9gXYrfPbdy&sz=w1920');"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="#home" class="logo">Pannathat</a>
         <div class="header-right">
             <nav>
                 <ul id="nav-menu">
@@ -308,35 +264,44 @@
                     <li><a href="#portfolio-wrapper" onclick="toggleMenu(); filterPortfolio('all');">Portfolio</a></li>
                 </ul>
             </nav>
-            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
             <button id="theme-toggle" title="Toggle Light/Dark Mode"><i class="fa-solid fa-sun"></i></button>
         </div>
     </header>
 
+    <!-- Floating Buttons (Contact & Global Player) -->
     <a href="mailto:wistertube9@gmail.com" class="floating-cta">
         <i class="fa-solid fa-envelope"></i> <span>Let's Connect</span>
     </a>
 
+    <div id="global-music" class="global-player fade-on-load">
+        <button class="player-toggle-btn" onclick="toggleGlobalPlayer()" title="Minimize/Expand Player"><i class="fa-solid fa-xmark"></i></button>
+        <div class="music-icon-only" onclick="toggleGlobalPlayer()"><i class="fa-solid fa-music"></i></div>
+        <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+    <!-- HOME SECTION (Fades in on load) -->
     <section id="home">
-        <h1>PANNATHAT INTHARIT</h1>
-        <h2>ปัณณทัต อินทฤทธิ์</h2>
-        <p>Artist | Filmmaker | Photographer | Graphic Designer | Creator</p>
-        <div class="home-cta">
-            <a href="#portfolio-wrapper" class="btn-primary" onclick="filterPortfolio('all')">Explore My World</a>
-            <a href="mailto:wistertube9@gmail.com" class="btn-outline">Let's Connect</a>
+        <h1 class="fade-on-load">PANNATHAT INTHARIT</h1>
+        <h2 class="fade-on-load fade-delay-1">ปัณณทัต อินทฤทธิ์</h2>
+        <p class="fade-on-load fade-delay-2">An independent artist and storyteller translating raw thoughts into immersive visual and auditory narratives across filmmaking, photography, and music.</p>
+        <div class="home-cta fade-on-load fade-delay-3">
+            <a href="#portfolio-wrapper" class="btn-primary" onclick="filterPortfolio('all')">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#profile" class="btn-outline">View Profile</a>
         </div>
     </section>
 
-    <section id="profile">
-        <h2 class="section-title">Profile</h2>
+    <!-- PROFILE SECTION (Reveals on scroll) -->
+    <section id="profile" class="portfolio-section">
+        <h2 class="section-title reveal">Profile</h2>
         <div class="resume-container">
-            <div class="resume-bio">
+            <div class="resume-bio reveal delay-1">
                 "As an independent artist and storyteller, I thrive on exploring the depths of human emotion and transforming them into compelling visual and auditory narratives. My journey across filmmaking, photography, and music production is driven by a profound desire to translate raw thoughts into immersive experiences. Every frame I capture on my travels, every script I develop, and every melody I compose serves as a genuine reflection of my identity and the unique way I perceive the world around me."
             </div>
+            
             <div class="resume-grid">
-                <div class="resume-left">
+                <!-- Left Column -->
+                <div class="resume-left reveal">
                     <div class="resume-block">
                         <h3>Personal Info</h3>
                         <p><strong>Name:</strong> Pannathat Intharit (Panpan)</p>
@@ -357,17 +322,19 @@
                     <div class="resume-block">
                         <h3>Experience & Achievements</h3>
                         <ul class="skill-list">
-                            <li>Outstanding project or short film (TBA)</li>
-                            <li>Participation in art or film festivals (TBA)</li>
-                            <li>Freelance / Independent projects (TBA)</li>
+                            <li>Short Film official selections & festival screenings</li>
+                            <li>Independent Music Releases as WISTER9</li>
+                            <li>Freelance Film, Music & Graphic Design Work</li>
                         </ul>
                     </div>
                 </div>
-                <div class="resume-right">
+                
+                <!-- Center Column -->
+                <div class="resume-right reveal delay-1">
                     <div class="resume-block">
                         <h3>Hard Skills</h3>
                         <div class="skill-tags">
-                            <span class="skill-tag">Adobe Premiere Pro</span><span class="skill-tag">Adobe Photoshop</span><span class="skill-tag">Adobe Illustrator</span><span class="skill-tag">Adobe Lightroom</span><span class="skill-tag">Adobe Lightroom Classic</span><span class="skill-tag">Adobe Audition</span><span class="skill-tag">DaVinci Resolve</span><span class="skill-tag">FL Studio</span><span class="skill-tag">LUNA by UAD</span><span class="skill-tag">Soundtrap</span><span class="skill-tag">Bandlab</span><span class="skill-tag">Capcut</span><span class="skill-tag">Canva</span>
+                            <span class="skill-tag">Adobe Premiere Pro</span><span class="skill-tag">Adobe Photoshop</span><span class="skill-tag">Adobe Illustrator</span><span class="skill-tag">Adobe Lightroom</span><span class="skill-tag">Adobe Lightroom Classic</span><span class="skill-tag">Adobe Audition</span><span class="skill-tag">DaVinci Resolve</span><span class="skill-tag">FL Studio</span><span class="skill-tag">LUNA by UAD</span><span class="skill-tag">Capcut</span><span class="skill-tag">Canva</span>
                         </div>
                     </div>
                     <div class="resume-block">
@@ -382,540 +349,381 @@
                     <div class="resume-block">
                         <h3>Interests & Hobbies</h3>
                         <div class="skill-tags">
-                            <span class="skill-tag">Singing & Songwriting</span><span class="skill-tag">Playing Instruments</span><span class="skill-tag">Photography</span><span class="skill-tag">Film & Music</span><span class="skill-tag">PC Building</span><span class="skill-tag">Gaming</span><span class="skill-tag">Driving</span><span class="skill-tag">Traveling</span><span class="skill-tag">Motorcycle Riding</span><span class="skill-tag">Reading</span><span class="skill-tag">Board Games</span><span class="skill-tag">Technology</span><span class="skill-tag">Gadgets</span>
+                            <span class="skill-tag">Singing & Songwriting</span><span class="skill-tag">Playing Instruments</span><span class="skill-tag">Photography</span><span class="skill-tag">Film & Music</span><span class="skill-tag">PC Building</span><span class="skill-tag">Gaming</span><span class="skill-tag">Driving</span><span class="skill-tag">Traveling</span><span class="skill-tag">Motorcycle Riding</span><span class="skill-tag">Reading</span><span class="skill-tag">Board Games</span><span class="skill-tag">Technology</span>
                         </div>
                     </div>
                 </div>
-                <div class="resume-photos-column">
-                    <h3>Gallery</h3>
-                    <div class="profile-photo-grid">
-                        <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w400" alt="Portrait 1" onclick="openProfileImage(0)" loading="lazy">
-                        <img src="https://drive.google.com/thumbnail?id=1wzSMG-lMYj9xfvPOMUhSXTlFPuCnxT06&sz=w400" alt="Portrait 2" onclick="openProfileImage(1)" loading="lazy">
-                        <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w400" alt="Portrait 3" onclick="openProfileImage(2)" loading="lazy">
-                        <img src="https://drive.google.com/thumbnail?id=16mwV4kht2wk7kAUIHqRSJq-F4bvkpyrf&sz=w400" alt="Portrait 4" onclick="openProfileImage(3)" loading="lazy">
-                        <img src="https://drive.google.com/thumbnail?id=1ICZXBshFqz7Qorf2YoWpmbjou_qKPiC2&sz=w400" alt="Portrait 5" onclick="openProfileImage(4)" loading="lazy">
-                        <img src="https://drive.google.com/thumbnail?id=1dKWDelAHe1Sp9zBf2e1X-o0p0jh4BrCF&sz=w400" alt="Portrait 6" onclick="openProfileImage(5)" loading="lazy">
+                
+                <!-- Right Column (Photos) -->
+                <div class="resume-photos-column reveal delay-2">
+                    <div class="resume-block">
+                        <h3>Gallery</h3>
+                        <div class="profile-photo-grid">
+                            <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 0, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=1wzSMG-lMYj9xfvPOMUhSXTlFPuCnxT06&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 1, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 2, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=16mwV4kht2wk7kAUIHqRSJq-F4bvkpyrf&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 3, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 4, ['.profile-photo-grid'])" loading="lazy">
+                            <img src="https://drive.google.com/thumbnail?id=1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 5, ['.profile-photo-grid'])" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="portfolio-filter-container" id="portfolio-wrapper">
-        <h2 class="section-title" style="font-size: 1.8rem; border: none; margin-bottom: 0;">Portfolio Collection</h2>
-        <div class="portfolio-filter">
-            <button class="filter-btn active" onclick="filterPortfolio('all')">All Works</button>
+    <!-- PORTFOLIO FILTER -->
+    <div id="portfolio-wrapper" style="padding: 4rem 5% 0;">
+        <h2 class="section-title reveal" style="margin-bottom:0;">Portfolio <span class="aka-text">Select Category</span></h2>
+        <div class="filter-container reveal delay-1">
+            <button class="filter-btn active" onclick="filterPortfolio('all')">All</button>
             <button class="filter-btn" onclick="filterPortfolio('music')">Music</button>
-            <button class="filter-btn" onclick="filterPortfolio('film-media')">Film & Media</button>
-            <button class="filter-btn" onclick="filterPortfolio('photography')">Photography</button>
+            <button class="filter-btn" onclick="filterPortfolio('film')">Film & Media</button>
+            <button class="filter-btn" onclick="filterPortfolio('photo')">Photography</button>
             <button class="filter-btn" onclick="filterPortfolio('graphic')">Graphic Design</button>
-            <button class="filter-btn" onclick="filterPortfolio('other-works')">Others</button>
-            <button class="filter-btn" onclick="filterPortfolio('bts')">Behind The Scenes</button>
+            <button class="filter-btn" onclick="filterPortfolio('collab')">Collaborations</button>
+            <button class="filter-btn" onclick="filterPortfolio('bts')">BTS</button>
         </div>
     </div>
 
-    <section id="music" class="portfolio-section">
-        <h2 class="section-title">Music <span class="aka-text">| WISTER9</span></h2>
-        <div style="max-width: 950px; line-height: 1.8; color: #ccc; margin-bottom: 2rem; position: relative; z-index: 10;">
-            <p style="font-size: 0.95rem; margin-bottom: 1rem; border-left: 3px solid var(--accent-color); padding-left: 1rem;">WISTER9 is an independent music project by Pannathat Intharit, born out of a deep passion for storytelling through music. It seamlessly blends modern musical elements with a unique approach to sound design.</p>
-        </div>
+    <!-- MUSIC SECTION -->
+    <section id="sec-music" class="portfolio-section reveal filter-item music">
+        <h2 class="section-title">Music <span class="aka-text">WISTER9</span></h2>
         
-        <div class="grid-container" style="grid-template-columns: 1fr; margin-bottom: 3rem;">
-            <div class="card">
-                <div class="card-media" style="height: auto; padding: 1.5rem; background-color: var(--secondary-bg);">
-                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-                <div class="card-info" style="text-align: center;">
-                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                        <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank" class="music-btn music-btn-spotify"><i class="fa-brands fa-spotify"></i> Spotify</a>
-                        <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank" class="music-btn music-btn-apple"><i class="fa-brands fa-itunes-note"></i> Apple Music</a>
-                        <a href="https://music.youtube.com/@wakewister_9up" target="_blank" class="music-btn music-btn-youtube"><svg viewBox="0 0 24 24" style="width: 1.2rem; height: 1.2rem; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg> YouTube Music</a>
-                        <a href="https://www.youtube.com/@wakewister_9up" target="_blank" class="music-btn music-btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                        <a href="https://lyrics.lyricfind.com/artists/wister9" target="_blank" class="music-btn music-btn-lyrics"><i class="fa-solid fa-microphone-lines"></i> Lyrics</a>
-                    </div>
+        <div class="card reveal" style="max-width: 1000px; margin-bottom: 3rem;">
+            <div class="card-media-wrapper" style="height: auto; min-height:352px; background: transparent;">
+                <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <div class="card-info" style="align-items: center; border-top: 1px solid var(--surface-border);">
+                <p style="text-align: center; max-width: 800px;">WISTER9 is an independent music project blending modern melodic hip-hop elements with a unique approach to storytelling and sound design.</p>
+                <div class="music-btn-group" style="justify-content: center;">
+                    <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank" class="music-btn btn-spotify"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                    <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank" class="music-btn btn-apple"><i class="fa-brands fa-itunes-note"></i> Apple Music</a>
+                    <a href="https://www.youtube.com/@wakewister_9up" target="_blank" class="music-btn btn-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    <a href="https://lyrics.lyricfind.com/artists/wister9" target="_blank" class="music-btn btn-lyrics"><i class="fa-solid fa-microphone-lines"></i> Lyrics</a>
                 </div>
             </div>
         </div>
 
-        <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; position: relative; z-index: 10;">Covers</h3>
-        <div class="grid-container four-cols">
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/RvnK-N7ZB0s" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Jack Harlow - First Class</h3><p>Cover by WISTER9</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/rOKogRZu6as" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Kidwild - Redemption</h3><p>Cover by WISTER9</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/MyzAy_qc11A" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Lil Nas X - SUN GOES DOWN</h3><p>Cover by WISTER9</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/VQILncrYjF0" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Juice WRLD - In My Head</h3><p>Cover by WISTER9</p></div></div>
+        <h3 class="reveal" style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 500;">Cover Projects</h3>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
-    <section id="film-media" class="portfolio-section">
-        <div class="section-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h2 class="section-title" style="margin-bottom: 0;">Film and Media <span class="aka-text">| XPAN (Xpand Pure Art Narratives)</span></h2>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                <a href="https://www.youtube.com/@pannathatintharit" target="_blank" class="music-btn music-btn-youtube" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-youtube"></i> Pannathat Intharit</a>
-                <a href="https://www.instagram.com/xpan.visuals/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> xpan.visuals</a>
-                <a href="https://www.instagram.com/tripphase.ig/" target="_blank" class="music-btn music-btn-instagram" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-brands fa-instagram"></i> tripphase.ig</a>
-            </div>
-        </div>
-        <div class="grid-container four-cols">
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/ta3rxLoisFs" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>TODAY GAY, TOMORROW LAYOFF</h3><p>Short Film Project</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/64dGVwsZtgs" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>TRYPOPHOBIA | STOP MOTION</h3><p>Short Film Project</p></div></div>
-            <div class="card"><div class="video-container"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSh-gUpk9Yq/" style="background:#1a1a1a; border:0; margin: 0; max-width:100%; width:100%; height:100%;"></blockquote></div><div class="card-info"><h3>บททดลองที่ 1 ของการเดินทาง</h3><p>Short Video Project</p></div></div>
-            <div class="card"><div class="video-container"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DYZ3KlDve9u/" style="background:#1a1a1a; border:0; margin: 0; max-width:100%; width:100%; height:100%;"></blockquote></div><div class="card-info"><h3>Visuals of Hugz Mall</h3><p>Short Video Project</p></div></div>
+    <!-- FILM SECTION -->
+    <section id="sec-film" class="portfolio-section reveal filter-item film">
+        <h2 class="section-title">Film & Media <span class="aka-text">XPAN Visuals</span></h2>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
-    <section id="photography" class="portfolio-section">
-        <h2 class="section-title">Photography <span class="aka-text">| Pannathat Intharit</span></h2>
-        <div class="grid-container four-cols">
+    <!-- PHOTOGRAPHY SECTION -->
+    <section id="sec-photo" class="portfolio-section reveal filter-item photo">
+        <h2 class="section-title">Photography</h2>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Cinematic</h3><p>Storytelling through dramatic lighting.</p><a class="card-link" onclick="openGallery('cine', 'Cinematic Series')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-1"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Minimalist</h3><p>Simplicity and negative space.</p><a class="card-link" onclick="openGallery('min', 'Minimalist Series')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-2"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Wildlife</h3><p>Nature and animal encounters.</p><a class="card-link" onclick="openGallery('wild', 'Wildlife Series')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-3"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=178SjhAcj41EzHagkpC-wYph9EtW4-LWT&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Abstract</h3><p>Shapes, colors, and forms.</p><a class="card-link" onclick="openGallery('abs', 'Abstract Series')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+        </div>
+    </section>
+
+    <!-- GRAPHIC DESIGN SECTION -->
+    <section id="sec-graphic" class="portfolio-section reveal filter-item graphic">
+        <h2 class="section-title">Graphic Design</h2>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Poster</h3><p>Custom visual structures.</p><a class="card-link" onclick="openGallery('pos', 'Poster Design')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-1"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Cover Art</h3><p>Album & track layouts.</p><a class="card-link" onclick="openGallery('cov', 'Cover Art')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-2"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Movie Poster</h3><p>Official promotional keys.</p><a class="card-link" onclick="openGallery('mp', 'Movie Posters')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-3"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Identity Logo</h3><p>Typography branding.</p><a class="card-link" onclick="openGallery('log', 'Logo Design')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
             
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Cinematic</h3>
-                    <p>Cinematic Photography Set - Storytelling through frames and dramatic lighting.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-cinematic', 'Cinematic')"><i class="fa-regular fa-images"></i> View Photo Set (23 Photos)</a>
-                </div>
-                <div id="gallery-cinematic" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15dUslNqx_yP9J06KrUCBid9W_KwAFNew&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12B_7pIdupiGLUUROKhQKU-elHOAj0TIK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Wildlife</h3>
-                    <p>Wildlife Photography Set - Nature and animal encounters.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-wildlife', 'Wildlife')"><i class="fa-regular fa-images"></i> View Photo Set (5 Photos)</a>
-                </div>
-                <div id="gallery-wildlife" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Minimalist</h3>
-                    <p>Minimalist Photography Set - Simplicity and space.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-minimalist', 'Minimalist')"><i class="fa-regular fa-images"></i> View Photo Set (11 Photos)</a>
-                </div>
-                <div id="gallery-minimalist" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1MRdM8pSVdrsGdbLHx-pIKKEeJvsAh8rH&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1OwJb_f8RRKLcjSE-yTSuFuWWjHQ8vLLN&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ko_kFoEh5BdReyySFR_GQ9ZZ3fwsee_h&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=19PuAPXVWPg5jkiCBAZuOg5x9FrzS1RmB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZZt7FkJNkRUWE4FBDEsXORR-bwPsPaZq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=17Qrt2JCatPAQ_tQ8VdZ5mgYoFiBZ0Y-r&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=16wahs_4kyC0qi6kngxNJhGivYrRpy5cB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Y1Xq-5Gs8nTBCcmnpWHKc82xlN8hpnjK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1bWGqZADhJoheoRz7VNT86NKxVw8fKz7n&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=11u7yOhqrXgfZ50M3v5sDI2bt14NQye2U&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=178SjhAcj41EzHagkpC-wYph9EtW4-LWT&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Abstract</h3>
-                    <p>Abstract Photography Set - Shapes, colors, and forms.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-abstract', 'Abstract')"><i class="fa-regular fa-images"></i> View Photo Set (8 Photos)</a>
-                </div>
-                <div id="gallery-abstract" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=178SjhAcj41EzHagkpC-wYph9EtW4-LWT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_JCC-OWixqQVUbrBqdFFiXnkJftd8xGp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1BI-q4s6ctj_Tw9tgnRr-Y6pYZO-_9OMi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=11Aq37dDhROmV9fCB2rkxDp100bB60VdU&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a95DyGjDJGqnMD1f4plTgHDH7zwnCcXg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DDJJCaa_VPFcDEj4uMAcBsLZZMDy8OdS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aeZIWGWf6BZ01qWoN3L_MG2OSQ7b4OKk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mP03yZbeYxdpHoE1mpHCBk76ioeBSVA9&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
+            <div class="card reveal"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Thumbnail</h3><p>Digital media content previews.</p><a class="card-link" onclick="openGallery('thumb', 'Thumbnail Design')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-1"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Scanography</h3><p>Visual scanner experiments.</p><a class="card-link" onclick="openGallery('scan', 'Scanography')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-2"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Quote</h3><p>Typography layouts.</p><a class="card-link" onclick="openGallery('quote', 'Quote Design')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-3"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>Mock-up</h3><p>Product presentation layouts.</p><a class="card-link" onclick="openGallery('mock', 'Mock-up Design')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
         </div>
     </section>
 
-    <section id="graphic" class="portfolio-section">
-        <h2 class="section-title">Graphic Design <span class="aka-text">| Pannathat Intharit</span></h2>
-        <div class="grid-container four-cols">
+    <!-- OTHER WORKS -->
+    <section id="sec-other" class="portfolio-section reveal filter-item collab">
+        <h2 class="section-title">Collaborations</h2>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
             
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Poster</h3>
-                    <p>Poster design and custom visual structures.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-poster', 'Poster Design')"><i class="fa-regular fa-images"></i> View Art Set (27 Photos)</a>
-                </div>
-                <div id="gallery-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1H1CJ8D4prbWgmI3GENka4K4YhZw9574h&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1psca04f54QwK_ciaoMNUDNZAiAHahT18&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1t84v7BY7awIeR1utzrGl5XcK_slI73xw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TXrj9iswrA3lXczB0FLctjMZDP_vvARS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qPVag46dPjX2sPACnwMMxk-8qZAGayzU&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ffTxDTt65yx8wo_BBMhibyizxV5y6apF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Cover</h3>
-                    <p>Album arts, single covers, and track layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-cover', 'Cover Art')"><i class="fa-regular fa-images"></i> View Art Set (25 Photos)</a>
-                </div>
-                <div id="gallery-cover" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UYBTch798csP4GcCT655KbJqFEbsFEMt&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Movie Poster</h3>
-                    <p>Official promotional keys and cinematic posters.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-movie-poster', 'Movie Poster')"><i class="fa-regular fa-images"></i> View Art Set (8 Photos)</a>
-                </div>
-                <div id="gallery-movie-poster" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1neKp6BTKVLypcyAqQHo1dw292AMnsjiD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gSOteDPmmxwYar83m09bIzRJKp8xz2pq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1euzgJ6VHalg9_C08unxzis5pbNBYBtcT&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1A0bBBySGlu0CLQMgePoyy8715n2_ACmm&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=19anyUy3vlq7d-6uD1joR_FmhEcVfXkFa&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Scanography</h3>
-                    <p>Visual scanner experiments and digital layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-scanography', 'Scanography')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
-                </div>
-                <div id="gallery-scanography" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1grgS_jt-mBhTMVVsNwun72EiJytIrR35&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Logo</h3>
-                    <p>Logo identity design and typography branding.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-logo', 'Logo Design')"><i class="fa-regular fa-images"></i> View Art Set (14 Photos)</a>
-                </div>
-                <div id="gallery-logo" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1OTzVirbGttqmm7tr16LHHJrc56WWsfjV&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=14zbofpyJLiWSRf5oclh16W4Smvps_JoZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1v41GMfP9y0UB79jsOclT3hmxrx4OTInm&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Thumbnail</h3>
-                    <p>Digital media content previews and custom layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-thumbnail', 'Thumbnail Design')"><i class="fa-regular fa-images"></i> View Art Set (20 Photos)</a>
-                </div>
-                <div id="gallery-thumbnail" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1vgZJilrP6LuofB9NYxHBsY-7A822QDPz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qFRSyFEOawhgKosURiX4Qo64gySHHAmc&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1fdvnXVHse6svRlD8DkHi501JaKtyuYAw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1c_H03TuZKq7PECZf9R3G8h-7YRArKMeF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JBk3LDJY7oX861brq0oJVyaVtnkiRzJG&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Quote</h3>
-                    <p>Typography layouts and structural quote concepts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-quote', 'Quote Design')"><i class="fa-regular fa-images"></i> View Art Set (12 Photos)</a>
-                </div>
-                <div id="gallery-quote" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Mock-up</h3>
-                    <p>Product mock-ups and digital brand presentation layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-mockup', 'Mock-up Design')"><i class="fa-regular fa-images"></i> View Art Set (8 Photos)</a>
-                </div>
-                <div id="gallery-mockup" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DGY_WtRkRb1vmqrRNnkRhvOQgHk4LF3y&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=106kiZkq9ZFsXn_AsQgyK2dBOxSCYm1Ap&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15cUrAuqniphLdUR48p16A8oWLSTGODg0&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1gXqoKeM6wenElkRH0B_2UTgst3d9oVdK&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Banner</h3>
-                    <p>Digital banners and promotional layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-banner', 'Banner Design')"><i class="fa-regular fa-images"></i> View Art Set (4 Photos)</a>
-                </div>
-                <div id="gallery-banner" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1gXqoKeM6wenElkRH0B_2UTgst3d9oVdK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=182CRgodAMdv70spIg6pJ068_LKw5M_PK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=13SA7Jh-8kUlsn46LV76u2CJE2IgY-BRr&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Illustrator</h3>
-                    <p>Vector art, illustrations, and scalable graphics.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-illustrator', 'Illustrator Art')"><i class="fa-regular fa-images"></i> View Art Set (5 Photos)</a>
-                </div>
-                <div id="gallery-illustrator" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=13SA7Jh-8kUlsn46LV76u2CJE2IgY-BRr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1iNuTRV1qbIiPjAsZbPr8qcOKz8uiZrtI&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Pj0Tw_EG8MbCjjFHbHtel3bfEvzLYZ6Z&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-BATuFWtK30VVkDyRcXN07OpFUhkl229&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1OX6UELyTyB9nqBAD7i90GYTzWiQJLNiU&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1_oceHpMIUtd-NVslf5loZNCfbNMLok0H&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Cards</h3>
-                    <p>Business cards, invitations, and stationery layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-card', 'Cards')"><i class="fa-regular fa-images"></i> View Art Set (6 Photos)</a>
-                </div>
-                <div id="gallery-card" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1_oceHpMIUtd-NVslf5loZNCfbNMLok0H&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_CtZXeIjiISFUhF2jE6DYD7-XRcSGTHs&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1hcKBgZFjW4DXgGNuKjia1sGN55tb4TxI&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1AOKF6q_cdUPdEDwLnFiGFjK_iGlZkoPX&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1705nRYWc4Dw9TEMge-HWdgQ9mQWntHDO&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Q5mU7RrpA8FhUZa5dkzdJQVgotcv3T0l&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1wjoJxqXHjpNJOB8vFoOAaOx5ZHrGckfD&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>Others</h3>
-                    <p>Miscellaneous graphic design works and custom layouts.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-graphic-others', 'Others')"><i class="fa-regular fa-images"></i> View Art Set (7 Photos)</a>
-                </div>
-                <div id="gallery-graphic-others" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1wjoJxqXHjpNJOB8vFoOAaOx5ZHrGckfD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1LbxjIUGrv7XTk7kEdUkNR559mYGuMSGY&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1nAF10LnHx9wdJnfG-35NlB6EpWucj7j7&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1F1wv0ISidmQABrPRT3uouH5ezy1Lcd36&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1s1YJwYsWqNsmiXoklKQ9KpRWKZMVg2-A&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1H2eh0eTzFRBbK9jElFIamI1YJcrlrrri&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1XhSKbTG41ZoDwUE87LPn3gQZf_sWQ8bB&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="other-works" class="portfolio-section">
-        <h2 class="section-title">Other Works <span class="aka-text">| Collaborations & Assistance</span></h2>
-        <div class="grid-container four-cols">
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/w8UDaA24-vA" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>เทอม 4 | Haunted Universities 4</h3><p>Role: Runner (Ep. Saphan Khao)</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/T3IltTHFMz0" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>ภาพยนตร์สั้น ‘ครั้งหนึ่งเคยฝันดี’</h3><p>Role: Sound Recordist</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/DN7jF1mTkPs" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Blue from the bottom</h3><p>Role: Sound Recordist, Technical</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/RRuIk4UtJrE" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>The Weakend [Full Version]</h3><p>Role: Extra</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/d2LZC_YUdRw" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Frem Panuwit - Please Don't Leave Me Alone</h3><p>Role: Producer, Lyrics, Mix/Master, Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/uUfyBE1Om9o" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>ลั่นทม​ - COCKTAIL (Cover)</h3><p>Role: Mix/Master, Recorded, Artwork, Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/7MAsBAhLJlw" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>เพียงหมายปอง - BIWCHAN</h3><p>Role: Camera Operator, Technical</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/Dkf2wngDieg" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>ประกวดทำดนตรีประกอบ ธี่หยด</h3><p>Role: Sound Designer</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/RI9mAQFOJv8" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>รวมส่องจตุรเทพ EV จีน</h3><p>Role: Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/0eMt2mDsw5E" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Benz BMW แพงมาจากอะไร?</h3><p>Role: Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/mxLdLitisqw" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>Suzuki...รถเสี่ยงดวง</h3><p>Role: Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/bnfs44it32w" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>รวมรถราคาแรงไป Motor Show 2024</h3><p>Role: Editor</p></div></div>
-            <div class="card"><div class="video-container"><iframe src="https://www.youtube.com/embed/EjSAGu2rqBk" frameborder="0" allowfullscreen loading="lazy"></iframe></div><div class="card-info"><h3>หนังเมืองแคน ครั้งที่ 9</h3><p>Role: Extra, Editor, Sound Recordist, Sound Designer</p></div></div>
-            <div class="card"><div class="video-container"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/" style="background:#1a1a1a; border:0; margin: 0; max-width:100%; width:100%; height:100%;"></blockquote></div><div class="card-info"><h3>A Little Bit Complex. (2025)</h3><p>Role: 1st AD, Sound Designer, Technical</p></div></div>
-            <div class="card"><div class="video-container"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/" style="background:#1a1a1a; border:0; margin: 0; max-width:100%; width:100%; height:100%;"></blockquote></div><div class="card-info"><h3>พิธีพระราชทานปริญญาบัตร มข 2568</h3><p>Role: Videographer, Editor, Colorist</p></div></div>
-            <div class="card"><div class="video-container"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/" style="background:#1a1a1a; border:0; margin: 0; max-width:100%; width:100%; height:100%;"></blockquote></div><div class="card-info"><h3>กิจกรรมปฐมนิเทศ ศิลปกรรมศาสตร์ มข 2568</h3><p>Role: Videographer, Editor, Colorist</p></div></div>
-        </div>
-    </section>
-
-    <section id="bts" class="portfolio-section">
-        <h2 class="section-title">Behind The Scenes <span class="aka-text">| Pannathat Intharit</span></h2>
-        <div class="grid-container four-cols">
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
             
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>เรียบ (Too Much)</h3>
-                    <p>Behind the scenes.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-bts-riab', 'เรียบ (Too Much)')"><i class="fa-regular fa-images"></i> View Gallery (8 Photos)</a>
-                </div>
-                <div id="gallery-bts-riab" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15VLborXMouq79HISzCA-rTso1kOAEQxJ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1hteAN9E-LWawIbZeuFRirhSlshU5BUKO&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Wqg-DAibAeUWTwf3emmQc_j5_FqwP3Hz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1fmwjtd86bw7itoVeK7mIUSS5ORfLDbka&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=19RPSIY6Vt-USqSmIhgWLhldkuwxpUI93&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ceOA3H0gxJttkbmAMNwuHFzCIG_QqH1M&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mFPEbYGD0dwA74YdAn5MTZPqKjHJZN2F&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>สะพานบุญ (Sacred Path Across The River)</h3>
-                    <p>Behind the scenes.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-bts-saphanboon', 'สะพานบุญ (Sacred Path Across The River)')"><i class="fa-regular fa-images"></i> View Gallery (10 Photos)</a>
-                </div>
-                <div id="gallery-bts-saphanboon" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1rL_6yHl3fEpYQevgPp0tPMBZm2UQCukq&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1HP79VUhU9UWAZrS8YvsHHb7LNsu5Y7pb&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15tEazCrSBnqynKYcptRnpfmXqHO_HuJf&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1gSE6ry8RS18kS3mKuOMcDGi42Bqtet0U&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-9H0M9Fbl1RefkI9XxkoADeDFmnf2LfD&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Cgpb17JMpvShcHZeOOQszYbB9qnfchZ4&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JTpfL0Sm_XSXd8x0qsPqjxRRlPJ7Yjuw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_c6caZWLCkZauYKoBmTbBH-irSVJgRlw&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=11pSr2GiHtDAhBJtuwHMnNKIxnffYQi8f&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>อย่าหายไป (Here with Me)</h3>
-                    <p>Behind the scenes.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-bts-dontleave', 'อย่าหายไป (Here with Me)')"><i class="fa-regular fa-images"></i> View Gallery (22 Photos)</a>
-                </div>
-                <div id="gallery-bts-dontleave" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1CtKzyeiMDOqbAzBkRs8--za8v3kbtGFQ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1FKYNO4v7MME7MGigyOBJdQbTcF2lOycv&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1Mfay08ZUiqbU67XI-ZF0ZA6HaG_bMQ5G&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JseC1h-LbgPGi3h8o6APXKgCSF7EldWe&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1AkPQA3VDTu69IycPh6KyjiXae3T5JDts&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1R8LswGmjX042HqTMVehfWr6OPdA5e3RG&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1EBMon9mj_CCQ7Nxb4Hn1hyeK1j4XsxJL&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=18UmBuvtnN3-BcQi8CeZvlF_iUiwHOPAr&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1U5EoCp8eoHcPionwyYGOniwiFZen-lMb&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1eVtQuMucK09zv0NCqAzxcXCcFlHsXfil&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1ausVl0Lx3ALJb2N9ANOusY_Gh01kHkBg&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1K8tk_qArSlBae7GnmwaodUKhMRDdm1Ea&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1_w6zv3VIDoxMfHhsubxbrnV1rztJQj2m&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=16q7h8XuWjJjMXdXUfJFXJBV2QrjNl8Rx&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1KkuvyEzT9oUKTnD2pw1TP_Z8wnO03LTZ&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1mclUCZlnhUhb4YizlsNP2xUx6XEj9eQn&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=15dSq_MZoefG_rily6mSYyhmRgeUADuwe&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=18UZq-bBZuXFoq73NkC6yt9a1XxILH09a&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1NyNA6PLHlXPY2opsJpJnN4qUocc_htAz&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1X_Z_veIRJpSkYsOIpuQ_5gk7p995Lrgj&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1FjyuJWXe9ecszBpQ-JXlSy5qxW8EskxR&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w600" class="card-media" loading="lazy">
-                <div class="card-info">
-                    <h3>ภาพสุดท้าย (Blur Memories)</h3>
-                    <p>Behind the scenes.</p>
-                    <a class="card-link" onclick="openGridGallery('gallery-bts-lastpic', 'ภาพสุดท้าย (Blur Memories)')"><i class="fa-regular fa-images"></i> View Gallery (10 Photos)</a>
-                </div>
-                <div id="gallery-bts-lastpic" class="hidden-gallery">
-                    <img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1DbuVeOEBxKNI5TXOfbmOQ8jwYUQCm437&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=19NPtxH75qpSaD__57i35VwK9jGvbtWaH&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1TDca5fYC-VQxjwYq6-li5P-53YfZM_SB&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=124taKDYvgKuTznSQoTKf70VSug_qgG_j&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1-PRqlgg59D_iJRUfk5twYalBWSyRKlZl&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=13TBK9GIFGXK-oGYsJLWRABVC3npaA5_Q&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1qEAFgvBAcPSlwDdWLscQFjfornzV4YQP&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1JZZBnu6Hg9nBV8LImrk6yvEisUpgffps&sz=w1200" loading="lazy"><img src="https://drive.google.com/thumbnail?id=1lKGi5Ii8RZpqnyeARbgcXmYA0l_KJ2Zh&sz=w1200" loading="lazy">
-                </div>
-            </div>
-
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.9rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
         </div>
     </section>
 
-    <script async src="//www.instagram.com/embed.js"></script>
-
-    <div id="gridModal" class="grid-modal">
-        <div class="grid-modal-header">
-            <h2 id="grid-modal-title" class="grid-modal-title">Project Name</h2>
-            <button class="back-btn" onclick="closeGridGallery()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+    <!-- BEHIND THE SCENES -->
+    <section id="sec-bts" class="portfolio-section reveal filter-item bts">
+        <h2 class="section-title">Behind The Scenes</h2>
+        <div class="grid-container cols-4">
+            <div class="card reveal"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1whRx1DUr98CHScILRpF9EfbRmyvfpOT_&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>เรียบ (Too Much)</h3><a class="card-link" onclick="openGallery('b1', 'เรียบ (Too Much) BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-1"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>อย่าหายไป (Here with Me)</h3><a class="card-link" onclick="openGallery('b3', 'อย่าหายไป BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-2"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>สะพานบุญ (Sacred Path)</h3><a class="card-link" onclick="openGallery('b2', 'สะพานบุญ BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
+            <div class="card reveal delay-3"><div class="card-media-wrapper"><img src="https://drive.google.com/thumbnail?id=1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0&sz=w600" class="card-media" loading="lazy"></div>
+                <div class="card-info"><h3>ภาพสุดท้าย (Blur Memories)</h3><a class="card-link" onclick="openGallery('b4', 'ภาพสุดท้าย BTS')">View Gallery <i class="fa-solid fa-arrow-right"></i></a></div></div>
         </div>
-        <div id="masonry-content"></div>
-    </div>
+    </section>
 
-    <div id="myLightbox" class="lightbox">
-        <button class="back-btn close-btn" onclick="closeSingleLightbox()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <img id="lightbox-img" class="lightbox-content" src="" oncontextmenu="return false;">
-        <div class="lightbox-controls">
-            <button class="lightbox-btn" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <span id="lightbox-counter" style="color: #fff; font-size: 1.2rem; min-width: 60px; text-align: center; font-family: 'Prompt';">1 / 1</span>
-            <button class="lightbox-btn" onclick="changeImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-    </div>
-
+    <!-- FOOTER -->
     <footer>
-        <div class="social-icons">
-            <a href="https://www.instagram.com/wakewister_9up" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/pannathat.WiSTeR.9/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-            <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank"><i class="fa-brands fa-spotify"></i></a>
-            <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank"><i class="fa-brands fa-itunes-note"></i></a>
-            <a href="https://music.youtube.com/@wakewister_9up" target="_blank"><svg viewBox="0 0 24 24" style="width: 1.8rem; height: 1.8rem;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg></a>
-            <a href="https://youtube.com/@WiSTeR9" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-            <a href="mailto:wistertube9@gmail.com"><i class="fa-regular fa-envelope"></i></a>
+        <div class="socials reveal">
+            <a href="https://www.instagram.com/wakewister_9up" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/pannathat.WiSTeR.9/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://open.spotify.com/artist/3W62Zk1oIFZtAAR3ML4fkX" target="_blank" title="Spotify"><i class="fa-brands fa-spotify"></i></a>
+            <a href="https://music.apple.com/us/artist/wister9/1744279531" target="_blank" title="Apple Music"><i class="fa-brands fa-itunes-note"></i></a>
+            <a href="https://music.youtube.com/@wakewister_9up" target="_blank" title="YouTube Music">
+                <svg viewBox="0 0 24 24" style="width: 1.5rem; height: 1.5rem; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg>
+            </a>
+            <a href="https://youtube.com/@WiSTeR9" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="mailto:wistertube9@gmail.com" title="Email"><i class="fa-regular fa-envelope"></i></a>
         </div>
-        <p>© 2026 Pannathat Intharit. All rights reserved.</p>
+        <p class="reveal delay-1">© 2026 Pannathat Intharit. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Disable Right Click & Developer Tools for image protection
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
-            if (e.key === 'F12') { e.preventDefault(); }
-        });
+    <!-- IG Embed Script -->
+    <script async src="//www.instagram.com/embed.js"></script>
 
-        // Auto-inject Responsive Srcset for all Google Drive Images
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('img.card-media, .profile-photo-grid img').forEach(img => {
-                const match = img.src.match(/id=([^&]+)/);
-                if(match) {
-                    const id = match[1];
-                    img.srcset = `https://drive.google.com/thumbnail?id=${id}&sz=w400 400w, https://drive.google.com/thumbnail?id=${id}&sz=w600 600w, https://drive.google.com/thumbnail?id=${id}&sz=w1200 1200w`;
-                    if(!img.sizes) img.sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw";
+    <!-- MODALS UI -->
+    <div id="modal-gallery" class="modal-overlay">
+        <div class="modal-header">
+            <h2 id="modal-title" class="modal-title">Gallery</h2>
+            <button class="close-action" onclick="closeGalleryModal()"><i class="fa-solid fa-xmark"></i> Close</button>
+        </div>
+        <div id="masonry-grid"></div>
+    </div>
+
+    <div id="modal-lightbox" class="lightbox-view">
+        <button class="lb-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="lightbox-img-wrapper">
+            <img id="lb-img" class="lightbox-img" src="" oncontextmenu="return false;">
+        </div>
+        <button class="lb-btn lb-prev" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <span id="lb-count" class="lb-counter">1 / 1</span>
+        <button class="lb-btn lb-next" onclick="changeImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Prevent Right Click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 2. Scroll Reveal & Background Switcher
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
                 }
             });
+        }, { root: null, rootMargin: '0px', threshold: 0.15 });
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    if(entry.target.id === 'sec-music') {
+                        document.getElementById('bg-home').classList.remove('active');
+                        document.getElementById('bg-music').classList.add('active');
+                    } else if(entry.target.id === 'home') {
+                        document.getElementById('bg-music').classList.remove('active');
+                        document.getElementById('bg-home').classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+            document.querySelectorAll('section').forEach(el => sectionObserver.observe(el));
         });
 
-        let currentImages = [];
-        let currentIndex = 0;
+        // 3. Header Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 80) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
 
-        // Theme Toggle Logic
+        // 4. Theme & Mobile Menu
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             themeToggle.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
-        // Mobile Menu Toggler
         function toggleMenu() {
-            if (window.innerWidth <= 850) {
-                document.getElementById('nav-menu').classList.toggle('active');
-            }
+            if (window.innerWidth <= 900) { document.getElementById('nav-menu').classList.toggle('active'); }
         }
 
-        // Portfolio Category Filter System
+        // 5. Global Player Toggle
+        function toggleGlobalPlayer() {
+            const player = document.getElementById('global-music');
+            player.classList.toggle('minimized');
+        }
+
+        // 6. Portfolio Filter (Smooth Fade)
         function filterPortfolio(category) {
-            const sections = ['music', 'film-media', 'photography', 'graphic', 'other-works', 'bts'];
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
 
-            sections.forEach(sec => {
-                const el = document.getElementById(sec);
-                if(!el) return;
-                if (category === 'all' || category === sec) {
-                    el.style.display = 'block';
-                    setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 50);
-                } else {
-                    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
-                    setTimeout(() => { el.style.display = 'none'; }, 300);
-                }
+            const items = document.querySelectorAll('.filter-item');
+            items.forEach(item => {
+                item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    if (category === 'all' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                        setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
+                    } else { item.style.display = 'none'; }
+                }, 400);
             });
         }
 
-        // Open Grid Gallery for Projects
-        function openGridGallery(galleryId, titleText) {
-            const gallery = document.getElementById(galleryId);
-            const gridContent = document.getElementById('masonry-content');
-            gridContent.style.display = 'flex'; gridContent.style.flexWrap = 'wrap'; gridContent.style.justifyContent = 'center'; gridContent.style.gap = '15px'; gridContent.innerHTML = '';
-            
-            const imgs = gallery.getElementsByTagName('img');
-            currentImages = Array.from(imgs).map(img => img.src);
-            
-            if (currentImages.length === 0) return;
+        // 7. Data-Driven Gallery Engine (Secure & Fast)
+        const gData = {
+            'cine': '1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf,1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa,1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY,1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q,1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3,1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I,1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS,1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj,1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS,1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl,1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA,15dUslNqx_yP9J06KrUCBid9W_KwAFNew,1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8,12B_7pIdupiGLUUROKhQKU-elHOAj0TIK,17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5,17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3,1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx,1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ,1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r,1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT,1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd,1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-,1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9',
+            'wild': '1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv,1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc,1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2,1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4,1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J',
+            'min': '1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN,1MRdM8pSVdrsGdbLHx-pIKKEeJvsAh8rH,1OwJb_f8RRKLcjSE-yTSuFuWWjHQ8vLLN,1ko_kFoEh5BdReyySFR_GQ9ZZ3fwsee_h,19PuAPXVWPg5jkiCBAZuOg5x9FrzS1RmB,1ZZt7FkJNkRUWE4FBDEsXORR-bwPsPaZq,17Qrt2JCatPAQ_tQ8VdZ5mgYoFiBZ0Y-r,16wahs_4kyC0qi6kngxNJhGivYrRpy5cB,1Y1Xq-5Gs8nTBCcmnpWHKc82xlN8hpnjK,1bWGqZADhJoheoRz7VNT86NKxVw8fKz7n,11u7yOhqrXgfZ50M3v5sDI2bt14NQye2U',
+            'abs': '178SjhAcj41EzHagkpC-wYph9EtW4-LWT,1_JCC-OWixqQVUbrBqdFFiXnkJftd8xGp,1BI-q4s6ctj_Tw9tgnRr-Y6pYZO-_9OMi,11Aq37dDhROmV9fCB2rkxDp100bB60VdU,1a95DyGjDJGqnMD1f4plTgHDH7zwnCcXg,1DDJJCaa_VPFcDEj4uMAcBsLZZMDy8OdS,1aeZIWGWf6BZ01qWoN3L_MG2OSQ7b4OKk,1mP03yZbeYxdpHoE1mpHCBk76ioeBSVA9',
+            'pos': '1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD,1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp,1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL,1H1CJ8D4prbWgmI3GENka4K4YhZw9574h,1psca04f54QwK_ciaoMNUDNZAiAHahT18,1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car,1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW,1t84v7BY7awIeR1utzrGl5XcK_slI73xw,1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO,1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am,1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs,10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-,1TXrj9iswrA3lXczB0FLctjMZDP_vvARS,1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ,1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u,1qPVag46dPjX2sPACnwMMxk-8qZAGayzU,1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39,1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo,1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi,1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz,1ffTxDTt65yx8wo_BBMhibyizxV5y6apF,1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi,1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh,14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW,1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk,1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV,1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg,182CRgodAMdv70spIg6pJ068_LKw5M_PK,1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF,1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy',
+            'cov': '1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT,1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV,1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu,1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS,1UYBTch798csP4GcCT655KbJqFEbsFEMt,1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW,1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka,1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV,1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr,1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg,1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c,1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr,1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB,1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw,1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw,14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9,12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc,1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8,1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f,1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG,1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL,186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg,1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp,1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd,1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1',
+            'mp': '16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW,1neKp6BTKVLypcyAqQHo1dw292AMnsjiD,1gSOteDPmmxwYar83m09bIzRJKp8xz2pq,1euzgJ6VHalg9_C08unxzis5pbNBYBtcT,1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ,1A0bBBySGlu0CLQMgePoyy8715n2_ACmm,1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5,19anyUy3vlq7d-6uD1joR_FmhEcVfXkFa',
+            'scan': '1U4w9aZ0f6OnatiFHwsqyG4hDRpQ2mpT-,1_OI55oqIFEyW0vjei3-az4V7rf_M0Y5Y,1grgS_jt-mBhTMVVsNwun72EiJytIrR35,1IyyhmVo3mWbYJ3IitCby5rLpTJiPADBQ,1kMJhMuLKvEP2dSK6Xau2MlmJwDeW0CDI,1meDnFNyOoplMvrarHRaqSVNQmW0Dfhz7',
+            'log': '1OTzVirbGttqmm7tr16LHHJrc56WWsfjV,14fyq2BDycN1iA4Iz8jYLktYu5dA7nTkL,1O96CEHKq-oM6Vbq5VYkKv2kxyWcMhULi,1-UkkyWi2Omt9FMcC7MVu5LdUWb3OGaco,1jCQFPQmW6RUDEGG-82G2zt_Cdhnb9Q2Y,14zbofpyJLiWSRf5oclh16W4Smvps_JoZ,1pVM8ySFWBd2GQed9z8rWPE8X114TKUe-,1a_v2XcNZjiOPuE6W-e5rhK5UiqgQkEy8,1G7gZ7_MUiV1h8uhSkUsSuH_Y9KPPpeIz,1v41GMfP9y0UB79jsOclT3hmxrx4OTInm,1EfLfluUI4U3Jk_3t2JfPDphq-1Qf02Re,1YAVIq0WW3b5rmKntZBFfY1ytNx7ooJ2z,12ZUtIHd8zip1pm7YLMryKQgUF2YZR2g9,1aWDpFMv7bCI6PUjQ95VnqWLkga-OPUkb',
+            'thumb': '1WnlKSXM0cMNl6j3R5sqzYlukKM0HUCX4,1vgZJilrP6LuofB9NYxHBsY-7A822QDPz,1gx13MYE-tUzlm3aSxaC0qoKP3WaJ8Ejk,1qFRSyFEOawhgKosURiX4Qo64gySHHAmc,1carmtpJRYmd9bh7D37KHtk90x-0Q1J3L,1fdvnXVHse6svRlD8DkHi501JaKtyuYAw,1oXLPzEdH-jKcepw-YCjUqixex_8nRW6-,1ctdinB8iwLSz2AE-4bpkR1gLae0SvlDX,1TNgq7z2S0atfWYIPChBH52Q9GlpyMzTH,1uE8BcNf6n6k5rv69e1VoBkwHW3WK3o10,1JkWhftgndHgVjM3f7F1ARZq26rpt0kIy,1IjYH7aMxO4gM3_mZkAxHuwNVwI60MV1a,1cuD2G2c1kUy85ryr6lufsIQAvh2uGw6q,13VC1uiW39DQCLInq3ey7F5-u08Iu1Wod,1txy8IOH7JDZ9N04Dl-UORHNj2W0ybHZX,1ovdURc8cPnAaM0SVk-5bgZGzyGbUJ3I8,1p6j6tj5mEmdVGTIuIByLIUfpcHQ4mRRY,1qhENxYXa6b3iHdazrVK3GPTx1IsuKLSP,1c_H03TuZKq7PECZf9R3G8h-7YRArKMeF,1JBk3LDJY7oX861brq0oJVyaVtnkiRzJG',
+            'quote': '1zBqPzvU3ldo7Ren-xzUtGaF9wmn27uFE,1e06Y_IYNxLnDZ8WmLzhovcG30VpzTYB_,1lshFR3ZYzSDfJn8p5Uu51tmID_4vpgni,1C9H4BdMVeOIoj0gdfIOuVnkdL4MrMcM8,1Dkh3uX83yBvNXO0XJyywoY6OYFTnXk90,138VyN7lAGD1mO0Hi7RW5TUG2J5kHigQw,1ESPs-FUhRRVy-EmX4l6pKuK56lciQac3,1GeBGqCqxjYBvbQDCt6SYPObekV7aCAVv,1UgzvJgZTYWawdvLH8rjBaWUVuLs4Vn-7,1g5J6vR989c6V3RcgPbq9-JAXkaJoZVbq,1Dx2Oxg0B6pcPzodklq0YEaUbB2mZTCPW,1R5eFs2zaIv0JGgdBYVfC9W52EzEse9Ys',
+            'mock': '14Ly8VbyKty2pCHVv8HimCLDUi1I8vNU1,1hzEJGRV0wZUDpgdp3XLkNlOUA9cj8ZPS,1c1MgpDoQy4CyFkXRy9d3nw_vdHlcYCLj,1O7e_HFpRwfKviHNaZSl3FS1wHD2eywDW,1e9mQvL_e8e6NsRpvjHMdm6to1WwwPS-W,1DGY_WtRkRb1vmqrRNnkRhvOQgHk4LF3y,106kiZkq9ZFsXn_AsQgyK2dBOxSCYm1Ap,15cUrAuqniphLdUR48p16A8oWLSTGODg0',
+            'b1': '1whRx1DUr98CHScILRpF9EfbRmyvfpOT_,15VLborXMouq79HISzCA-rTso1kOAEQxJ,1hteAN9E-LWawIbZeuFRirhSlshU5BUKO,1Wqg-DAibAeUWTwf3emmQc_j5_FqwP3Hz,1fmwjtd86bw7itoVeK7mIUSS5ORfLDbka,19RPSIY6Vt-USqSmIhgWLhldkuwxpUI93,1ceOA3H0gxJttkbmAMNwuHFzCIG_QqH1M,1mFPEbYGD0dwA74YdAn5MTZPqKjHJZN2F',
+            'b2': '1LCoUsnEtmH6l-5283vlh4vQiSUSgiFZK,1rL_6yHl3fEpYQevgPp0tPMBZm2UQCukq,1HP79VUhU9UWAZrS8YvsHHb7LNsu5Y7pb,15tEazCrSBnqynKYcptRnpfmXqHO_HuJf,1gSE6ry8RS18kS3mKuOMcDGi42Bqtet0U,1-9H0M9Fbl1RefkI9XxkoADeDFmnf2LfD,1Cgpb17JMpvShcHZeOOQszYbB9qnfchZ4,1JTpfL0Sm_XSXd8x0qsPqjxRRlPJ7Yjuw,1_c6caZWLCkZauYKoBmTbBH-irSVJgRlw,11pSr2GiHtDAhBJtuwHMnNKIxnffYQi8f',
+            'b3': '1DxOxSjUTRYqOpMEs3HtZrV4wW0cPTCXd,1CtKzyeiMDOqbAzBkRs8--za8v3kbtGFQ,1FKYNO4v7MME7MGigyOBJdQbTcF2lOycv,1Mfay08ZUiqbU67XI-ZF0ZA6HaG_bMQ5G,1JseC1h-LbgPGi3h8o6APXKgCSF7EldWe,1AkPQA3VDTu69IycPh6KyjiXae3T5JDts,1R8LswGmjX042HqTMVehfWr6OPdA5e3RG,1EBMon9mj_CCQ7Nxb4Hn1hyeK1j4XsxJL,18UmBuvtnN3-BcQi8CeZvlF_iUiwHOPAr,1U5EoCp8eoHcPionwyYGOniwiFZen-lMb,1eVtQuMucK09zv0NCqAzxcXCcFlHsXfil,1ausVl0Lx3ALJb2N9ANOusY_Gh01kHkBg,1K8tk_qArSlBae7GnmwaodUKhMRDdm1Ea,1_w6zv3VIDoxMfHhsubxbrnV1rztJQj2m,16q7h8XuWjJjMXdXUfJFXJBV2QrjNl8Rx,1KkuvyEzT9oUKTnD2pw1TP_Z8wnO03LTZ,1mclUCZlnhUhb4YizlsNP2xUx6XEj9eQn,15dSq_MZoefG_rily6mSYyhmRgeUADuwe,18UZq-bBZuXFoq73NkC6yt9a1XxILH09a,1NyNA6PLHlXPY2opsJpJnN4qUocc_htAz,1X_Z_veIRJpSkYsOIpuQ_5gk7p995Lrgj,1FjyuJWXe9ecszBpQ-JXlSy5qxW8EskxR',
+            'b4': '1BX76JQXuNNWO5wSjxzOFlTeM7sIAsoC0,1DbuVeOEBxKNI5TXOfbmOQ8jwYUQCm437,19NPtxH75qpSaD__57i35VwK9jGvbtWaH,1TDca5fYC-VQxjwYq6-li5P-53YfZM_SB,124taKDYvgKuTznSQoTKf70VSug_qgG_j,1-PRqlgg59D_iJRUfk5twYalBWSyRKlZl,13TBK9GIFGXK-oGYsJLWRABVC3npaA5_Q,1qEAFgvBAcPSlwDdWLscQFjfornzV4YQP,1JZZBnu6Hg9nBV8LImrk6yvEisUpgffps,1lKGi5Ii8RZpqnyeARbgcXmYA0l_KJ2Zh'
+        };
 
-            document.getElementById('grid-modal-title').innerText = titleText;
-            
-            currentImages.forEach((src, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'masonry-item';
-                itemDiv.style.height = window.innerWidth < 768 ? '160px' : '260px';
-                itemDiv.style.marginBottom = '5px';
-                itemDiv.onclick = () => openSingleImage(index);
-                
-                const imgEl = document.createElement('img');
-                imgEl.src = src;
-                
-                // Add Dynamic Srcset to Gallery Items for faster loading
-                const match = src.match(/id=([^&]+)/);
-                if(match) {
-                    const id = match[1];
-                    imgEl.srcset = `https://drive.google.com/thumbnail?id=${id}&sz=w400 400w, https://drive.google.com/thumbnail?id=${id}&sz=w800 800w, https://drive.google.com/thumbnail?id=${id}&sz=w1200 1200w`;
-                    imgEl.sizes = "(max-width: 768px) 50vw, 33vw";
-                }
+        let currentImgList = [];
+        let currentIdx = 0;
 
-                imgEl.style.height = '100%'; imgEl.style.width = 'auto'; imgEl.style.maxWidth = '100%'; imgEl.style.borderRadius = '8px'; imgEl.style.display = 'block'; imgEl.style.objectFit = 'contain';
-                imgEl.setAttribute('loading', 'lazy'); 
-                itemDiv.appendChild(imgEl); gridContent.appendChild(itemDiv);
+        function openGallery(key, title) {
+            const ids = gData[key].split(',');
+            const grid = document.getElementById('masonry-grid');
+            grid.innerHTML = '';
+            
+            if (ids.length === 0 || !ids[0]) return;
+            currentImgList = ids.map(id => `https://drive.google.com/thumbnail?id=${id}&sz=w1200`);
+            document.getElementById('modal-title').innerText = title;
+            
+            ids.forEach((id, idx) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.onclick = () => openLightbox(null, idx, currentImgList);
+                const img = document.createElement('img');
+                img.src = `https://drive.google.com/thumbnail?id=${id}&sz=w600`;
+                img.setAttribute('loading', 'lazy');
+                item.appendChild(img);
+                grid.appendChild(item);
             });
             
-            document.getElementById('gridModal').style.display = "block";
+            const modal = document.getElementById('modal-gallery');
+            modal.style.display = "block";
+            setTimeout(() => { modal.style.opacity = "1"; }, 10);
             document.body.style.overflow = "hidden";
         }
 
-        function closeGridGallery() { document.getElementById('gridModal').style.display = "none"; document.body.style.overflow = "auto"; }
-
-        function openProfileImage(index) {
-            const imgs = document.querySelectorAll('.profile-photo-grid img');
-            currentImages = Array.from(imgs).map(img => img.src.replace('&sz=w400', '&sz=w1200'));
-            currentIndex = index; updateLightbox(); document.getElementById('myLightbox').style.display = "flex"; document.body.style.overflow = "hidden";
+        function closeGalleryModal() { 
+            const modal = document.getElementById('modal-gallery');
+            modal.style.opacity = "0";
+            setTimeout(() => { modal.style.display = "none"; document.body.style.overflow = "auto"; }, 400);
         }
 
-        function openSingleImage(index) {
-            currentIndex = index; updateLightbox(); document.getElementById('myLightbox').style.display = "flex";
+        function openLightbox(src, index, listOrSelector) {
+            if (Array.isArray(listOrSelector)) {
+                currentImgList = listOrSelector;
+            } else {
+                const imgs = document.querySelectorAll(listOrSelector + ' img');
+                currentImgList = Array.from(imgs).map(img => img.src.replace('&sz=w600', '&sz=w1200'));
+            }
+            
+            currentIdx = index;
+            updateLbContent();
+            
+            const lb = document.getElementById('modal-lightbox');
+            lb.style.display = "flex";
+            setTimeout(() => { lb.style.opacity = "1"; }, 10);
+            document.body.style.overflow = "hidden";
         }
 
-        function closeSingleLightbox() {
-            document.getElementById('myLightbox').style.display = "none";
-            if (document.getElementById('gridModal').style.display !== "block") document.body.style.overflow = "auto";
+        function closeLightbox() {
+            const lb = document.getElementById('modal-lightbox');
+            lb.style.opacity = "0";
+            setTimeout(() => { 
+                lb.style.display = "none"; 
+                if (document.getElementById('modal-gallery').style.display !== "block") {
+                    document.body.style.overflow = "auto"; 
+                }
+            }, 300);
         }
 
         function changeImage(step) {
-            currentIndex += step;
-            if (currentIndex >= currentImages.length) currentIndex = 0;
-            else if (currentIndex < 0) currentIndex = currentImages.length - 1;
-            updateLightbox();
+            currentIdx += step;
+            if (currentIdx >= currentImgList.length) currentIdx = 0;
+            if (currentIdx < 0) currentIdx = currentImgList.length - 1;
+            
+            const imgEl = document.getElementById('lb-img');
+            imgEl.style.opacity = '0';
+            imgEl.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                updateLbContent();
+                imgEl.style.transition = 'all 0.4s var(--smooth-curve)';
+                imgEl.style.opacity = '1';
+                imgEl.style.transform = 'scale(1)';
+            }, 200);
         }
 
-        function updateLightbox() {
-            if(currentImages.length > 0) {
-                document.getElementById('lightbox-img').src = currentImages[currentIndex];
-                document.getElementById('lightbox-counter').innerText = `${currentIndex + 1} / ${currentImages.length}`;
-                document.querySelector('.lightbox-controls').style.display = currentImages.length > 1 ? 'flex' : 'none';
-            }
+        function updateLbContent() {
+            document.getElementById('lb-img').src = currentImgList[currentIdx];
+            document.getElementById('lb-count').innerText = `${currentIdx + 1} / ${currentImgList.length}`;
+            const btns = document.querySelectorAll('.lb-prev, .lb-next');
+            btns.forEach(btn => btn.style.display = currentImgList.length > 1 ? 'flex' : 'none');
         }
-
-        // Swipe Functionality for Lightbox (Mobile UX)
-        let touchstartX = 0; let touchendX = 0;
-        const lightboxEl = document.getElementById('myLightbox');
-        lightboxEl.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
-        lightboxEl.addEventListener('touchend', e => {
-            touchendX = e.changedTouches[0].screenX;
-            if (touchendX < touchstartX - 50) changeImage(1); // Swipe Left -> Next
-            if (touchendX > touchstartX + 50) changeImage(-1); // Swipe Right -> Prev
-        });
     </script>
 </body>
 </html>
