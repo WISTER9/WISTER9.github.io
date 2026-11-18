@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pannathat Intharit | Artist & Filmmaker</title>
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +21,12 @@
             --text-muted: #a1a1a6;
             --accent: #ffffff;
             --surface-glass: rgba(30, 30, 30, 0.45);
-            --surface-border: rgba(255, 255, 255, 0.1);
+            --surface-border: rgba(255, 255, 255, 0.12);
             --smooth-curve: cubic-bezier(0.16, 1, 0.3, 1);
             --hover-glow: 0 0 25px rgba(255, 255, 255, 0.25);
             --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            --spotify-glass: rgba(20, 20, 20, 0.25);
+            --spotify-glass: rgba(255, 255, 255, 0.08);
+            --spotify-border: rgba(255, 255, 255, 0.32);
         }
 
         /* --- LIGHT MODE (Ultra Glass) --- */
@@ -30,15 +36,17 @@
             --text-muted: #555555;
             --accent: #000000;
             --surface-glass: rgba(255, 255, 255, 0.35);
-            --surface-border: rgba(255, 255, 255, 0.5);
+            --surface-border: rgba(255, 255, 255, 0.55);
             --hover-glow: 0 10px 25px rgba(0, 0, 0, 0.1);
             --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            --spotify-glass: rgba(255, 255, 255, 0.4);
+            --spotify-glass: rgba(255, 255, 255, 0.38);
+            --spotify-border: rgba(255, 255, 255, 0.75);
         }
 
         /* --- BASE STYLES --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; }
+        html { scroll-behavior: smooth; overflow-anchor: none; }
+        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; overflow-anchor: none; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
         img { user-drag: none; -webkit-user-drag: none; }
         a { text-decoration: none; color: inherit; }
 
@@ -105,35 +113,85 @@
         .floating-cta i { font-size: 1.2rem; transition: transform 0.4s var(--smooth-curve); }
         .floating-cta:hover i { transform: rotate(-15deg) scale(1.2); }
 
-        /* Liquid Glass Player */
+        /* Liquid Glass Global Player */
         .global-player {
-            position: fixed; bottom: 35px; left: 35px; z-index: 998; background: var(--spotify-glass); 
-            backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%); 
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 12px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5); transition: all 0.5s var(--smooth-curve); 
-            width: 320px; height: 178px; display: flex; flex-direction: column; overflow: visible;
+            position: fixed; bottom: 35px; left: 35px; z-index: 999;
+            background: var(--spotify-glass);
+            backdrop-filter: blur(28px) saturate(210%);
+            -webkit-backdrop-filter: blur(28px) saturate(210%);
+            border: 1px solid var(--spotify-border);
+            border-radius: 22px; padding: 12px;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.45);
+            transition: width 0.55s var(--smooth-curve), height 0.55s var(--smooth-curve), border-radius 0.55s var(--smooth-curve), padding 0.55s var(--smooth-curve), transform 0.35s var(--smooth-curve), box-shadow 0.35s ease;
+            width: 320px; height: 178px;
+            display: flex; flex-direction: column; overflow: visible;
         }
-        body.light-mode .global-player { border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .global-player iframe { width: 100%; height: 100%; border-radius: 12px; transition: 0.3s; }
-        .global-player.minimized { 
-            width: 65px; height: 65px; padding: 0; border-radius: 50%; cursor: pointer; 
-            overflow: hidden; display: flex; justify-content: center; align-items: center; 
-            animation: pulseGlass 3s infinite;
+        body.light-mode .global-player {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.9);
+        }
+        .global-player iframe { width: 100%; height: 100%; border-radius: 14px; transition: opacity 0.3s ease; }
+
+        /* Minimized Liquid Glass Orb */
+        .global-player.minimized {
+            width: 64px; height: 64px; padding: 0; border-radius: 50%;
+            cursor: pointer; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            animation: orbFloat 4.5s ease-in-out infinite, orbGlow 3.2s ease-in-out infinite;
+        }
+        .global-player.minimized::before {
+            content: ''; position: absolute; inset: 0; border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.42), transparent 62%);
+            pointer-events: none;
         }
         .global-player.minimized iframe { display: none; }
-        .global-player.minimized:hover { transform: scale(1.1); animation-play-state: paused; box-shadow: var(--hover-glow); }
-        
-        .player-toggle-btn { position: absolute; top: -10px; right: -10px; width: 28px; height: 28px; background: var(--text-main); color: var(--bg-base); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10; transition: 0.3s; border: none; }
-        .player-toggle-btn:hover { transform: scale(1.2); }
+        .global-player.minimized:hover {
+            transform: scale(1.12) translateY(-3px);
+            animation-play-state: paused;
+            box-shadow: 0 0 30px rgba(255,255,255,0.35), inset 0 1px 2px rgba(255,255,255,0.65);
+        }
+        body.light-mode .global-player.minimized:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18), inset 0 1px 2px rgba(255,255,255,0.95);
+        }
+
+        .player-toggle-btn {
+            position: absolute; top: -11px; right: -11px; width: 30px; height: 30px;
+            background: var(--text-main); color: var(--bg-base); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 0.85rem;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.35); z-index: 10;
+            transition: transform 0.3s var(--smooth-curve); border: none;
+        }
+        .player-toggle-btn:hover { transform: scale(1.2) rotate(90deg); }
         .global-player.minimized .player-toggle-btn { display: none; }
-        
-        .music-icon-only { display: none; font-size: 1.5rem; color: var(--text-main); }
-        .global-player.minimized .music-icon-only { display: block; }
-        
+
+        /* Animated Equalizer + Music Icon inside Orb */
+        .orb-content {
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; height: 100%; pointer-events: none; gap: 3px;
+        }
+        .global-player.minimized .orb-content { display: flex; }
+        .orb-content i { font-size: 1.35rem; color: var(--text-main); filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
+        .eq-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 9px; }
+        .eq-bars span {
+            width: 2.5px; background: var(--text-main); border-radius: 2px;
+            animation: eqWave 1.1s ease-in-out infinite alternate;
+        }
+        .eq-bars span:nth-child(1) { height: 4px; animation-delay: 0s; }
+        .eq-bars span:nth-child(2) { height: 9px; animation-delay: 0.25s; }
+        .eq-bars span:nth-child(3) { height: 5px; animation-delay: 0.5s; }
+        .eq-bars span:nth-child(4) { height: 8px; animation-delay: 0.15s; }
+
+        @keyframes eqWave { 0% { height: 3px; opacity: 0.6; } 100% { height: 9px; opacity: 1; } }
+        @keyframes orbFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes orbGlow {
+            0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.45); }
+            50% { box-shadow: 0 12px 35px rgba(255,255,255,0.28), inset 0 1px 2px rgba(255,255,255,0.65); }
+        }
+        body.light-mode .global-player.minimized { animation: orbFloat 4.5s ease-in-out infinite, orbGlowLight 3.2s ease-in-out infinite; }
+        @keyframes orbGlowLight {
+            0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.9); }
+            50% { box-shadow: 0 14px 32px rgba(0,0,0,0.18), inset 0 1px 2px rgba(255,255,255,1); }
+        }
         @keyframes levitate { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
-        @keyframes pulseGlass { 0% { box-shadow: 0 0 15px rgba(255,255,255,0.1); } 50% { box-shadow: 0 0 30px rgba(255,255,255,0.3); } 100% { box-shadow: 0 0 15px rgba(255,255,255,0.1); } }
-        body.light-mode .global-player.minimized { animation: pulseGlassLight 3s infinite; }
-        @keyframes pulseGlassLight { 0% { box-shadow: 0 0 15px rgba(0,0,0,0.05); } 50% { box-shadow: 0 0 25px rgba(0,0,0,0.15); } 100% { box-shadow: 0 0 15px rgba(0,0,0,0.05); } }
 
         /* --- SECTION LAYOUTS --- */
         section { padding: 7rem 5% 4rem; min-height: auto; position: relative; z-index: 1; }
@@ -147,9 +205,10 @@
         .resume-block { margin-bottom: 1.5rem; }
         .resume-block h3 { color: var(--text-main); font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.6rem; }
         .resume-block h4 { color: var(--text-main); font-size: 0.95rem; margin-bottom: 0.2rem; font-weight: 500; }
-        .resume-block p { color: var(--text-muted); margin-bottom: 0.2rem; font-size: 0.9rem; line-height: 1.5; }
+        .resume-block p { color: var(--text-muted); margin-bottom: 0.3rem; font-size: 0.9rem; line-height: 1.55; }
+        .resume-block p strong { color: var(--text-main); font-weight: 500; }
         
-        .skill-list li { position: relative; padding-left: 1rem; margin-bottom: 0.2rem; font-size: 0.9rem; list-style: none; color: var(--text-muted); }
+        .skill-list li { position: relative; padding-left: 1rem; margin-bottom: 0.25rem; font-size: 0.9rem; list-style: none; color: var(--text-muted); }
         .skill-list li::before { content: '▹'; position: absolute; left: 0; color: var(--text-main); font-weight: bold; }
         
         .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -211,6 +270,50 @@
         body.light-mode .btn-lyrics { background: rgba(0,0,0,0.05); color: var(--text-main); border: 1px solid rgba(0,0,0,0.15); }
         body.light-mode .btn-lyrics:hover { background: rgba(0,0,0,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
+        /* --- NEWS & HIGHLIGHTS CAROUSEL --- */
+        .news-header-row { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+        .news-controls { display: flex; gap: 10px; }
+        .news-nav-btn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--surface-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--surface-border); color: var(--text-main);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s var(--smooth-curve); font-size: 1rem;
+        }
+        .news-nav-btn:hover { background: var(--text-main); color: var(--bg-base); transform: scale(1.08); box-shadow: var(--hover-glow); }
+
+        .news-track-wrapper {
+            position: relative; width: 100%; overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+        }
+        .news-track {
+            display: flex; gap: 1.5rem; overflow-x: auto; padding: 10px 5px 25px;
+            scrollbar-width: none; -ms-overflow-style: none;
+            align-items: flex-start; cursor: grab; overflow-anchor: none;
+        }
+        .news-track:active { cursor: grabbing; }
+        .news-track::-webkit-scrollbar { display: none; }
+        .news-item {
+            flex: 0 0 360px; max-width: 88vw; min-height: 460px;
+            background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--surface-border); border-radius: 16px;
+            padding: 12px; box-shadow: var(--card-shadow);
+            transition: transform 0.4s var(--smooth-curve), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .news-item:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.35);
+            box-shadow: var(--card-shadow), var(--hover-glow);
+        }
+        body.light-mode .news-item:hover { border-color: rgba(0,0,0,0.2); }
+        .news-item .instagram-media {
+            margin: 0 auto !important;
+            min-width: 100% !important;
+            width: 100% !important;
+            border-radius: 12px !important;
+        }
+
         /* --- MASONRY GRID --- */
         #masonry-grid { column-count: 1; column-gap: 15px; padding-bottom: 20px; }
         @media (min-width: 600px) { #masonry-grid { column-count: 2; } }
@@ -238,7 +341,7 @@
         .lb-close:hover { transform: scale(1.2) rotate(90deg); text-shadow: 0 0 15px rgba(255,255,255,0.5); }
 
         /* --- FOOTER --- */
-        footer { padding: 3rem 5%; text-align: center; border-top: 1px solid var(--surface-border); margin-top: 4rem; }
+        footer { padding: 3rem 5%; text-align: center; border-top: 1px solid var(--surface-border); margin-top: 3rem; }
         .socials { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .socials a { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 1.2rem; transition: all 0.4s var(--smooth-curve); background: transparent; border: 1px solid transparent; }
         .socials a:hover { color: var(--text-main); transform: translateY(-3px); border-color: var(--surface-border); background: var(--surface-glass); box-shadow: var(--hover-glow); }
@@ -254,16 +357,18 @@
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
             .lb-btn { width: 40px; height: 40px; font-size: 1rem; }
-            .global-player { width: 280px; left: 20px; bottom: 20px; }
+            .global-player { width: 290px; left: 20px; bottom: 20px; }
         }
         @media (max-width: 600px) {
             section { padding: 5rem 5% 3rem; }
             .filter-btn { padding: 6px 14px; font-size: 0.75rem; }
             .floating-cta span { display: none; } .floating-cta { padding: 15px; border-radius: 50%; right: 20px; bottom: 20px; } .floating-cta i { font-size: 1.2rem; margin: 0; }
-            .global-player { display: none; }
+            .global-player { width: calc(100vw - 40px); max-width: 320px; left: 20px; bottom: 20px; }
+            .global-player.minimized { width: 54px; height: 54px; }
             .grid-container, .grid-container.cols-4 { grid-template-columns: 1fr; }
             .music-btn-group { justify-content: center; } .music-btn { width: 100%; justify-content: center; }
             .lb-prev { left: 2%; } .lb-next { right: 2%; } .lb-close { right: 4%; top: 20px; }
+            .news-item { flex: 0 0 320px; }
         }
     </style>
 </head>
@@ -282,6 +387,7 @@
                     <li><a href="#home" onclick="toggleMenu()">Home</a></li>
                     <li><a href="#profile" onclick="toggleMenu()">Profile</a></li>
                     <li><a href="#portfolio-wrapper" onclick="toggleMenu(); filterPortfolio('all');">Portfolio</a></li>
+                    <li><a href="#sec-news" onclick="toggleMenu()">News</a></li>
                 </ul>
             </nav>
             <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
@@ -289,19 +395,21 @@
         </div>
     </header>
 
-    <!-- Floating Buttons (Contact & Global Player) -->
+    <!-- Floating Buttons (Contact & Liquid Glass Global Player) -->
     <a href="mailto:wistertube9@gmail.com" class="floating-cta">
         <i class="fa-solid fa-envelope"></i> <span>Let's Connect</span>
     </a>
 
-    <!-- Liquid Glass Global Player -->
-    <div id="global-music" class="global-player fade-on-load minimized" onclick="expandPlayer(event)">
+    <div id="global-music" class="global-player minimized" onclick="expandPlayer()" title="Open Music Player">
         <button class="player-toggle-btn" onclick="minimizePlayer(event)" title="Minimize Player"><i class="fa-solid fa-xmark"></i></button>
-        <div class="music-icon-only"><i class="fa-solid fa-music"></i></div>
-        <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <div class="orb-content">
+            <i class="fa-solid fa-music"></i>
+            <div class="eq-bars"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
-    <!-- HOME SECTION (Fades in on load) -->
+    <!-- HOME SECTION -->
     <section id="home">
         <h1 class="fade-on-load">PANNATHAT INTHARIT</h1>
         <h2 class="fade-on-load fade-delay-1">ปัณณทัต อินทฤทธิ์</h2>
@@ -312,7 +420,7 @@
         </div>
     </section>
 
-    <!-- PROFILE SECTION (Reveals on scroll) -->
+    <!-- PROFILE SECTION -->
     <section id="profile" class="portfolio-section">
         <h2 class="section-title reveal">Profile</h2>
         <div class="resume-container">
@@ -325,12 +433,13 @@
                 <div class="resume-left reveal">
                     <div class="resume-block">
                         <h3>Personal Info</h3>
-                        <p><strong>Name:</strong> Pannathat Intharit (Panpan)</p>
+                        <p><strong>Name:</strong> Pannathat Intharit (ปัณณทัต อินทฤทธิ์)</p>
+                        <p><strong>Nickname:</strong> Panpan (ปันปัน)</p>
                         <p><strong>Age:</strong> 21</p>
-                        <p><strong>Nationality:</strong> Thai</p>
+                        <p><strong>Nationality:</strong> Thai (ไทย)</p>
                         <p><strong>Phone:</strong> 099 226 3956</p>
                         <p><strong>Email:</strong> wistertube9@gmail.com</p>
-                        <p><strong>Based in:</strong> Nakhon Ratchasima - Khon Kaen, Thailand</p>
+                        <p><strong>Based in:</strong> Nakhon Ratchasima - Khon Kaen, Thailand (นครราชสีมา - ขอนแก่น, ประเทศไทย)</p>
                     </div>
                     <div class="resume-block">
                         <h3>Education</h3>
@@ -375,17 +484,17 @@
                     </div>
                 </div>
                 
-                <!-- Right Column (Photos) -->
+                <!-- Right Column (Profile Gallery) -->
                 <div class="resume-photos-column reveal delay-2">
                     <div class="resume-block">
                         <h3>Gallery</h3>
                         <div class="profile-photo-grid">
-                            <img src="https://drive.google.com/thumbnail?id=1aLpZojbWOxDtvoJLhycaTVHPwJ4ApJbQ&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 0, ['.profile-photo-grid'])">
-                            <img src="https://drive.google.com/thumbnail?id=1m6GlFhhioDLoJGPwcUdsNtwcjUitVkWo&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 1, ['.profile-photo-grid'])">
-                            <img src="https://drive.google.com/thumbnail?id=1cwB-qU4CZzP-Rr_iiBEmioeC1p2qkF6i&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 2, ['.profile-photo-grid'])">
-                            <img src="https://drive.google.com/thumbnail?id=1ICZXBshFqz7Qorf2YoWpmbjou_qKPiC2&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 3, ['.profile-photo-grid'])">
-                            <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 4, ['.profile-photo-grid'])">
-                            <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w600" onclick="openLightbox(this.src.replace('&sz=w600', '&sz=w1200'), 5, ['.profile-photo-grid'])">
+                            <img src="https://drive.google.com/thumbnail?id=1aLpZojbWOxDtvoJLhycaTVHPwJ4ApJbQ&sz=w600" onclick="openLightbox(null, 0, '.profile-photo-grid')">
+                            <img src="https://drive.google.com/thumbnail?id=1m6GlFhhioDLoJGPwcUdsNtwcjUitVkWo&sz=w600" onclick="openLightbox(null, 1, '.profile-photo-grid')">
+                            <img src="https://drive.google.com/thumbnail?id=1cwB-qU4CZzP-Rr_iiBEmioeC1p2qkF6i&sz=w600" onclick="openLightbox(null, 2, '.profile-photo-grid')">
+                            <img src="https://drive.google.com/thumbnail?id=1ICZXBshFqz7Qorf2YoWpmbjou_qKPiC2&sz=w600" onclick="openLightbox(null, 3, '.profile-photo-grid')">
+                            <img src="https://drive.google.com/thumbnail?id=1_SucHzc71o0sXS20U56XEdzhRyuWPKfT&sz=w600" onclick="openLightbox(null, 4, '.profile-photo-grid')">
+                            <img src="https://drive.google.com/thumbnail?id=1x6VRJpvuUJDaI3QY0Dx4JDYHwJCKDQ-E&sz=w600" onclick="openLightbox(null, 5, '.profile-photo-grid')">
                         </div>
                     </div>
                 </div>
@@ -397,13 +506,13 @@
     <div id="portfolio-wrapper" style="padding: 4rem 5% 0;">
         <h2 class="section-title reveal" style="margin-bottom:0;">Portfolio <span class="aka-text">Select Category</span></h2>
         <div class="filter-container reveal delay-1">
-            <button class="filter-btn active" onclick="filterPortfolio('all')">All</button>
-            <button class="filter-btn" onclick="filterPortfolio('music')">Music</button>
-            <button class="filter-btn" onclick="filterPortfolio('film')">Film & Media</button>
-            <button class="filter-btn" onclick="filterPortfolio('photo')">Photography</button>
-            <button class="filter-btn" onclick="filterPortfolio('graphic')">Graphic Design</button>
-            <button class="filter-btn" onclick="filterPortfolio('collab')">Collaborations</button>
-            <button class="filter-btn" onclick="filterPortfolio('bts')">BTS</button>
+            <button class="filter-btn active" onclick="filterPortfolio('all', this)">All</button>
+            <button class="filter-btn" onclick="filterPortfolio('music', this)">Music</button>
+            <button class="filter-btn" onclick="filterPortfolio('film', this)">Film & Media</button>
+            <button class="filter-btn" onclick="filterPortfolio('photo', this)">Photography</button>
+            <button class="filter-btn" onclick="filterPortfolio('graphic', this)">Graphic Design</button>
+            <button class="filter-btn" onclick="filterPortfolio('collab', this)">Collaborations</button>
+            <button class="filter-btn" onclick="filterPortfolio('bts', this)">BTS</button>
         </div>
     </div>
 
@@ -413,7 +522,7 @@
         
         <div class="card reveal" style="max-width: 1000px; margin-bottom: 3rem;">
             <div class="card-media-wrapper" style="height: auto; min-height:352px; background: transparent;">
-                <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/artist/3W62Zk1oIFZtAAR3ML4fkX?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
             <div class="card-info" style="align-items: center; border-top: 1px solid var(--surface-border);">
                 <p style="text-align: center; max-width: 800px;">WISTER9 is an independent music project blending modern melodic hip-hop elements with a unique approach to storytelling and sound design.</p>
@@ -428,10 +537,10 @@
 
         <h3 class="reveal" style="font-size: 1.3rem; margin-bottom: 1.5rem; font-weight: 500;">Cover Projects</h3>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
@@ -439,10 +548,10 @@
     <section id="sec-film" class="portfolio-section reveal filter-item film">
         <h2 class="section-title">Film & Media <span class="aka-text">XPAN Visuals</span></h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
@@ -485,27 +594,28 @@
         </div>
     </section>
 
-    <!-- OTHER WORKS -->
+    <!-- COLLABORATIONS SECTION -->
     <section id="sec-other" class="portfolio-section reveal filter-item collab">
         <h2 class="section-title">Collaborations</h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rPjfOJgdU-E?si=s5aPTN5ZMFLaxenz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Technical</p></div></div>
         </div>
     </section>
 
@@ -514,6 +624,76 @@
         <h2 class="section-title">Behind The Scenes</h2>
         <div class="grid-container cols-4">
             <!-- BTS Content Removed for now -->
+        </div>
+    </section>
+
+    <!-- NEWS & HIGHLIGHTS SECTION (Bottom Carousel) -->
+    <section id="sec-news" class="portfolio-section reveal">
+        <div class="news-header-row">
+            <h2 class="section-title" style="margin-bottom: 0;">News & Highlights <span class="aka-text">Features & Certificates</span></h2>
+            <div class="news-controls">
+                <button class="news-nav-btn" onclick="scrollNews(-380)" title="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="news-nav-btn" onclick="scrollNews(380)" title="Next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="news-track-wrapper" id="news-wrapper">
+            <div class="news-track" id="news-track">
+                <!-- Post 1: TuneCore Thailand -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by TuneCore Thailand (@tunecore.th)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 2: Lemme See -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 3: MeHeyBKK -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by MeHeyBKK (@meheybkk)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 4: Lemme See Reel -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 5: Lemme See -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 6: ILLEGAL FACTORY -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by ILLEGAL FACTORY (@illegal_factory__)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 7: K-Battle Thailand -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by K-Battle Thailand (@kbattlethailand)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 8: FESCILMAR Fest -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 9: THACCA Official -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by THACCA - Thailand Creative Culture Agency (@thaccaofficial)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 10: FESCILMAR Fest 2 -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 11: เข้านอนกัน356 Reel -->
+                <div class="news-item">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by เข้านอนกัน356 (@aitsarashouldsleep)</a></p></div></blockquote>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -527,7 +707,7 @@
             <a href="https://music.youtube.com/@wakewister_9up" target="_blank" title="YouTube Music">
                 <svg viewBox="0 0 24 24" style="width: 1.5rem; height: 1.5rem; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.5c-3.58 0-6.5 2.92-6.5 6.5s2.92 6.5 6.5 6.5 6.5-2.92 6.5-6.5-2.92-6.5-6.5-6.5zm0 11c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm-1.5-6.5v4l3.5-2-3.5-2z"/></svg>
             </a>
-            <a href="https://youtube.com/@WiSTeR9" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@wisteriscookingsomething" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
         </div>
         <p class="reveal delay-1">© 2026 Pannathat Intharit. All rights reserved.</p>
     </footer>
@@ -556,6 +736,24 @@
 
     <!-- SCRIPTS -->
     <script>
+        // 0. Lock initial scroll at top while async Instagram embeds load (prevents embed.js auto-jump)
+        let userHasScrolled = false;
+        const markUserInteraction = () => { userHasScrolled = true; };
+        window.addEventListener('wheel', markUserInteraction, { passive: true });
+        window.addEventListener('touchstart', markUserInteraction, { passive: true });
+        window.addEventListener('keydown', markUserInteraction, { passive: true });
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('a[href^="#"]')) userHasScrolled = true;
+        });
+
+        window.scrollTo(0, 0);
+        const initialScrollGuard = setInterval(() => {
+            if (!userHasScrolled && window.scrollY > 0) {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
+        }, 50);
+        setTimeout(() => clearInterval(initialScrollGuard), 3000);
+
         // 1. Prevent Right Click
         document.addEventListener('contextmenu', e => e.preventDefault());
 
@@ -584,8 +782,10 @@
         }, { threshold: 0.3 });
 
         document.addEventListener('DOMContentLoaded', () => {
+            if (!userHasScrolled) window.scrollTo(0, 0);
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
             document.querySelectorAll('section').forEach(el => sectionObserver.observe(el));
+            initNewsCarousel();
         });
 
         // 3. Header Scroll
@@ -606,8 +806,8 @@
             if (window.innerWidth <= 900) { document.getElementById('nav-menu').classList.toggle('active'); }
         }
 
-        // 5. Global Player Toggle (Anywhere on the circle)
-        function expandPlayer(e) {
+        // 5. Global Player Toggle
+        function expandPlayer() {
             const player = document.getElementById('global-music');
             if (player.classList.contains('minimized')) {
                 player.classList.remove('minimized');
@@ -620,9 +820,14 @@
         }
 
         // 6. Portfolio Filter (Smooth Fade)
-        function filterPortfolio(category) {
+        function filterPortfolio(category, btnEl) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if (btnEl) {
+                btnEl.classList.add('active');
+            } else {
+                const defaultBtn = document.querySelector(`.filter-btn[onclick*="'${category}'"]`);
+                if (defaultBtn) defaultBtn.classList.add('active');
+            }
 
             const items = document.querySelectorAll('.filter-item');
             items.forEach(item => {
@@ -638,7 +843,74 @@
             });
         }
 
-        // 7. Data-Driven Gallery Engine
+        // 7. News & Highlights Carousel (Only glides when visible in viewport, supports buttons & drag)
+        let newsPaused = false;
+        let newsInView = false;
+        let newsDirection = 1;
+
+        function scrollNews(offset) {
+            const track = document.getElementById('news-track');
+            if (!track) return;
+            newsPaused = true;
+            track.scrollBy({ left: offset, behavior: 'smooth' });
+            setTimeout(() => { newsPaused = false; }, 2500);
+        }
+
+        function initNewsCarousel() {
+            const track = document.getElementById('news-track');
+            const wrapper = document.getElementById('news-wrapper');
+            const newsSection = document.getElementById('sec-news');
+            if (!track || !wrapper || !newsSection) return;
+
+            const visObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { newsInView = entry.isIntersecting; });
+            }, { threshold: 0.25 });
+            visObserver.observe(newsSection);
+
+            wrapper.addEventListener('mouseenter', () => { newsPaused = true; });
+            wrapper.addEventListener('mouseleave', () => { newsPaused = false; });
+            wrapper.addEventListener('touchstart', () => { newsPaused = true; }, { passive: true });
+            wrapper.addEventListener('touchend', () => { setTimeout(() => { newsPaused = false; }, 2500); });
+
+            // Click & Drag horizontal support
+            let isDown = false, startX = 0, scrollStart = 0;
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                newsPaused = true;
+                startX = e.pageX - track.offsetLeft;
+                scrollStart = track.scrollLeft;
+            });
+            window.addEventListener('mouseup', () => {
+                if (isDown) {
+                    isDown = false;
+                    setTimeout(() => { newsPaused = false; }, 2000);
+                }
+            });
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                track.scrollLeft = scrollStart - (x - startX) * 1.3;
+            });
+
+            function step() {
+                if (newsInView && !newsPaused && !isDown) {
+                    const maxScroll = track.scrollWidth - track.clientWidth;
+                    if (maxScroll > 10) {
+                        track.scrollLeft += newsDirection * 0.6;
+                        if (track.scrollLeft >= maxScroll - 2) {
+                            newsDirection = -1;
+                        } else if (track.scrollLeft <= 2) {
+                            newsDirection = 1;
+                        }
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // 8. Data-Driven Gallery Engine
         const gData = {
             'cine': '1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf,1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa,1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY,1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q,1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3,1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I,1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS,1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj,1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS,1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl,1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA,15dUslNqx_yP9J06KrUCBid9W_KwAFNew,1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8,12B_7pIdupiGLUUROKhQKU-elHOAj0TIK,17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5,17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3,1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx,1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ,1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r,1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT,1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd,1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-,1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9',
             'wild': '1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv,1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc,1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2,1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4,1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J',
