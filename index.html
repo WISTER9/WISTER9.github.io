@@ -8,6 +8,7 @@
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
+        window.scrollTo(0, 0);
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,19 +46,24 @@
 
         /* --- BASE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; }
-        html { scroll-behavior: smooth; overflow-anchor: none; }
-        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; overflow-anchor: none; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
         img { user-drag: none; -webkit-user-drag: none; }
         a { text-decoration: none; color: inherit; }
 
-        /* --- DYNAMIC BACKGROUND --- */
-        .bg-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; animation: dynamicPan 35s ease-in-out infinite alternate; }
-        .bg-layer.active { opacity: 0.25; }
-        body.light-mode .bg-layer.active { opacity: 0.15; filter: saturate(1.2); }
-        @keyframes dynamicPan { 
-            0% { transform: scale(1.1) translate(0, 0); } 
-            50% { transform: scale(1.15) translate(1.5%, -1.5%); } 
-            100% { transform: scale(1.1) translate(-1.5%, 1.5%); } 
+        /* --- DYNAMIC BACKGROUND (Enhanced Noticeable Motion) --- */
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease;
+            will-change: transform;
+            animation: dynamicPan 16s ease-in-out infinite alternate;
+        }
+        .bg-layer.active { opacity: 0.32; }
+        body.light-mode .bg-layer.active { opacity: 0.20; filter: saturate(1.2); }
+        @keyframes dynamicPan {
+            0% { transform: scale(1.12) translate3d(-3%, -2%, 0) rotate(-0.6deg); }
+            50% { transform: scale(1.24) translate3d(2.5%, -3%, 0) rotate(0.6deg); }
+            100% { transform: scale(1.16) translate3d(3%, 2.5%, 0) rotate(-0.4deg); }
         }
 
         /* --- ANIMATIONS --- */
@@ -198,9 +204,56 @@
         .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2.5rem; display: flex; align-items: baseline; gap: 15px; flex-wrap: wrap; }
         .aka-text { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
+        /* Inline Section Header with Ultra-Smooth Glowing Social Pills */
+        .section-header-inline { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.5rem; margin-bottom: 2.5rem; }
+        .section-social-links { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .section-social-btn {
+            position: relative; overflow: hidden; isolation: isolate;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 18px; border-radius: 30px; font-size: 0.83rem; font-weight: 500;
+            letter-spacing: 0.5px; color: var(--text-main);
+            background: var(--surface-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--surface-border);
+            transition: transform 0.5s var(--smooth-curve), box-shadow 0.5s var(--smooth-curve), border-color 0.5s var(--smooth-curve), color 0.4s ease;
+        }
+        .section-social-btn::before {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
+            opacity: 0; transition: opacity 0.5s var(--smooth-curve);
+        }
+        .section-social-btn i {
+            font-size: 0.95rem;
+            transition: transform 0.5s var(--smooth-curve), filter 0.5s ease;
+        }
+        .section-social-btn:hover {
+            transform: translateY(-2.5px) scale(1.03);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+        .section-social-btn:hover::before { opacity: 1; }
+        .section-social-btn:hover i {
+            transform: scale(1.12);
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+        }
+
+        /* Instagram Pill Gradient & Signature Radiant Glow */
+        .section-social-btn.btn-ig-pill::before {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .section-social-btn.btn-ig-pill:hover {
+            box-shadow: 0 6px 22px rgba(225, 48, 108, 0.55), 0 0 38px rgba(245, 96, 64, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+        }
+
+        /* YouTube Pill Gradient & Signature Radiant Glow */
+        .section-social-btn.btn-yt-pill::before {
+            background: linear-gradient(135deg, #ff1e1e 0%, #d90000 100%);
+        }
+        .section-social-btn.btn-yt-pill:hover {
+            box-shadow: 0 6px 22px rgba(255, 0, 0, 0.58), 0 0 38px rgba(255, 45, 45, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+        }
+
         /* --- PROFILE --- */
         .resume-container { max-width: 1300px; margin: 0 auto; }
-        .resume-bio { font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 3px solid var(--text-main); color: var(--text-muted); font-style: italic; font-weight: 300; max-width: 900px; }
+        .resume-bio { font-size: 0.93rem; line-height: 1.65; margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 3px solid var(--text-main); color: var(--text-muted); font-style: italic; font-weight: 300; max-width: 930px; }
         .resume-grid { display: grid; grid-template-columns: 1fr 1fr 380px; gap: 2rem; }
         .resume-block { margin-bottom: 1.5rem; }
         .resume-block h3 { color: var(--text-main); font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.6rem; }
@@ -234,6 +287,7 @@
         /* --- CARDS & MEDIA --- */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
         .grid-container.cols-4 { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        .grid-container.ig-reels-grid { grid-template-columns: repeat(auto-fill, minmax(335px, 1fr)); align-items: start; margin-top: 2rem; }
         
         .card { 
             background: var(--surface-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -257,7 +311,10 @@
         .card:hover .card-link::after { width: 100%; }
 
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
-        .video-container iframe, .video-container .instagram-media { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
+
+        .ig-reel-embed { width: 100%; min-height: 550px; padding: 10px 10px 0; overflow: hidden; }
+        .ig-reel-embed .instagram-media { margin: 0 auto !important; min-width: 100% !important; width: 100% !important; border-radius: 10px !important; }
 
         /* --- BUTTONS --- */
         .music-btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
@@ -270,7 +327,7 @@
         body.light-mode .btn-lyrics { background: rgba(0,0,0,0.05); color: var(--text-main); border: 1px solid rgba(0,0,0,0.15); }
         body.light-mode .btn-lyrics:hover { background: rgba(0,0,0,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* --- NEWS & HIGHLIGHTS CAROUSEL --- */
+        /* --- NEWS & HIGHLIGHTS AUTO-SCROLL CAROUSEL --- */
         .news-header-row { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
         .news-controls { display: flex; gap: 10px; }
         .news-nav-btn {
@@ -290,12 +347,12 @@
         .news-track {
             display: flex; gap: 1.5rem; overflow-x: auto; padding: 10px 5px 25px;
             scrollbar-width: none; -ms-overflow-style: none;
-            align-items: flex-start; cursor: grab; overflow-anchor: none;
+            align-items: flex-start; cursor: grab;
         }
         .news-track:active { cursor: grabbing; }
         .news-track::-webkit-scrollbar { display: none; }
         .news-item {
-            flex: 0 0 360px; max-width: 88vw; min-height: 460px;
+            flex: 0 0 360px; max-width: 88vw; min-height: 540px;
             background: var(--surface-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--surface-border); border-radius: 16px;
             padding: 12px; box-shadow: var(--card-shadow);
@@ -365,7 +422,7 @@
             .floating-cta span { display: none; } .floating-cta { padding: 15px; border-radius: 50%; right: 20px; bottom: 20px; } .floating-cta i { font-size: 1.2rem; margin: 0; }
             .global-player { width: calc(100vw - 40px); max-width: 320px; left: 20px; bottom: 20px; }
             .global-player.minimized { width: 54px; height: 54px; }
-            .grid-container, .grid-container.cols-4 { grid-template-columns: 1fr; }
+            .grid-container, .grid-container.cols-4, .grid-container.ig-reels-grid { grid-template-columns: 1fr; }
             .music-btn-group { justify-content: center; } .music-btn { width: 100%; justify-content: center; }
             .lb-prev { left: 2%; } .lb-next { right: 2%; } .lb-close { right: 4%; top: 20px; }
             .news-item { flex: 0 0 320px; }
@@ -380,14 +437,14 @@
 
     <!-- Header -->
     <header id="header">
-        <a href="#home" class="logo">Pannathat</a>
+        <a href="#home" class="logo" onclick="smoothJumpTo(event, '#home')">Pannathat</a>
         <div class="header-right">
             <nav>
                 <ul id="nav-menu">
-                    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
-                    <li><a href="#profile" onclick="toggleMenu()">Profile</a></li>
-                    <li><a href="#portfolio-wrapper" onclick="toggleMenu(); filterPortfolio('all');">Portfolio</a></li>
-                    <li><a href="#sec-news" onclick="toggleMenu()">News</a></li>
+                    <li><a href="#home" onclick="toggleMenu(); smoothJumpTo(event, '#home');">Home</a></li>
+                    <li><a href="#profile" onclick="toggleMenu(); smoothJumpTo(event, '#profile');">Profile</a></li>
+                    <li><a href="#portfolio-wrapper" onclick="toggleMenu(); filterPortfolio('all'); smoothJumpTo(event, '#portfolio-wrapper');">Portfolio</a></li>
+                    <li><a href="#sec-news" onclick="toggleMenu(); smoothJumpTo(event, '#sec-news');">News</a></li>
                 </ul>
             </nav>
             <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
@@ -415,8 +472,8 @@
         <h2 class="fade-on-load fade-delay-1">ปัณณทัต อินทฤทธิ์</h2>
         <p class="fade-on-load fade-delay-2">An independent artist and storyteller translating raw thoughts into immersive visual and auditory narratives across filmmaking, photography, and music.</p>
         <div class="home-cta fade-on-load fade-delay-3">
-            <a href="#portfolio-wrapper" class="btn-primary" onclick="filterPortfolio('all')">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="#profile" class="btn-outline">View Profile</a>
+            <a href="#portfolio-wrapper" class="btn-primary" onclick="filterPortfolio('all'); smoothJumpTo(event, '#portfolio-wrapper');">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#profile" class="btn-outline" onclick="smoothJumpTo(event, '#profile')">View Profile</a>
         </div>
     </section>
 
@@ -541,17 +598,25 @@
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/QCrLnQLktZ8?si=InKUil61L3kJqfuy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
     <!-- FILM SECTION -->
     <section id="sec-film" class="portfolio-section reveal filter-item film">
-        <h2 class="section-title">Film & Media <span class="aka-text">XPAN Visuals</span></h2>
+        <div class="section-header-inline">
+            <h2 class="section-title" style="margin-bottom: 0;">Film & Media <span class="aka-text">XPAN Visuals</span></h2>
+            <div class="section-social-links">
+                <a href="https://www.instagram.com/xpan.visuals/" target="_blank" rel="noopener noreferrer" class="section-social-btn btn-ig-pill"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                <a href="https://www.youtube.com/@pannathatintharit" target="_blank" rel="noopener noreferrer" class="section-social-btn btn-yt-pill"><i class="fa-brands fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
         <div class="grid-container cols-4">
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/j7-aURUpiF8?si=eLd6sgDO7SIPNb2z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
         </div>
     </section>
 
@@ -616,6 +681,45 @@
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
             <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rPjfOJgdU-E?si=s5aPTN5ZMFLaxenz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Technical</p></div></div>
+
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/5lCoG8Jclfs?si=2f5XE6o85aekb8Ez" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor, Score</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/E3ez-wvwAqk?si=qWzzzYFYrhujSS8S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Captions</p></div></div>
+            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Md7JD1vTFVE?si=Q_hgnWAfrx4jq8jv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Story, Screenplay, Camera Operator, Boom Operator, Sound Designer, Poster</p></div></div>
+        </div>
+
+        <!-- Instagram Reels Collaborations -->
+        <div class="grid-container ig-reels-grid">
+            <!-- Collab Reel 1: SMO FA KKU -->
+            <div class="card reveal">
+                <div class="ig-reel-embed">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
+                </div>
+                <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Editor</p></div>
+            </div>
+
+            <!-- Collab Reel 2: Khon Kaen University -->
+            <div class="card reveal">
+                <div class="ig-reel-embed">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by khon kaen university (@khonkaenuniversity)</a></p></div></blockquote>
+                </div>
+                <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Captions</p></div>
+            </div>
+
+            <!-- Collab Reel 3: JM-24 -->
+            <div class="card reveal">
+                <div class="ig-reel-embed">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by JM-24 (@jmtwntyfour)</a></p></div></blockquote>
+                </div>
+                <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> 1st AD, Sound Designer</p></div>
+            </div>
+
+            <!-- Collab Reel 4: SMO FA KKU -->
+            <div class="card reveal">
+                <div class="ig-reel-embed">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
+                </div>
+                <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Editor</p></div>
+            </div>
         </div>
     </section>
 
@@ -627,7 +731,7 @@
         </div>
     </section>
 
-    <!-- NEWS & HIGHLIGHTS SECTION (Bottom Carousel) -->
+    <!-- NEWS & HIGHLIGHTS SECTION (Auto-Scroll + Manual Drag Carousel) -->
     <section id="sec-news" class="portfolio-section reveal">
         <div class="news-header-row">
             <h2 class="section-title" style="margin-bottom: 0;">News & Highlights <span class="aka-text">Features & Certificates</span></h2>
@@ -736,23 +840,58 @@
 
     <!-- SCRIPTS -->
     <script>
-        // 0. Lock initial scroll at top while async Instagram embeds load (prevents embed.js auto-jump)
+        // 0. Prevent main page from auto-scrolling up/down on initial load due to embeds resizing or stealing focus
         let userHasScrolled = false;
-        const markUserInteraction = () => { userHasScrolled = true; };
-        window.addEventListener('wheel', markUserInteraction, { passive: true });
-        window.addEventListener('touchstart', markUserInteraction, { passive: true });
-        window.addEventListener('keydown', markUserInteraction, { passive: true });
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('a[href^="#"]')) userHasScrolled = true;
+        let lastPointerDown = 0;
+
+        function unlockUserScroll() {
+            userHasScrolled = true;
+        }
+
+        window.addEventListener('wheel', unlockUserScroll, { passive: true });
+        window.addEventListener('touchmove', unlockUserScroll, { passive: true });
+        window.addEventListener('pointerdown', (e) => {
+            lastPointerDown = Date.now();
+            // Unlock if user clicks on the browser scrollbar edge
+            if (e.clientX >= document.documentElement.clientWidth - 2) {
+                unlockUserScroll();
+            }
+        }, { passive: true });
+        window.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', 'Home', 'End'].includes(e.code)) {
+                unlockUserScroll();
+            }
         });
 
-        window.scrollTo(0, 0);
-        const initialScrollGuard = setInterval(() => {
-            if (!userHasScrolled && window.scrollY > 0) {
-                window.scrollTo({ top: 0, behavior: 'instant' });
+        // Keep viewport pinned to top ONLY until user initiates a scroll or clicks a nav link
+        window.addEventListener('scroll', () => {
+            if (!userHasScrolled && window.scrollY !== 0) {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             }
-        }, 50);
-        setTimeout(() => clearInterval(initialScrollGuard), 3000);
+        }, { passive: true });
+
+        // Block unsolicited iframe focus() / scrollIntoView() jumps from third-party embeds
+        const origIframeFocus = HTMLIFrameElement.prototype.focus;
+        HTMLIFrameElement.prototype.focus = function(...args) {
+            if (Date.now() - lastPointerDown > 1000) return;
+            return origIframeFocus.apply(this, args);
+        };
+        const origScrollIntoView = Element.prototype.scrollIntoView;
+        Element.prototype.scrollIntoView = function(...args) {
+            if (this.tagName === 'IFRAME' || this.closest('.instagram-media')) return;
+            return origScrollIntoView.apply(this, args);
+        };
+
+        // Smooth jump helper when user clicks internal navigation links
+        function smoothJumpTo(e, selector) {
+            if (e) e.preventDefault();
+            unlockUserScroll();
+            const target = document.querySelector(selector);
+            if (target) {
+                const top = target.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        }
 
         // 1. Prevent Right Click
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -782,7 +921,6 @@
         }, { threshold: 0.3 });
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (!userHasScrolled) window.scrollTo(0, 0);
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
             document.querySelectorAll('section').forEach(el => sectionObserver.observe(el));
             initNewsCarousel();
@@ -843,34 +981,38 @@
             });
         }
 
-        // 7. News & Highlights Carousel (Only glides when visible in viewport, supports buttons & drag)
+        // 7. News & Highlights Auto-Scroll Carousel
         let newsPaused = false;
-        let newsInView = false;
-        let newsDirection = 1;
+        let newsManualTimeout = null;
 
         function scrollNews(offset) {
             const track = document.getElementById('news-track');
             if (!track) return;
             newsPaused = true;
             track.scrollBy({ left: offset, behavior: 'smooth' });
-            setTimeout(() => { newsPaused = false; }, 2500);
+            clearTimeout(newsManualTimeout);
+            newsManualTimeout = setTimeout(() => { newsPaused = false; }, 2500);
         }
 
         function initNewsCarousel() {
-            const track = document.getElementById('news-track');
             const wrapper = document.getElementById('news-wrapper');
-            const newsSection = document.getElementById('sec-news');
-            if (!track || !wrapper || !newsSection) return;
+            const track = document.getElementById('news-track');
+            if (!wrapper || !track) return;
 
-            const visObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { newsInView = entry.isIntersecting; });
-            }, { threshold: 0.25 });
-            visObserver.observe(newsSection);
+            // Duplicate items once for seamless infinite auto-scroll loop
+            const originalItems = Array.from(track.children);
+            originalItems.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
 
+            if (window.instgrm && window.instgrm.Embeds) {
+                window.instgrm.Embeds.process();
+            }
+
+            // Pause auto-scroll on hover
             wrapper.addEventListener('mouseenter', () => { newsPaused = true; });
             wrapper.addEventListener('mouseleave', () => { newsPaused = false; });
-            wrapper.addEventListener('touchstart', () => { newsPaused = true; }, { passive: true });
-            wrapper.addEventListener('touchend', () => { setTimeout(() => { newsPaused = false; }, 2500); });
 
             // Click & Drag horizontal support
             let isDown = false, startX = 0, scrollStart = 0;
@@ -883,7 +1025,7 @@
             window.addEventListener('mouseup', () => {
                 if (isDown) {
                     isDown = false;
-                    setTimeout(() => { newsPaused = false; }, 2000);
+                    setTimeout(() => { newsPaused = false; }, 1200);
                 }
             });
             track.addEventListener('mousemove', (e) => {
@@ -893,21 +1035,22 @@
                 track.scrollLeft = scrollStart - (x - startX) * 1.3;
             });
 
-            function step() {
-                if (newsInView && !newsPaused && !isDown) {
-                    const maxScroll = track.scrollWidth - track.clientWidth;
-                    if (maxScroll > 10) {
-                        track.scrollLeft += newsDirection * 0.6;
-                        if (track.scrollLeft >= maxScroll - 2) {
-                            newsDirection = -1;
-                        } else if (track.scrollLeft <= 2) {
-                            newsDirection = 1;
-                        }
+            // Smooth continuous auto-scroll loop
+            let exactScroll = track.scrollLeft;
+            function stepCarousel() {
+                if (!newsPaused && !isDown && track.scrollWidth > track.clientWidth) {
+                    exactScroll += 0.65;
+                    const halfWidth = track.scrollWidth / 2;
+                    if (exactScroll >= halfWidth) {
+                        exactScroll -= halfWidth;
                     }
+                    track.scrollLeft = exactScroll;
+                } else {
+                    exactScroll = track.scrollLeft;
                 }
-                requestAnimationFrame(step);
+                requestAnimationFrame(stepCarousel);
             }
-            requestAnimationFrame(step);
+            requestAnimationFrame(stepCarousel);
         }
 
         // 8. Data-Driven Gallery Engine
@@ -915,7 +1058,7 @@
             'cine': '1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf,1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa,1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY,1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q,1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3,1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I,1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS,1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj,1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS,1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl,1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA,15dUslNqx_yP9J06KrUCBid9W_KwAFNew,1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8,12B_7pIdupiGLUUROKhQKU-elHOAj0TIK,17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5,17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3,1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx,1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ,1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r,1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT,1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd,1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-,1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9',
             'wild': '1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv,1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc,1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2,1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4,1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J',
             'min': '1Yji_KW763Y1xBpwkF8p8LO5DeRUIAklN,1MRdM8pSVdrsGdbLHx-pIKKEeJvsAh8rH,1OwJb_f8RRKLcjSE-yTSuFuWWjHQ8vLLN,1ko_kFoEh5BdReyySFR_GQ9ZZ3fwsee_h,19PuAPXVWPg5jkiCBAZuOg5x9FrzS1RmB,1ZZt7FkJNkRUWE4FBDEsXORR-bwPsPaZq,17Qrt2JCatPAQ_tQ8VdZ5mgYoFiBZ0Y-r,16wahs_4kyC0qi6kngxNJhGivYrRpy5cB,1Y1Xq-5Gs8nTBCcmnpWHKc82xlN8hpnjK,1bWGqZADhJoheoRz7VNT86NKxVw8fKz7n,11u7yOhqrXgfZ50M3v5sDI2bt14NQye2U',
-            'abs': '178SjhAcj41EzHagkpC-wYph9EtW4-LWT,1_JCC-OWixqQVUbrBqdFFiXnkJftd8xGp,1BI-q4s6ctj_Tw9tgnRr-Y6pYZO-_9OMi,11Aq37dDhROmV9fCB2rkxDp100bB60VdU,1a95DyGjDJGqnMD1f4plTgHDH7zwnCcXg,1DDJJCaa_VPFcDEj4uMAcBsLZZMDy8OdS,1aeZIWGWf6BZ01qWoN3L_MG2OSQ7b4OKk,1mP03yZbeYxdpHoE1mpHCBk76ioeBSVA9',
+            'abs': '178SjhAcj41EzHagkpC-wYph9EtW4-LWT,1_JCC-OWixqQVUbrBqdFFiXnkJftd8xGp,1BI-q4s6ctj_Tw9tgnRr-Y6pYZO-_9OMi,11Aq37dDhROmV9fCB2rkxDp100bB60VdU,1a95DyGjDJGqnMD1f4plTgHD7zwnCcXg,1DDJJCaa_VPFcDEj4uMAcBsLZZMDy8OdS,1aeZIWGWf6BZ01qWoN3L_MG2OSQ7b4OKk,1mP03yZbeYxdpHoE1mpHCBk76ioeBSVA9',
             'pos': '1fA90lQ_La2MjCBbh1_JHIZb3C80B4syD,1YZvKZ6ZoUbj1BH0r3U2zzJnHWiJz9UAp,1Kuy_z1m408UhLsujb2wqDBVS1LA98FTL,1H1CJ8D4prbWgmI3GENka4K4YhZw9574h,1psca04f54QwK_ciaoMNUDNZAiAHahT18,1Qu29mfxzPwlQAUFN7L5J5zuDKOH86car,1_flsJsKlLjbUw55Y8dUeEKz9M-7QrEdW,1t84v7BY7awIeR1utzrGl5XcK_slI73xw,1V8H-9wHTZAYBHAdFGjg4TxUcOPAs6IeO,1f4L9TVRZTO-L_0WSwMomMxESxjQbL6Am,1ANYjJsq6TpCzTTC9_v6faDFMiUNJWiBs,10L40oep1UIWHrFhUOM3YVC_h1mGMcq_-,1TXrj9iswrA3lXczB0FLctjMZDP_vvARS,1aWr_8EcPWGEBhcYomhwztwuPYlWAd3fQ,1urGTsc0eNYiHt5WhrYhgkqrUQlb4Hb7u,1qPVag46dPjX2sPACnwMMxk-8qZAGayzU,1ZMgCz2c2fqotTZ_efVMZyImpYFOZ8q39,1MFz7LRUlsBOKj4CcKqzk1wY73z7JhBUo,1DAOak6bMbANM8p_jMA87OW3KA_ydkzwi,1rDHrLuozGqLUMCQvhHdVc9fcgJmFqtwz,1ffTxDTt65yx8wo_BBMhibyizxV5y6apF,1VAFBnmRwPan5OplXnp5A_dDW8iVH-Owi,1OhdqRp0fZVRPx8UUfncav0fus7W4K3nh,14GHk1XTYWtJiRX-TCq8WaC7XjDlxz_fW,1ic6xWah-B7yVTOaSVv826QMBVwcV5bCk,1Zuecfbu4mKz4YOnO-7Mm_OAPDHhBQ2GV,1dHBMP2Yr7TATMJl2O8YXlurjjZPaDPFg,182CRgodAMdv70spIg6pJ068_LKw5M_PK,1zegudrVE6nfCCg2kPAOY27OKLZqUDmCF,1kSq4aQ2PDz1aVyFrZnB4dLlxJ4a6MIFy',
             'cov': '1TsAc5PlVW-LVqnLVK5D1GrrAWyzXSZuT,1QcGufSQKtM4D6cZekl5ick_YggPLZ3cV,1qXfwviZ2pFDxGffKBvTDsjznwdZpyjvu,1ccKvwZOFnWq47CgrDIoJxUkF829YwQSS,1UYBTch798csP4GcCT655KbJqFEbsFEMt,1Vos3ezT_JoUw75UnwWjCSZNrogALxQWW,1is5f5_nnfab4LGekdpHs5Cfk9dHv91Ka,1ssEmbPYHl_99nARxjMvy3e6fZtY4K3kV,1UZXEizJWuHyQUkHfrv70wALi5HVOmQEr,1ohBBxM7POXOZ5yO5kvr0PTDPEffTXVKg,1gtzXsE_9kKprQa02DjWqGKm5s5FZCs3c,1mZzFWdnGScnAh-ue_T6Lev5NRucmKZjr,1ifKj28ZF7xsy8PwRXWUUcTFhqU2tojVB,1I9KQRQYAbDfh4R5KL1PdByDjTY42ZDDw,1J5KXxjm5A_2G6AFPo3u7gWYfYOsFG_kw,14MK2UWJBvH9_aeT04MwRaybB7kJeh6K9,12GNxumdxPLUBKEPoRLDaXPdWVy-o8Pfc,1TNjx-KITTrrwMAgEzJ5Kx0nzbZNa6CU8,1w4C611GiOIaY87GT7-P7A_QU2E_rCB9f,1SH_-_yc4pqmQ1QTApC10gvJ9JHqX1WEG,1GtL_gWIAhoPUKGjlYfCXkhA23hW4mAsL,186VJJaJBBgHsu7Hx4sPMkgkBOv0kpgAg,1a2WAkzNEmreXSnl_l4IuHQh7K1gAa7Fp,1PcOPSU2DPe361jWLmlA87fjG2yBWaZxd,1qsN_TUnrPDuAfF0UvOyL4o0WWqovUpC1',
             'mp': '16FvQ2VbID4c-9iuR78ScTH4ds0_z7QeW,1neKp6BTKVLypcyAqQHo1dw292AMnsjiD,1gSOteDPmmxwYar83m09bIzRJKp8xz2pq,1euzgJ6VHalg9_C08unxzis5pbNBYBtcT,1FWy2FW-L5mraKdWyG5yvEUlOs-Ad5wdQ,1A0bBBySGlu0CLQMgePoyy8715n2_ACmm,1hrIKEDn42W12T9Fv_ir49OwJ9vtehOV5,19anyUy3vlq7d-6uD1joR_FmhEcVfXkFa',
