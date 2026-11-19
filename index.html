@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pannathat Intharit | Artist & Filmmaker</title>
-    <script>
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +16,7 @@
             --text-muted: #a1a1a6;
             --accent: #ffffff;
             --surface-glass: rgba(30, 30, 30, 0.45);
+            --surface-mobile: rgba(24, 24, 27, 0.85);
             --surface-border: rgba(255, 255, 255, 0.12);
             --smooth-curve: cubic-bezier(0.16, 1, 0.3, 1);
             --hover-glow: 0 0 25px rgba(255, 255, 255, 0.25);
@@ -37,6 +32,7 @@
             --text-muted: #555555;
             --accent: #000000;
             --surface-glass: rgba(255, 255, 255, 0.35);
+            --surface-mobile: rgba(255, 255, 255, 0.85);
             --surface-border: rgba(255, 255, 255, 0.55);
             --hover-glow: 0 10px 25px rgba(0, 0, 0, 0.1);
             --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -46,6 +42,7 @@
 
         /* --- BASE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', 'Prompt', sans-serif; }
+        html { overflow-anchor: none; }
         body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background-color 0.6s ease, color 0.6s ease; -webkit-font-smoothing: antialiased; }
         img { user-drag: none; -webkit-user-drag: none; }
         a { text-decoration: none; color: inherit; }
@@ -71,7 +68,7 @@
         .fade-delay-1 { animation-delay: 0.15s; } .fade-delay-2 { animation-delay: 0.3s; } .fade-delay-3 { animation-delay: 0.45s; }
         @keyframes smoothFade { to { opacity: 1; transform: translateY(0); } }
         
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--smooth-curve), transform 1s var(--smooth-curve); will-change: opacity, transform; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--smooth-curve), transform 1s var(--smooth-curve); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
@@ -310,11 +307,35 @@
         .card-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0; background-color: var(--text-main); transition: 0.3s; }
         .card:hover .card-link::after { width: 100%; }
 
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        /* Lightweight YouTube Video Container (Zero Mobile RAM Overhead Until Played) */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #0b0b0d; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
+        .yt-lite { cursor: pointer; }
+        .yt-lite img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; transform: scale(1.02);
+            transition: transform 0.6s var(--smooth-curve), filter 0.4s ease;
+        }
+        .yt-lite:hover img { transform: scale(1.07); filter: brightness(0.85); }
+        .yt-lite-play {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 58px; height: 40px; border-radius: 12px;
+            background: rgba(18, 18, 20, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            transition: transform 0.35s var(--smooth-curve), background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .yt-lite:hover .yt-lite-play {
+            background: #ff0000;
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%) scale(1.12);
+            box-shadow: 0 0 24px rgba(255, 0, 0, 0.6);
+        }
 
         .ig-reel-embed { width: 100%; min-height: 550px; padding: 10px 10px 0; overflow: hidden; }
-        .ig-reel-embed .instagram-media { margin: 0 auto !important; min-width: 100% !important; width: 100% !important; border-radius: 10px !important; }
+        .ig-reel-embed .instagram-media, .ig-reel-embed .instagram-media-lazy { margin: 0 auto !important; min-width: 100% !important; width: 100% !important; border-radius: 10px !important; }
 
         /* --- BUTTONS --- */
         .music-btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
@@ -364,7 +385,7 @@
             box-shadow: var(--card-shadow), var(--hover-glow);
         }
         body.light-mode .news-item:hover { border-color: rgba(0,0,0,0.2); }
-        .news-item .instagram-media {
+        .news-item .instagram-media, .news-item .instagram-media-lazy {
             margin: 0 auto !important;
             min-width: 100% !important;
             width: 100% !important;
@@ -405,16 +426,19 @@
         .socials svg { transition: fill 0.4s var(--smooth-curve); }
         .socials a:hover svg { fill: var(--text-main); }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE & MOBILE MEMORY/GPU OPTIMIZATION --- */
         @media (max-width: 1200px) { .resume-grid { grid-template-columns: 1fr 1fr; } .resume-photos-column { grid-column: span 2; } }
         @media (max-width: 900px) {
             .hamburger { display: block; }
-            nav ul { position: fixed; top: 70px; left: 0; width: 100%; background: var(--surface-glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); flex-direction: column; text-align: center; padding: 2rem 0; gap: 2rem; clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.5s var(--smooth-curve); border-bottom: 1px solid var(--surface-border); }
+            nav ul { position: fixed; top: 70px; left: 0; width: 100%; background: var(--surface-mobile); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); flex-direction: column; text-align: center; padding: 2rem 0; gap: 2rem; clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.5s var(--smooth-curve); border-bottom: 1px solid var(--surface-border); }
             nav ul.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
             .resume-grid { grid-template-columns: 1fr; }
             .resume-photos-column { grid-column: span 1; }
             .lb-btn { width: 40px; height: 40px; font-size: 1rem; }
             .global-player { width: 290px; left: 20px; bottom: 20px; }
+            /* Reduce mobile GPU layer memory pressure across dozens of cards */
+            .card, .news-item, .skill-tag { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--surface-mobile); }
+            .bg-layer { animation: none; transform: scale(1.06); }
         }
         @media (max-width: 600px) {
             section { padding: 5rem 5% 3rem; }
@@ -569,7 +593,6 @@
             <button class="filter-btn" onclick="filterPortfolio('photo', this)">Photography</button>
             <button class="filter-btn" onclick="filterPortfolio('graphic', this)">Graphic Design</button>
             <button class="filter-btn" onclick="filterPortfolio('collab', this)">Collaborations</button>
-            <button class="filter-btn" onclick="filterPortfolio('bts', this)">BTS</button>
         </div>
     </div>
 
@@ -594,11 +617,11 @@
 
         <h3 class="reveal" style="font-size: 1.3rem; margin-bottom: 1.5rem; font-weight: 500;">Cover Projects</h3>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/xpLMzDsJdbk?si=34Ff9cXHSxBmVwtn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tB7HmoqNPYg?si=Rema0dyizqfGhM4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RvnK-N7ZB0s?si=i5bhZ7artj47CuhF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rOKogRZu6as?si=waI0uZ5C0eIwp5tL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/QCrLnQLktZ8?si=InKUil61L3kJqfuy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="xpLMzDsJdbk" data-si="34Ff9cXHSxBmVwtn"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="tB7HmoqNPYg" data-si="Rema0dyizqfGhM4J"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="RvnK-N7ZB0s" data-si="i5bhZ7artj47CuhF"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="rOKogRZu6as" data-si="waI0uZ5C0eIwp5tL"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="QCrLnQLktZ8" data-si="InKUil61L3kJqfuy"></div></div>
         </div>
     </section>
 
@@ -612,11 +635,11 @@
             </div>
         </div>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/myGXBPtwwiM?si=KayMF5LzPeB-pnPW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/cEjGIwnD8AQ?si=DCfJYNbje8wrBQ8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fR--xpdEPjY?si=MRl2sbl1-nAliW7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/64dGVwsZtgs?si=9H-ht8l0FrODTQ4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/j7-aURUpiF8?si=eLd6sgDO7SIPNb2z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="myGXBPtwwiM" data-si="KayMF5LzPeB-pnPW"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="cEjGIwnD8AQ" data-si="DCfJYNbje8wrBQ8M"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="fR--xpdEPjY" data-si="MRl2sbl1-nAliW7x"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="64dGVwsZtgs" data-si="9H-ht8l0FrODTQ4N"></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="j7-aURUpiF8" data-si="eLd6sgDO7SIPNb2z"></div></div>
         </div>
     </section>
 
@@ -663,28 +686,28 @@
     <section id="sec-other" class="portfolio-section reveal filter-item collab">
         <h2 class="section-title">Collaborations</h2>
         <div class="grid-container cols-4">
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/w8UDaA24-vA?si=k44vhSgZTh0LBU_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/svo3daDjlUk?si=bmfLGfCyRYtG7wX1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/DN7jF1mTkPs?si=kXqT3U4ZUQzBmwht" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/T3IltTHFMz0?si=jHCJe-oYZbcT_63W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="w8UDaA24-vA" data-si="k44vhSgZTh0LBU_o"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Runner (Ep. Saphan Khao)</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="svo3daDjlUk" data-si="bmfLGfCyRYtG7wX1"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical, Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="DN7jF1mTkPs" data-si="kXqT3U4ZUQzBmwht"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Boom Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="T3IltTHFMz0" data-si="jHCJe-oYZbcT_63W"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Recordist</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/7MAsBAhLJlw?si=rBbZEsIP-KBhLDtJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RRuIk4UtJrE?si=5_FNvYcHYoLs6ObU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Dkf2wngDieg?si=-PHsRd2h5tBGGvml" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/uUfyBE1Om9o?si=0fhTy04J-UxgPzH9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="7MAsBAhLJlw" data-si="rBbZEsIP-KBhLDtJ"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Camera Operator, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="RRuIk4UtJrE" data-si="5_FNvYcHYoLs6ObU"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="Dkf2wngDieg" data-si="-PHsRd2h5tBGGvml"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Sound Designer</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="uUfyBE1Om9o" data-si="0fhTy04J-UxgPzH9"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Record, Mix & Master, Cover Art, Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/EjSAGu2rqBk?si=iqHyWb32O5jLjbeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/d2LZC_YUdRw?si=2KO0MY9Qs3WJiXJl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/bnfs44it32w?si=2uTsKPHt_fCDC6Ab" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mxLdLitisqw?si=jmEjZPp0BWLej_KS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="EjSAGu2rqBk" data-si="iqHyWb32O5jLjbeY"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Extra, Editor, Sound Recordist, Sound Designer, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="d2LZC_YUdRw" data-si="2KO0MY9Qs3WJiXJl"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Producer, Record, Mix & Master, Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="bnfs44it32w" data-si="2uTsKPHt_fCDC6Ab"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="mxLdLitisqw" data-si="jmEjZPp0BWLej_KS"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
             
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eMt2mDsw5E?si=2KPSZ8pLxGXTTiSh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RI9mAQFOJv8?si=j3IFMKwVIDXTHaIL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/rPjfOJgdU-E?si=s5aPTN5ZMFLaxenz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Technical</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="0eMt2mDsw5E" data-si="2KPSZ8pLxGXTTiSh"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="RI9mAQFOJv8" data-si="j3IFMKwVIDXTHaIL"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="rPjfOJgdU-E" data-si="s5aPTN5ZMFLaxenz"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Technical</p></div></div>
 
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/5lCoG8Jclfs?si=2f5XE6o85aekb8Ez" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor, Score</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/E3ez-wvwAqk?si=qWzzzYFYrhujSS8S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Captions</p></div></div>
-            <div class="card reveal"><div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Md7JD1vTFVE?si=Q_hgnWAfrx4jq8jv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Story, Screenplay, Camera Operator, Boom Operator, Sound Designer, Poster</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="5lCoG8Jclfs" data-si="2f5XE6o85aekb8Ez"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Editor, Score</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="E3ez-wvwAqk" data-si="qWzzzYFYrhujSS8S"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Captions</p></div></div>
+            <div class="card reveal"><div class="video-container yt-lite" data-id="Md7JD1vTFVE" data-si="Q_hgnWAfrx4jq8jv"></div><div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Story, Screenplay, Camera Operator, Boom Operator, Sound Designer, Poster</p></div></div>
         </div>
 
         <!-- Instagram Reels Collaborations -->
@@ -692,7 +715,7 @@
             <!-- Collab Reel 1: SMO FA KKU -->
             <div class="card reveal">
                 <div class="ig-reel-embed">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSlzoC8EXCn/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
                 </div>
                 <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Editor</p></div>
             </div>
@@ -700,7 +723,7 @@
             <!-- Collab Reel 2: Khon Kaen University -->
             <div class="card reveal">
                 <div class="ig-reel-embed">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by khon kaen university (@khonkaenuniversity)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSXHmg5ETql/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by khon kaen university (@khonkaenuniversity)</a></p></div></blockquote>
                 </div>
                 <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Captions</p></div>
             </div>
@@ -708,7 +731,7 @@
             <!-- Collab Reel 3: JM-24 -->
             <div class="card reveal">
                 <div class="ig-reel-embed">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by JM-24 (@jmtwntyfour)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DSfPz9tiSKq/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by JM-24 (@jmtwntyfour)</a></p></div></blockquote>
                 </div>
                 <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> 1st AD, Sound Designer</p></div>
             </div>
@@ -716,18 +739,10 @@
             <!-- Collab Reel 4: SMO FA KKU -->
             <div class="card reveal">
                 <div class="ig-reel-embed">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL4doVSCykP/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by สโมสรนักศึกษา FA KKU (@smo.fa.kku)</a></p></div></blockquote>
                 </div>
                 <div class="card-info" style="padding: 1.2rem;"><p style="margin-bottom:0; font-size: 0.85rem; color: var(--text-main);"><strong>Role:</strong> Director of Photography, Editor</p></div>
             </div>
-        </div>
-    </section>
-
-    <!-- BEHIND THE SCENES (Currently Empty) -->
-    <section id="sec-bts" class="portfolio-section reveal filter-item bts">
-        <h2 class="section-title">Behind The Scenes</h2>
-        <div class="grid-container cols-4">
-            <!-- BTS Content Removed for now -->
         </div>
     </section>
 
@@ -745,57 +760,82 @@
             <div class="news-track" id="news-track">
                 <!-- Post 1: TuneCore Thailand -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by TuneCore Thailand (@tunecore.th)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DMU-TkCJgTa/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by TuneCore Thailand (@tunecore.th)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 2: Lemme See -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdNoV9YJ6FQ/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 3: MeHeyBKK -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by MeHeyBKK (@meheybkk)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DdTHT44BM1w/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by MeHeyBKK (@meheybkk)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 4: Lemme See Reel -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DddehnuJcsw/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 5: Lemme See -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DevvkmIpKEY/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Lemme See (@lemme_seeth)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 6: ILLEGAL FACTORY -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by ILLEGAL FACTORY (@illegal_factory__)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfAldjKk4eR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by ILLEGAL FACTORY (@illegal_factory__)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 7: K-Battle Thailand -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by K-Battle Thailand (@kbattlethailand)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Dfvw9rlDH8L/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by K-Battle Thailand (@kbattlethailand)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 8: FESCILMAR Fest -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DfkxQyBm2KN/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 9: THACCA Official -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by THACCA - Thailand Creative Culture Agency (@thaccaofficial)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DOGB3J7j7SR/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by THACCA - Thailand Creative Culture Agency (@thaccaofficial)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 10: FESCILMAR Fest 2 -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcbYdZllUue/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Internacional film festival (@fescilmar.fest)</a></p></div></blockquote>
                 </div>
 
                 <!-- Post 11: เข้านอนกัน356 Reel -->
                 <div class="news-item">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by เข้านอนกัน356 (@aitsarashouldsleep)</a></p></div></blockquote>
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DV2e3R6jyWG/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by เข้านอนกัน356 (@aitsarashouldsleep)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 12: THACCA Official 2 -->
+                <div class="news-item">
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DOKX2rVD-ZT/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DOKX2rVD-ZT/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DOKX2rVD-ZT/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by THACCA - Thailand Creative Culture Agency (@thaccaofficial)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 13: Dindang Racing Team -->
+                <div class="news-item">
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DLZumboSfdd/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DLZumboSfdd/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DLZumboSfdd/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by Dindang Racing Team (@dindang_racing)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 14: cifanofficial -->
+                <div class="news-item">
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/DO8ARHbiVu-/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/DO8ARHbiVu-/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DO8ARHbiVu-/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by cifanofficial (@cifanofficial)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 15: BERNG NANG CLUB -->
+                <div class="news-item">
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/Debzo9fGRbI/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/Debzo9fGRbI/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Debzo9fGRbI/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by BERNG NANG CLUB (@berng.nang.club)</a></p></div></blockquote>
+                </div>
+
+                <!-- Post 16: wildtype_th -->
+                <div class="news-item">
+                    <blockquote class="instagram-media-lazy" data-instgrm-permalink="https://www.instagram.com/p/Dd4761Rk6JZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/p/Dd4761Rk6JZ/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding-top: 8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Dd4761Rk6JZ/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; text-decoration:none;" target="_blank">A post shared by @wildtype_th</a></p></div></blockquote>
                 </div>
             </div>
         </div>
@@ -815,9 +855,6 @@
         </div>
         <p class="reveal delay-1">© 2026 Pannathat Intharit. All rights reserved.</p>
     </footer>
-
-    <!-- IG Embed Script -->
-    <script async src="//www.instagram.com/embed.js"></script>
 
     <!-- MODALS UI -->
     <div id="modal-gallery" class="modal-overlay">
@@ -840,37 +877,11 @@
 
     <!-- SCRIPTS -->
     <script>
-        // 0. Prevent main page from auto-scrolling up/down on initial load due to embeds resizing or stealing focus
-        let userHasScrolled = false;
+        // 0. Block unsolicited iframe focus() / scrollIntoView() jumps without hijacking user touch scrolling
         let lastPointerDown = 0;
+        window.addEventListener('pointerdown', () => { lastPointerDown = Date.now(); }, { passive: true });
+        window.addEventListener('touchstart', () => { lastPointerDown = Date.now(); }, { passive: true });
 
-        function unlockUserScroll() {
-            userHasScrolled = true;
-        }
-
-        window.addEventListener('wheel', unlockUserScroll, { passive: true });
-        window.addEventListener('touchmove', unlockUserScroll, { passive: true });
-        window.addEventListener('pointerdown', (e) => {
-            lastPointerDown = Date.now();
-            // Unlock if user clicks on the browser scrollbar edge
-            if (e.clientX >= document.documentElement.clientWidth - 2) {
-                unlockUserScroll();
-            }
-        }, { passive: true });
-        window.addEventListener('keydown', (e) => {
-            if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', 'Home', 'End'].includes(e.code)) {
-                unlockUserScroll();
-            }
-        });
-
-        // Keep viewport pinned to top ONLY until user initiates a scroll or clicks a nav link
-        window.addEventListener('scroll', () => {
-            if (!userHasScrolled && window.scrollY !== 0) {
-                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-            }
-        }, { passive: true });
-
-        // Block unsolicited iframe focus() / scrollIntoView() jumps from third-party embeds
         const origIframeFocus = HTMLIFrameElement.prototype.focus;
         HTMLIFrameElement.prototype.focus = function(...args) {
             if (Date.now() - lastPointerDown > 1000) return;
@@ -878,14 +889,13 @@
         };
         const origScrollIntoView = Element.prototype.scrollIntoView;
         Element.prototype.scrollIntoView = function(...args) {
-            if (this.tagName === 'IFRAME' || this.closest('.instagram-media')) return;
+            if (this.tagName === 'IFRAME' || this.closest('.instagram-media') || this.closest('.instagram-media-lazy')) return;
             return origScrollIntoView.apply(this, args);
         };
 
-        // Smooth jump helper when user clicks internal navigation links
+        // Smooth jump helper for internal navigation links
         function smoothJumpTo(e, selector) {
             if (e) e.preventDefault();
-            unlockUserScroll();
             const target = document.querySelector(selector);
             if (target) {
                 const top = target.getBoundingClientRect().top + window.scrollY;
@@ -904,7 +914,7 @@
                     observer.unobserve(entry.target); 
                 }
             });
-        }, { root: null, rootMargin: '0px', threshold: 0.15 });
+        }, { root: null, rootMargin: '0px', threshold: 0.12 });
 
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -920,20 +930,83 @@
             });
         }, { threshold: 0.3 });
 
+        // 3. Lightweight YouTube Embeds (Zero RAM until user clicks Play)
+        function initLiteYouTube() {
+            document.querySelectorAll('.yt-lite').forEach(el => {
+                const id = el.dataset.id;
+                const si = el.dataset.si || '';
+                el.innerHTML = `
+                    <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="YouTube Video Preview" loading="lazy">
+                    <div class="yt-lite-play"><i class="fa-solid fa-play"></i></div>
+                `;
+                el.addEventListener('click', () => {
+                    el.classList.remove('yt-lite');
+                    const query = si ? `?si=${si}&autoplay=1&rel=0` : `?autoplay=1&rel=0`;
+                    el.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${id}${query}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+                }, { once: true });
+            });
+        }
+
+        // 4. Lazy Instagram Embed Loader (Prevents Mobile Browser OOM Crash on Scroll)
+        let igScriptLoaded = false;
+        let igProcessTimer = null;
+
+        function scheduleIgProcess() {
+            clearTimeout(igProcessTimer);
+            igProcessTimer = setTimeout(() => {
+                if (!igScriptLoaded) {
+                    igScriptLoaded = true;
+                    const s = document.createElement('script');
+                    s.async = true;
+                    s.src = 'https://www.instagram.com/embed.js';
+                    s.onload = () => {
+                        if (window.instgrm && window.instgrm.Embeds) {
+                            window.instgrm.Embeds.process();
+                        }
+                    };
+                    document.body.appendChild(s);
+                } else if (window.instgrm && window.instgrm.Embeds) {
+                    window.instgrm.Embeds.process();
+                }
+            }, 250);
+        }
+
+        function activateIgEmbed(bq) {
+            if (!bq || bq.classList.contains('instagram-media')) return;
+            bq.classList.remove('instagram-media-lazy');
+            bq.classList.add('instagram-media');
+            scheduleIgProcess();
+        }
+
+        function initLazyInstagram() {
+            const igObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        activateIgEmbed(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '350px 0px' });
+
+            document.querySelectorAll('.instagram-media-lazy').forEach(bq => igObserver.observe(bq));
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
             document.querySelectorAll('section').forEach(el => sectionObserver.observe(el));
+            initLiteYouTube();
+            initLazyInstagram();
             initNewsCarousel();
         });
 
-        // 3. Header Scroll
+        // 5. Header Scroll
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 80) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
-        });
+        }, { passive: true });
 
-        // 4. Theme & Mobile Menu
+        // 6. Theme & Mobile Menu
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
@@ -944,7 +1017,7 @@
             if (window.innerWidth <= 900) { document.getElementById('nav-menu').classList.toggle('active'); }
         }
 
-        // 5. Global Player Toggle
+        // 7. Global Player Toggle
         function expandPlayer() {
             const player = document.getElementById('global-music');
             if (player.classList.contains('minimized')) {
@@ -957,7 +1030,7 @@
             player.classList.add('minimized');
         }
 
-        // 6. Portfolio Filter (Smooth Fade)
+        // 8. Portfolio Filter (Smooth Fade)
         function filterPortfolio(category, btnEl) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             if (btnEl) {
@@ -981,15 +1054,30 @@
             });
         }
 
-        // 7. News & Highlights Auto-Scroll Carousel
+        // 9. News & Highlights Auto-Scroll Carousel (Memory-Safe Single Track)
         let newsPaused = false;
         let newsManualTimeout = null;
+        let newsResetting = false;
+
+        function activateVisibleNewsItems() {
+            const track = document.getElementById('news-track');
+            if (!track) return;
+            const trackRect = track.getBoundingClientRect();
+            track.querySelectorAll('.news-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.left < trackRect.right + 420 && rect.right > trackRect.left - 420) {
+                    const bq = item.querySelector('.instagram-media-lazy');
+                    if (bq) activateIgEmbed(bq);
+                }
+            });
+        }
 
         function scrollNews(offset) {
             const track = document.getElementById('news-track');
             if (!track) return;
             newsPaused = true;
             track.scrollBy({ left: offset, behavior: 'smooth' });
+            setTimeout(activateVisibleNewsItems, 350);
             clearTimeout(newsManualTimeout);
             newsManualTimeout = setTimeout(() => { newsPaused = false; }, 2500);
         }
@@ -999,22 +1087,21 @@
             const track = document.getElementById('news-track');
             if (!wrapper || !track) return;
 
-            // Duplicate items once for seamless infinite auto-scroll loop
-            const originalItems = Array.from(track.children);
-            originalItems.forEach(item => {
-                const clone = item.cloneNode(true);
-                track.appendChild(clone);
-            });
+            track.addEventListener('scroll', activateVisibleNewsItems, { passive: true });
 
-            if (window.instgrm && window.instgrm.Embeds) {
-                window.instgrm.Embeds.process();
-            }
-
-            // Pause auto-scroll on hover
+            // Pause auto-scroll on hover or touch
             wrapper.addEventListener('mouseenter', () => { newsPaused = true; });
             wrapper.addEventListener('mouseleave', () => { newsPaused = false; });
+            track.addEventListener('touchstart', () => {
+                newsPaused = true;
+                clearTimeout(newsManualTimeout);
+            }, { passive: true });
+            track.addEventListener('touchend', () => {
+                clearTimeout(newsManualTimeout);
+                newsManualTimeout = setTimeout(() => { newsPaused = false; }, 2200);
+            }, { passive: true });
 
-            // Click & Drag horizontal support
+            // Desktop Click & Drag horizontal support
             let isDown = false, startX = 0, scrollStart = 0;
             track.addEventListener('mousedown', (e) => {
                 isDown = true;
@@ -1035,17 +1122,25 @@
                 track.scrollLeft = scrollStart - (x - startX) * 1.3;
             });
 
-            // Smooth continuous auto-scroll loop
+            // Smooth continuous auto-scroll loop without duplicating heavy iframes
             let exactScroll = track.scrollLeft;
             function stepCarousel() {
-                if (!newsPaused && !isDown && track.scrollWidth > track.clientWidth) {
+                const maxScroll = track.scrollWidth - track.clientWidth;
+                if (!newsPaused && !isDown && !newsResetting && maxScroll > 10) {
                     exactScroll += 0.65;
-                    const halfWidth = track.scrollWidth / 2;
-                    if (exactScroll >= halfWidth) {
-                        exactScroll -= halfWidth;
+                    if (exactScroll >= maxScroll - 2) {
+                        newsResetting = true;
+                        setTimeout(() => {
+                            track.scrollTo({ left: 0, behavior: 'smooth' });
+                            setTimeout(() => {
+                                exactScroll = 0;
+                                newsResetting = false;
+                            }, 900);
+                        }, 1000);
+                    } else {
+                        track.scrollLeft = exactScroll;
                     }
-                    track.scrollLeft = exactScroll;
-                } else {
+                } else if (!newsResetting) {
                     exactScroll = track.scrollLeft;
                 }
                 requestAnimationFrame(stepCarousel);
@@ -1053,7 +1148,7 @@
             requestAnimationFrame(stepCarousel);
         }
 
-        // 8. Data-Driven Gallery Engine
+        // 10. Data-Driven Gallery Engine
         const gData = {
             'cine': '1qVpArzXl1I9QcelGMjBrHt37dntyU8Qf,1RZ6ncnbDH0yHYuzuS3p1vTQgdCDua1fa,1XcfMahPX8XYgUkwjOTddcWG-JUKvxNMY,1RkiC7GQ3pLURiUsM_Fkafif4yBzaKI2q,1eklZiI1qp5heAB1EqAKOv9sNaldmzVd3,1egOrcjt4f08VFEfyu2CMppMcTYW8Eg2I,1X7wRBXOLtoVjHgF5gxD6MTn3lKyLK1WS,1NX6cZYYEXqCm8q3MIH_TSQJC-Jjvj7lj,1LVVY27U56ObcIEKXjyNpL7nyF7eUkrjS,1TGrJAj6pQbbUC4rboLq3GK1d0U7Dfowl,1VRRwCNxTRQMyX2qIgrYJz4rLEDoVOFiA,15dUslNqx_yP9J06KrUCBid9W_KwAFNew,1dr7NcCHjl13cOyLrXd6JgxMZ3BRgtTO8,12B_7pIdupiGLUUROKhQKU-elHOAj0TIK,17Ul-mR4qUb_lwwvSWWSf66krEccGxZo5,17mJGcoLRj5R5FTPzkvLVmUj78wtFLVA3,1JLAVMTpIjIKYKO_TnpSxr0i7cVbB39qx,1U-AtIJQDXi-QDlgcnmfOyiuHfdm8_AXZ,1ZQ-DXqlh66cYXX4UQkjCNnz74x3b9Z3r,1WbGKkZiuSQIMOPsiGUA5jsgdYNVkS_IT,1PKy2h286DCnrfj2g5kmNnM-mZzFKZPvd,1J8xI6dB4_ftH8Ec2pdHcJwFDjF-g-lB-,1smWcMwM84FxAkWWWgXpjY-xS6MwG-ut9',
             'wild': '1npE4K_ycjRAPMKP3MxNZI9MHPrhujnNv,1I7VG51ozJS6ppm9j5fWMWA2HgJTrYQDc,1p8sm4yh7EwFlwMSjk_TSv7T0tFQIbvQ2,1pjvdHVr4MogAsn7IKVeY0t3YxbtqKon4,1YUrd0CLEIbRog-eJkUulhGq_0pHDH23J',
